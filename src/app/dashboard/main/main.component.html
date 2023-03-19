@@ -3,6 +3,7 @@
         <div class="header">
         </div>
         <div class="convs">
+            <app-conv *ngFor="let friend of friends" [friend]="friend.nickname"></app-conv>
         </div>
         <div class="chat">
             <div class="chat-body">
