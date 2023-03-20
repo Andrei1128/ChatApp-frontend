@@ -9,14 +9,14 @@ export class ChatService {
   public message: BehaviorSubject<string> = new BehaviorSubject('');
   constructor(private socket: Socket) {}
 
-  send(message: string) {
-    this.socket.emit('chat message', message);
+  send(sendTo: string, message: string) {
+    this.socket.emit(sendTo, message);
   }
-  public get = () => {
-    this.socket.on('chat message', (message: string) => {
+  public get(getFrom: string) {
+    this.socket.on(getFrom, (message: string) => {
       this.message.next(message);
     });
 
     return this.message.asObservable();
-  };
+  }
 }

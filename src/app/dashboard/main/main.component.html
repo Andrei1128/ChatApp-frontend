@@ -1,17 +1,26 @@
-<div class="app-container">
+<div class="notLoaded" *ngIf="!loaded"></div>
+<div class="app-container" *ngIf="loaded">
     <div class="wrapper">
-        <div class="header">
-        </div>
         <div class="convs">
-            <app-conv *ngFor="let friend of friends" [friend]="friend.nickname"></app-conv>
+            <div class="header"><i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i></div>
+            <div class="search-friends">
+                <input type="text" class="form-control" placeholder="Search friend" [formControl]="findFriend"
+                    (keydown.enter)="find()">
+            </div>
+            <app-conv *ngFor="let friend of friends" [friend]="friend" (chat)="chatWith(friend)"></app-conv>
         </div>
         <div class="chat">
-            <div class="chat-body">
-                <p *ngFor="let msg of messages">{{msg.message}} sent by {{msg.name}}</p>
+            <div class="header">
+                <h3>{{friend.nickname}}</h3>
             </div>
-            <div class="chat-input">
-                <input type="text" class="form-control" placeholder="Send a message" [formControl]="message"
-                    (keydown.enter)="send()">
+            <div class="chat chat-body">
+                <div class="messages">
+                    <p *ngFor="let msg of messages">{{msg.message}} sent by {{msg.name}}</p>
+                </div>
+                <div class="chat-input">
+                    <input type="text" class="form-control" placeholder="Send a message" [formControl]="message"
+                        (keydown.enter)="sendMessage()">
+                </div>
             </div>
         </div>
     </div>
