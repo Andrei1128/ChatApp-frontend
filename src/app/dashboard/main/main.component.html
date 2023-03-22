@@ -2,16 +2,85 @@
 <div class="app-container" *ngIf="loaded">
     <div class="wrapper">
         <div class="convs">
-            <div class="header"><i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i></div>
-            <div class="search-friends">
-                <input type="text" class="form-control" placeholder="Search friend" [formControl]="findFriend"
-                    (keydown.enter)="find()">
+            <div class="header conv-header">
+                <div class="profile"></div>
+                <div class="icons">
+                    <i class="bi bi-question-diamond-fill" data-bs-toggle="modal" data-bs-target="#reqModal"></i>
+                    <div class="modal fade" id="reqModal" tabindex="-1" aria-labelledby="reqModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="reqModalLabel">Friend requests</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <app-request *ngFor="let request of myProfile.requests" [person]="request"
+                                        (accept)="acceptRequest($event)" (denie)="denieRequest($event)"></app-request>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="bi bi-chat-dots"></i>
+                    <i class="bi bi-person-add" data-bs-toggle="modal" data-bs-target="#findModal"></i>
+                    <div class="modal fade" id="findModal" tabindex="-1" aria-labelledby="findModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="findModalLabel">Find people</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="Find people by nickname"
+                                        [formControl]="findPeople">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" (click)="findPpl()" class="btn btn-primary"
+                                        data-bs-toggle="modal" data-bs-target="#peopleModal">Find</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="peopleModal" tabindex="-1" aria-labelledby="peopleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="peopleModalLabel">People found</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body people-modal">
+                                    <app-people *ngFor="let people of peoples" [people]="people"
+                                        (add)="sendRequest($event)"></app-people>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <app-conv *ngFor="let friend of friends" [friend]="friend" (chat)="chatWith(friend)"></app-conv>
+            <div class="search-friends">
+                <input type="text" class="form-control" placeholder="Search friends" [formControl]="findFriend"
+                    (keydown.enter)="findFrnd()">
+            </div>
+            <app-conv *ngFor="let friend of myProfile.friends" [friend]="friend" (chat)="chatWith(friend)"></app-conv>
         </div>
         <div class="chat">
             <div class="header">
-                <h3>{{friend.nickname}}</h3>
+                <h3 *ngIf="friend">{{friend.nickname}}</h3>
             </div>
             <div class="chat chat-body">
                 <div class="messages">

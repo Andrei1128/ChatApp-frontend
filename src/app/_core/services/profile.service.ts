@@ -27,4 +27,7 @@ export class ProfileService {
   getFriends(): Observable<any> {
     return this.httpClient.get(`${this.serverUrl}`);
   }
+  getPeople(nickname: string): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}`, { nickname });
+  }
 }

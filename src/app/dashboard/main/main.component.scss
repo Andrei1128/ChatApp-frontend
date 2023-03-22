@@ -43,6 +43,27 @@
     background-color: rgb(212, 212, 212);
 }
 
+.conv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.conv-header>* {
+    padding: 1rem;
+}
+
+.icons {
+    i {
+        margin-left: 0.5rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0.4rem 0.6rem;
+        border: 1px solid black;
+        border-radius: 100%;
+    }
+}
+
 .chat {
     display: flex;
     flex-direction: column;
@@ -66,13 +87,13 @@
 }
 
 .chat-input {
+    .form-control {
+        width: 80%;
+    }
+
     margin-top: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 6%;
-}
-
-.form-control {
-    width: 80%;
 }

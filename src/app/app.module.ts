@@ -8,7 +8,7 @@ import { AuthInterceptor } from './_core/interceptors/auth.interceptor';
 
 const config: SocketIoConfig = {
   url: 'http://localhost:3000',
-  options: { transports: ['websocket'] },
+  options: { transports: ['websocket'], autoConnect: false },
 };
 @NgModule({
   declarations: [AppComponent],

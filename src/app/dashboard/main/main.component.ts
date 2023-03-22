@@ -11,9 +11,10 @@ import { ProfileService } from 'src/app/_core/services/profile.service';
 export class MainComponent implements OnInit {
   message = new FormControl();
   findFriend = new FormControl();
-  addFriend = new FormControl();
+  findPeople = new FormControl();
   messages = [];
-  friends = [];
+  myProfile: any;
+  peoples = [];
   friend: any;
   loaded = false;
 
@@ -25,16 +26,16 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.chatService.get(this.friend).subscribe((message: string) => {
       this.messages.push(message);
+      console.log(message);
     });
-    this.profileService.getFriends().subscribe((friends: any) => {
-      this.friends = friends;
-      this.friend = friends[0];
+    this.profileService.getMe().subscribe((me: any) => {
+      this.myProfile = me;
+      this.chatService.connect(this.myProfile.nickname);
       this.loaded = true;
     });
   }
 
   sendMessage() {
-    console.log(this.friend);
     const content = this.message.value?.trim();
     if (content) {
       this.chatService.send(this.friend, content);
@@ -44,6 +45,21 @@ export class MainComponent implements OnInit {
   chatWith(friend: any) {
     this.friend = friend;
   }
-  find() {}
-  add() {}
+  findPpl() {
+    this.profileService
+      .getPeople(this.findPeople.value)
+      .subscribe((res: any) => {
+        this.peoples = res;
+      });
+  }
+  sendRequest(id: string) {
+    this.profileService.addFriend(id).subscribe((res) => {});
+  }
+  acceptRequest(id: string) {
+    this.profileService.acceptFriend(id).subscribe((res) => {});
+  }
+  denieRequest(id: string) {
+    this.profileService.declineFriend(id).subscribe((res) => {});
+  }
+  findFrnd() {}
 }

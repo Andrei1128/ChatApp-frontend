@@ -9,11 +9,16 @@ export class ChatService {
   public message: BehaviorSubject<string> = new BehaviorSubject('');
   constructor(private socket: Socket) {}
 
-  send(sendTo: string, message: string) {
-    this.socket.emit(sendTo, message);
+  connect(nickname: string) {
+    this.socket.ioSocket.auth = { nickname };
+    this.socket.ioSocket.connect();
   }
-  public get(getFrom: string) {
-    this.socket.on(getFrom, (message: string) => {
+
+  send(sendTo: string, message: string) {
+    this.socket.emit('chat', message);
+  }
+  get(getFrom: string) {
+    this.socket.on('chat', (message: string) => {
       this.message.next(message);
     });
 
