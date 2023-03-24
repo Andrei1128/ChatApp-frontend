@@ -3,7 +3,9 @@
     <div class="wrapper">
         <div class="convs">
             <div class="header conv-header">
-                <div class="profile"></div>
+                <div class="profile">
+                    <div class="profileImage"><img src="{{image}}"></div>
+                </div>
                 <div class="icons">
                     <i class="bi bi-question-diamond-fill" data-bs-toggle="modal" data-bs-target="#reqModal"></i>
                     <div class="modal fade" id="reqModal" tabindex="-1" aria-labelledby="reqModalLabel"
@@ -84,7 +86,7 @@
             </div>
             <div class="chat chat-body">
                 <div class="messages">
-                    <p *ngFor="let msg of messages">{{msg.message}} sent by {{msg.name}}</p>
+                    <p *ngFor="let msg of messages">{{msg.content}}</p>
                 </div>
                 <div class="chat-input">
                     <input type="text" class="form-control" placeholder="Send a message" [formControl]="message"

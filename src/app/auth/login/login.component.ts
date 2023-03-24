@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     };
     this.authService.login(payload).subscribe({
       next: (res) => {
-        window.localStorage['token'] = res;
+        window.sessionStorage['token'] = res;
         this.router.navigate(['']);
       },
       error: (e: any) => {

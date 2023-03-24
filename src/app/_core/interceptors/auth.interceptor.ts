@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = window.localStorage['token'];
+    const token = window.sessionStorage['token'];
     const modifiedRequest = request.clone({
       headers: request.headers.set('authorization', `Bearer ${token}`),
     });

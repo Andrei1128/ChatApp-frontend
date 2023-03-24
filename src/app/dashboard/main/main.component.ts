@@ -12,6 +12,7 @@ export class MainComponent implements OnInit {
   message = new FormControl();
   findFriend = new FormControl();
   findPeople = new FormControl();
+  image = 'assets/blank-profile-picture-gcd520e96d_640.png';
   messages = [];
   myProfile: any;
   peoples = [];
@@ -24,24 +25,13 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.chatService.get(this.friend).subscribe((message: string) => {
-      this.messages.push(message);
-      console.log(message);
-    });
     this.profileService.getMe().subscribe((me: any) => {
       this.myProfile = me;
-      this.chatService.connect(this.myProfile.nickname);
       this.loaded = true;
     });
   }
 
-  sendMessage() {
-    const content = this.message.value?.trim();
-    if (content) {
-      this.chatService.send(this.friend, content);
-    }
-    this.message.reset();
-  }
+  sendMessage() {}
   chatWith(friend: any) {
     this.friend = friend;
   }

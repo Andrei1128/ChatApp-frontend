@@ -54,6 +54,8 @@
 }
 
 .icons {
+    display: inline;
+
     i {
         margin-left: 0.5rem;
         font-size: 1.2rem;
@@ -96,4 +98,18 @@
     justify-content: center;
     align-items: center;
     height: 6%;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.profileImage>img {
+    border-radius: 100%;
+    width: 40px;
+    height: auto;
 }
