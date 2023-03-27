@@ -4,7 +4,9 @@
         <div class="convs">
             <div class="header conv-header">
                 <div class="profile">
-                    <div class="profileImage"><img src="{{image}}"></div>
+                    <div class="profileImage"><img src="{{image}}">
+                    </div>
+                    <h3>{{myProfile.nickname}}</h3>
                 </div>
                 <div class="icons">
                     <i class="bi bi-question-diamond-fill" data-bs-toggle="modal" data-bs-target="#reqModal"></i>
@@ -19,7 +21,8 @@
                                 </div>
                                 <div class="modal-body">
                                     <app-request *ngFor="let request of myProfile.requests" [person]="request"
-                                        (accept)="acceptRequest($event)" (denie)="denieRequest($event)"></app-request>
+                                        (accept)="acceptRequest($event)"
+                                        (decline)="declineRequest($event)"></app-request>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -28,25 +31,47 @@
                             </div>
                         </div>
                     </div>
-                    <i class="bi bi-chat-dots"></i>
-                    <i class="bi bi-person-add" data-bs-toggle="modal" data-bs-target="#findModal"></i>
-                    <div class="modal fade" id="findModal" tabindex="-1" aria-labelledby="findModalLabel"
+                    <i class="bi bi-chat-dots" data-bs-toggle="modal" data-bs-target="#findFriendsModal"></i>
+                    <div class="modal fade" id="findFriendsModal" tabindex="-1" aria-labelledby="findFriendsModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="findModalLabel">Find people</h1>
+                                    <h1 class="modal-title fs-5" id="findFriendsModalLabel">Start a conversation!</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" class="form-control" placeholder="Find friend.."
+                                        [formControl]="findFriendForm" (keydown.enter)="findFriend()">
+                                    <app-conv *ngFor="let friend of myProfile.friends" [friend]="friend"
+                                        (chat)="chatWith(friend)"></app-conv>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="bi bi-person-add" data-bs-toggle="modal" data-bs-target="#findPeopleModal"></i>
+                    <div class="modal fade" id="findPeopleModal" tabindex="-1" aria-labelledby="findPeopleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="findPeopleModalLabel">Find people</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <input type="text" class="form-control" placeholder="Find people by nickname"
-                                        [formControl]="findPeople">
+                                        [formControl]="findPeopleForm">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="button" (click)="findPpl()" class="btn btn-primary"
+                                    <button type="button" (click)="findPeople()" class="btn btn-primary"
                                         data-bs-toggle="modal" data-bs-target="#peopleModal">Find</button>
                                 </div>
                             </div>
@@ -75,21 +100,24 @@
                 </div>
             </div>
             <div class="search-friends">
-                <input type="text" class="form-control" placeholder="Search friends" [formControl]="findFriend"
-                    (keydown.enter)="findFrnd()">
+                <input type="text" class="form-control" placeholder="Find a conversation.." [formControl]="findChatForm"
+                    (keydown.enter)="findChat()">
             </div>
-            <app-conv *ngFor="let friend of myProfile.friends" [friend]="friend" (chat)="chatWith(friend)"></app-conv>
+            <app-chat *ngFor="let conversation of myProfile.chats" [conversation]="conversation"
+                (conv)="convWith($event)"></app-chat>
         </div>
         <div class="chat">
             <div class="header">
-                <h3 *ngIf="friend">{{friend.nickname}}</h3>
+                <div *ngIf="conversation" class="header-participants">
+                    <h4 *ngFor="let name of (conversation.participants)">{{name.nickname}}</h4>
+                </div>
             </div>
             <div class="chat chat-body">
-                <div class="messages">
-                    <p *ngFor="let msg of messages">{{msg.content}}</p>
+                <div id="messages" class="messages">
+                    <p *ngFor="let msg of messages">{{msg.content}} from {{msg.from.nickname}}</p>
                 </div>
                 <div class="chat-input">
-                    <input type="text" class="form-control" placeholder="Send a message" [formControl]="message"
+                    <input type="text" class="form-control" placeholder="Send a message" [formControl]="messageForm"
                         (keydown.enter)="sendMessage()">
                 </div>
             </div>

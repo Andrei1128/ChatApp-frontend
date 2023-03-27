@@ -8,11 +8,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class RequestComponent {
   @Input() person: any;
   @Output() accept = new EventEmitter();
-  @Output() denie = new EventEmitter();
+  @Output() decline = new EventEmitter();
   acceptRequest() {
-    this.accept.emit(this.person._id);
+    this.accept.emit(this.person);
   }
   denieRequest() {
-    this.denie.emit(this.person._id);
+    this.decline.emit(this.person);
   }
 }

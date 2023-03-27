@@ -1,0 +1,22 @@
+.wrapper {
+    background-color: green;
+    padding: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.wrapper:hover {
+    opacity: 0.9;
+}
+
+img {
+    border-radius: 100%;
+    width: 2.8rem;
+}

@@ -1,0 +1,4 @@
+<div class="wrapper" (click)="chatWith()">
+    <img src="{{image}}">
+    <p *ngFor="let name of (conversation.participants)">{{name.nickname}}</p>
+</div>
