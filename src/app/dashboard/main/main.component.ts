@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
   peoples = [];
   friend: any;
   loaded = false;
+  convLoaded = false;
 
   constructor(
     private chatService: ChatService,
@@ -46,6 +47,7 @@ export class MainComponent implements OnInit {
       .getPeople(this.findPeopleForm.value)
       .subscribe((res: any) => {
         this.peoples = res;
+        this.findPeopleForm.setValue('');
       });
   }
   sendRequest(id: string) {
@@ -62,14 +64,18 @@ export class MainComponent implements OnInit {
     });
   }
   convWith(conversation: any) {
-    this.conversation = conversation;
-    this.chatService.findChat(conversation._id).subscribe((res) => {
-      this.messages = res;
-      let el = document.getElementById('messages');
-      setTimeout(() => {
-        el.scrollTop = el.scrollHeight;
-      }, 0);
-    });
+    if (this.conversation !== conversation) {
+      this.convLoaded = false;
+      this.conversation = conversation;
+      this.chatService.findChat(conversation._id).subscribe((res) => {
+        this.messages = res;
+        this.convLoaded = true;
+        setTimeout(() => {
+          let el = document.getElementById('messages');
+          el.scrollTop = el.scrollHeight;
+        }, 0);
+      });
+    }
     this.chatService.get(conversation._id).subscribe((msg) => {
       if (msg) {
         this.messages.push(msg);
@@ -84,7 +90,6 @@ export class MainComponent implements OnInit {
   sendMessage() {
     if (this.conversation) {
       const message = this.messageForm.value.trim();
-      // this.messages.push({ content: message, from: this.myProfile });
       this.chatService.send(message, this.myProfile._id, this.conversation._id);
       this.messageForm.setValue('');
     }

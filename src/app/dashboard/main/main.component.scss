@@ -3,12 +3,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--root);
+    background-color: var(--background);
 }
 
 .notLoaded {
-    height: 100%;
-    background-color: red;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.spinner-border {
+    color: var(--header);
 }
 
 .wrapper {
@@ -18,31 +25,27 @@
     height: 95%;
 }
 
-.header {
-    border-left: 2px solid black;
-    display: flex;
-    align-items: center;
-    height: 6%;
-    background-color: rgb(180, 180, 180);
-
-
-}
-
 .header>h3 {
     padding: 0 2rem;
     margin-bottom: 0;
 }
 
 .search-friends {
+    padding: 0.4rem 0;
     display: flex;
     text-align: center;
     justify-content: center;
+
+    input {
+        height: 2rem;
+        width: 97%;
+    }
 }
 
 .convs {
     width: 30%;
     height: 94%;
-    background-color: rgb(212, 212, 212);
+    background-color: var(--border);
 }
 
 .conv-header {
@@ -51,11 +54,16 @@
     justify-content: space-between;
 }
 
-.conv-header>* {
-    padding: 1rem;
+.header {
+    border-left: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    height: 6%;
+    background-color: var(--header);
 }
 
 .icons {
+    margin-right: 0.8rem;
     display: flex;
     flex-wrap: nowrap;
     overflow: visible;
@@ -64,9 +72,13 @@
         margin-left: 0.5rem;
         font-size: 1.2rem;
         cursor: pointer;
-        padding: 0.4rem 0.6rem;
-        border: 1px solid black;
+        padding: 0.35rem 0.6rem;
+        background-color: var(--border);
         border-radius: 100%;
+    }
+
+    i:hover {
+        opacity: 0.88;
     }
 }
 
@@ -75,7 +87,7 @@
     flex-direction: column;
     width: 70%;
     height: 94%;
-    background-color: white;
+    background-color: var(--chat-background);
 }
 
 .chat-body {
@@ -84,7 +96,7 @@
 
 .messages {
     height: 94%;
-    padding: 1.5rem 4rem 0rem 2rem;
+    padding: 1.5rem 4rem 1rem 2rem;
     overflow-y: scroll;
     box-sizing: border-box;
 
@@ -98,6 +110,7 @@
         width: 80%;
     }
 
+    background-color: var(--chat-footer);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,16 +122,78 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    margin-left: 0.5rem;
+    gap: 1rem;
+    padding: 0 0.4rem;
+
+    h4 {
+        margin: 0;
+    }
 }
 
 .profileImage>img {
     border-radius: 100%;
-    width: 40px;
+    width: 2.5rem;
     height: auto;
 }
 
 .header-participants {
+    h4 {
+        margin: 0 0 0.1rem 0;
+    }
+
+    div {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    padding: 0 0.4rem;
+    cursor: pointer;
     display: flex;
-    gap: 0.5rem;
-    margin-left: 1rem;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 0.6rem;
+}
+
+.loadingMessages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 94%;
+}
+
+.message {
+    .content {
+        display: flex;
+        align-items: flex-end;
+        gap: 0.6rem;
+
+        img {
+            border-radius: 100%;
+            width: 1.9rem;
+            height: 1.9rem;
+        }
+
+        P {
+            margin: 0;
+            width: fit-content;
+            padding: 0.3rem 0.7rem;
+            border-radius: 1rem;
+            background-color: var(--border);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+    }
+
+    .from {
+        color: gray;
+        width: fit-content;
+        font-size: 0.9rem;
+        margin: 1rem 0 0.1rem 2.7rem;
+    }
+}
+
+.findFriendInput {
+    margin-bottom: 1rem;
 }

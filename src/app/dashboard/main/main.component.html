@@ -1,12 +1,14 @@
-<div class="notLoaded" *ngIf="!loaded"></div>
+<div class="notLoaded" *ngIf="!loaded">
+    <div class="spinner-border" role="status">
+    </div>
+</div>
 <div class="app-container" *ngIf="loaded">
     <div class="wrapper">
         <div class="convs">
-            <div class="header conv-header">
+            <div class="conv-header header">
                 <div class="profile">
                     <div class="profileImage"><img src="{{image}}">
                     </div>
-                    <h3>{{myProfile.nickname}}</h3>
                 </div>
                 <div class="icons">
                     <i class="bi bi-question-diamond-fill" data-bs-toggle="modal" data-bs-target="#reqModal"></i>
@@ -42,7 +44,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="Find friend.."
+                                    <input type="text" class="form-control findFriendInput" placeholder="Find friend.."
                                         [formControl]="findFriendForm" (keydown.enter)="findFriend()">
                                     <app-conv *ngFor="let friend of myProfile.friends" [friend]="friend"
                                         (chat)="chatWith(friend)"></app-conv>
@@ -107,17 +109,32 @@
                 (conv)="convWith($event)"></app-chat>
         </div>
         <div class="chat">
-            <div class="header">
+            <div class=" header">
                 <div *ngIf="conversation" class="header-participants">
-                    <h4 *ngFor="let name of (conversation.participants)">{{name.nickname}}</h4>
+                    <div class="profileImage"><img src="{{image}}">
+                    </div>
+                    <div>
+                        <h4 *ngFor="let name of (conversation.participants)">{{name.nickname}}</h4>
+                    </div>
                 </div>
             </div>
-            <div class="chat chat-body">
-                <div id="messages" class="messages">
-                    <p *ngFor="let msg of messages">{{msg.content}} from {{msg.from.nickname}}</p>
+            <div class="chat chat-body" *ngIf="conversation">
+                <div id="messages" class="messages" *ngIf="convLoaded">
+                    <div *ngFor="let msg of messages" class="message">
+                        <p class="from">{{msg.from.nickname}}</p>
+                        <div class="content">
+                            <img src="{{image}}">
+                            <p class="content">{{msg.content}}</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div *ngIf="!convLoaded" class="loadingMessages">
+                    <div class="spinner-border" role="status">
+                    </div>
                 </div>
                 <div class="chat-input">
-                    <input type="text" class="form-control" placeholder="Send a message" [formControl]="messageForm"
+                    <input type="text" class="form-control" placeholder="Send a message. ." [formControl]="messageForm"
                         (keydown.enter)="sendMessage()">
                 </div>
             </div>
