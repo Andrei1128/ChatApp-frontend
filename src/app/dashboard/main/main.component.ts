@@ -21,6 +21,8 @@ export class MainComponent implements OnInit {
   friend: any;
   loaded = false;
   convLoaded = false;
+  samePerson = false;
+  lastMsgSender = '';
 
   constructor(
     private chatService: ChatService,
@@ -51,7 +53,7 @@ export class MainComponent implements OnInit {
       });
   }
   sendRequest(id: string) {
-    this.profileService.addFriend(id);
+    this.profileService.addFriend(id).subscribe();
   }
   acceptRequest(id: string) {
     this.profileService.acceptFriend(id).subscribe((res) => {
@@ -78,7 +80,9 @@ export class MainComponent implements OnInit {
     }
     this.chatService.get(conversation._id).subscribe((msg) => {
       if (msg) {
+        if (msg.from.nickname == this.lastMsgSender) this.samePerson = true;
         this.messages.push(msg);
+        this.lastMsgSender = msg.from.nickname;
         let el = document.getElementById('messages');
         setTimeout(() => {
           el.scrollTop = el.scrollHeight;

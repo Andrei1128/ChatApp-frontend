@@ -22,9 +22,17 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <app-request *ngFor="let request of myProfile.requests" [person]="request"
-                                        (accept)="acceptRequest($event)"
-                                        (decline)="declineRequest($event)"></app-request>
+                                    <div *ngFor="let request of myProfile.requests">
+                                        <div class="request">
+                                            <h4>{{request.nickname}}</h4>
+                                            <div>
+                                                <button class="btn btn-primary"
+                                                    (click)="acceptRequest(request._id)">Accept</button>
+                                                <button class="btn btn-primary"
+                                                    (click)="declineRequest(request._id)">Decline</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -46,8 +54,12 @@
                                 <div class="modal-body">
                                     <input type="text" class="form-control findFriendInput" placeholder="Find friend.."
                                         [formControl]="findFriendForm" (keydown.enter)="findFriend()">
-                                    <app-conv *ngFor="let friend of myProfile.friends" [friend]="friend"
-                                        (chat)="chatWith(friend)"></app-conv>
+                                    <div *ngFor="let friend of myProfile.friends">
+                                        <div class="chatWith" (click)="chatWith(friend)">
+                                            <img src="{{image}}">
+                                            <p>{{friend.nickname}}</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -89,8 +101,14 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body people-modal">
-                                    <app-people *ngFor="let people of peoples" [people]="people"
-                                        (add)="sendRequest($event)"></app-people>
+                                    <div *ngFor="let people of peoples">
+                                        <div class="sendFriendRequest">
+                                            <h4>{{people.nickname}}</h4>
+                                            <button class="btn btn-primary" (click)="sendRequest(people._id)">Send
+                                                friend
+                                                request</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -105,8 +123,14 @@
                 <input type="text" class="form-control" placeholder="Find a conversation.." [formControl]="findChatForm"
                     (keydown.enter)="findChat()">
             </div>
-            <app-chat *ngFor="let conversation of myProfile.chats" [conversation]="conversation"
-                (conv)="convWith($event)"></app-chat>
+            <div *ngFor="let conversation of myProfile.chats">
+                <div class="conversationWith" (click)="convWith(conversation)">
+                    <img src="{{image}}">
+                    <div>
+                        <p *ngFor="let name of (conversation.participants)">{{name.nickname}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="chat">
             <div class=" header">
@@ -120,13 +144,29 @@
             </div>
             <div class="chat chat-body" *ngIf="conversation">
                 <div id="messages" class="messages" *ngIf="convLoaded">
-                    <div *ngFor="let msg of messages" class="message">
-                        <p class="from">{{msg.from.nickname}}</p>
-                        <div class="content">
-                            <img src="{{image}}">
-                            <p class="content">{{msg.content}}</p>
-                        </div>
-
+                    <div *ngFor="let msg of messages; let i=index" class="message"
+                        [ngClass]="{'messageByMe': msg.from?.nickname==myProfile.nickname}">
+                        <ng-container *ngIf="i == 0 || msg.from?.nickname != messages[i-1]?.from?.nickname">
+                            <p *ngIf="msg.from?.nickname!=myProfile.nickname; else elseBlock" class="from">
+                                {{msg.from?.nickname}}
+                            </p>
+                            <ng-template #elseBlock>
+                                <p class="from">
+                                    You
+                                </p>
+                            </ng-template>
+                            <div class="content">
+                                <ng-container *ngIf="msg.from?.nickname!=messages[i-1]?.from?.nickname">
+                                    <img src="{{image}}">
+                                </ng-container>
+                                <p class="content">{{msg.content}}</p>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="i != 0 && msg.from?.nickname == messages[i-1]?.from?.nickname">
+                            <div class="content messageAligment">
+                                <p class="content messageAligment">{{msg.content}}</p>
+                            </div>
+                        </ng-container>
                     </div>
                 </div>
                 <div *ngIf="!convLoaded" class="loadingMessages">

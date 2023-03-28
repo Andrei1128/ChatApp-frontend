@@ -96,9 +96,11 @@
 
 .messages {
     height: 94%;
-    padding: 1.5rem 4rem 1rem 2rem;
+    padding: 1rem 4rem 2.5rem 4rem;
     overflow-y: scroll;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 
     p {
         word-wrap: break-word;
@@ -162,11 +164,102 @@
     height: 94%;
 }
 
+
+
+.findFriendInput {
+    margin-bottom: 1rem;
+}
+
+.request {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    div {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    h4 {
+        margin: 0;
+    }
+}
+
+.chatWith {
+    background-color: var(--conv);
+    padding: 0.76rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    div {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    img {
+        border-radius: 100%;
+        width: 2.8rem;
+    }
+
+    border-bottom: 2px solid var(--border);
+}
+
+
+.chatWith:hover {
+    opacity: 0.9;
+}
+
+.sendFriendRequest {
+    padding: 0.5rem 1rem;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+
+    h4 {
+        margin: 0;
+    }
+}
+
+.conversationWith {
+    background-color: var(--conv);
+    padding: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2px 3px;
+
+    p {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    img {
+        border-radius: 100%;
+        width: 2.8rem;
+    }
+}
+
+
+.conversationWith:hover {
+    opacity: 0.9;
+}
+
 .message {
+    width: fit-content;
+
     .content {
         display: flex;
         align-items: flex-end;
         gap: 0.6rem;
+
 
         img {
             border-radius: 100%;
@@ -186,6 +279,11 @@
 
     }
 
+    .messageAligment {
+        margin-top: 0.2rem;
+        margin-left: 2.5rem;
+    }
+
     .from {
         color: gray;
         width: fit-content;
@@ -194,6 +292,22 @@
     }
 }
 
-.findFriendInput {
-    margin-bottom: 1rem;
+.messageByMe {
+    align-self: flex-end;
+
+    .content {
+        flex-direction: row-reverse;
+    }
+
+    .messageAligment {
+        margin-top: 0.2rem;
+        margin-right: 2.5rem;
+    }
+
+    .from {
+        width: auto;
+        text-align: right;
+        position: relative;
+        right: 3.2rem;
+    }
 }
