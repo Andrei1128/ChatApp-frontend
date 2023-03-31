@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  private readonly serverUrl = 'http://localhost:3000/profile';
+  private readonly serverUrl = `${environment.apiURL}/profile`;
+
   constructor(private httpClient: HttpClient) {}
 
-  createChat(participants: any[]): Observable<any> {
-    return this.httpClient.post(`${this.serverUrl}/createChat`, {
-      participants,
-    });
-  }
   addFriend(id: string): Observable<any> {
     return this.httpClient.patch(`${this.serverUrl}/add`, { id });
   }
@@ -26,7 +23,7 @@ export class ProfileService {
   removeFriend(id: string): Observable<any> {
     return this.httpClient.patch(`${this.serverUrl}/remove`, { id });
   }
-  getMe(): Observable<any> {
+  getMyProfile(): Observable<any> {
     return this.httpClient.get(`${this.serverUrl}/myProfile`);
   }
   getFriend(id: string): Observable<any> {

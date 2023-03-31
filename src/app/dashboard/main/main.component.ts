@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
   findChatForm = new FormControl();
   findPeopleForm = new FormControl();
   findFriendForm = new FormControl();
-  image = 'assets/blank-profile-picture-gcd520e96d_640.png';
+  image = 'assets/defaultProfileImg.png';
   conversation: any;
   messages = [];
   myProfile: any;
@@ -23,6 +23,7 @@ export class MainComponent implements OnInit {
   convLoaded = false;
   samePerson = false;
   lastMsgSender = '';
+  obs: any;
 
   constructor(
     private chatService: ChatService,
@@ -30,17 +31,16 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.profileService.getMe().subscribe((me: any) => {
+    this.profileService.getMyProfile().subscribe((me: any) => {
       this.myProfile = me;
       this.loaded = true;
-      this.chatService.connect(me.nickname);
     });
   }
 
   chatWith(friend: any) {
     this.friend = friend;
     const participants = [friend._id, this.myProfile._id];
-    this.profileService.createChat(participants).subscribe((res) => {
+    this.chatService.createChat(participants).subscribe((res) => {
       this.myProfile.chats.push(res);
     });
   }
@@ -78,7 +78,8 @@ export class MainComponent implements OnInit {
         }, 0);
       });
     }
-    this.chatService.get(conversation._id).subscribe((msg) => {
+    this.obs = this.chatService.get(conversation._id);
+    this.obs.subscribe((msg) => {
       if (msg) {
         if (msg.from.nickname == this.lastMsgSender) this.samePerson = true;
         this.messages.push(msg);
@@ -89,6 +90,10 @@ export class MainComponent implements OnInit {
         }, 0);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.obs.unsubscribe();
   }
 
   sendMessage() {
