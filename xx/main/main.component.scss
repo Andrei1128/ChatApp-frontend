@@ -253,8 +253,6 @@
 }
 
 .message {
-    width: fit-content;
-
     .content {
         display: flex;
         align-items: flex-end;
@@ -269,11 +267,9 @@
 
         P {
             margin: 0;
-            width: fit-content;
             padding: 0.3rem 0.7rem;
             border-radius: 1rem;
             background-color: var(--border);
-            text-align: center;
             font-size: 1.1rem;
         }
 
@@ -286,11 +282,12 @@
 
     .from {
         color: gray;
-        width: fit-content;
         font-size: 0.9rem;
         margin: 1rem 0 0.1rem 2.7rem;
     }
 }
+
+
 
 .messageByMe {
     align-self: flex-end;
@@ -310,4 +307,8 @@
         position: relative;
         right: 3.2rem;
     }
+}
+
+.content {
+    word-break: break-word;
 }

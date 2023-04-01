@@ -1,25 +1,29 @@
-<div class="wrapper">
-    <h1>Register</h1>
-    <form [formGroup]="registerForm" (ngSubmit)="register()">
-        <div class="mb-3">
-            <label for="nickname" class="form-label">Nickname</label>
-            <input type="email" [formControl]="nickname" class="form-control" id="nickname"
-                aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" [formControl]="email" class="form-control" id="email" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" [formControl]="password" class="form-control" id="password">
-        </div>
-        <div class="mb-3">
-            <label for="confirmpassword" class="form-label">Confirm password</label>
-            <input type="password" [formControl]="confirmPassword" class="form-control" id="confirmpassword">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a class="btn" routerLink="/auth">to login</a>
-    </form>
+<div class="container">
+    <div class="wrapper">
+        <h1>Register</h1>
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="email" [formControl]="username" class="form-control" id="username"
+                    aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" [formControl]="email" class="form-control" id="email" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" [formControl]="password" class="form-control" id="password">
+            </div>
+            <div class="mb-3">
+                <label for="confirmpassword" class="form-label">Confirm password</label>
+                <input type="password" [formControl]="confirmPassword" class="form-control" id="confirmpassword">
+            </div>
+            <div class="butons">
+                <button type="submit" class="buton">Submit</button>
+                <a class="buton-secondary buton" routerLink="/auth">Back</a>
+            </div>
+        </form>
+    </div>
 </div>

@@ -35,4 +35,7 @@ export class ProfileService {
   getPeople(nickname: string): Observable<any> {
     return this.httpClient.get(`${this.serverUrl}/peoples/${nickname}`);
   }
+  getRequests(): Observable<any> {
+    return this.httpClient.get(`${this.serverUrl}/requests`);
+  }
 }

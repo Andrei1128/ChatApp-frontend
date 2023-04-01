@@ -6,26 +6,29 @@ import { AuthService } from 'src/app/_core/services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['../auth.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  registerForm: FormGroup = new FormGroup('');
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router
   ) {}
+
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      nickname: [null],
+      username: [null],
       email: [null],
       password: [null],
       confirmPassword: [null],
     });
   }
+
   register() {
     const payload = {
-      nickname: this.nickname.value,
+      username: this.username.value,
       email: this.email.value,
       password: this.password.value,
     };
@@ -39,8 +42,9 @@ export class RegisterComponent implements OnInit {
       },
     });
   }
-  get nickname(): FormControl {
-    return this.registerForm.get('nickname') as FormControl;
+
+  get username(): FormControl {
+    return this.registerForm.get('username') as FormControl;
   }
   get email(): FormControl {
     return this.registerForm.get('email') as FormControl;

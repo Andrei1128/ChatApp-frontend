@@ -1,0 +1,114 @@
+.component-container {
+    color: var(--secondary-font);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+p {
+    color: var(--primary-font);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+h4 {
+    margin: 1.5rem 1.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+.bi {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.bi:hover {
+    opacity: 0.9;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+
+    img {
+        width: 11rem;
+        border-radius: 100%;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .image-container {
+        border-radius: 100%;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .overlay {
+        .bi {
+            opacity: 1;
+            font-size: 1.5rem;
+        }
+
+        p {
+            color: var(--secondary-font);
+        }
+
+        user-select: none;
+        position: absolute;
+        bottom: 2.3rem;
+        padding: 0;
+        text-align: center;
+        border-radius: 100%;
+        color: #fff;
+        font-size: 0.9rem;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        text-transform: uppercase;
+    }
+
+    .image-container:hover {
+        img {
+            opacity: 0.3;
+        }
+
+        .overlay {
+            opacity: 1;
+        }
+    }
+}
+
+main {
+    margin: 2rem 5px;
+    border-top: 1px solid var(--aside-background);
+    overflow: auto;
+}
+
+
+.title {
+    h6 {
+        margin: 0;
+    }
+
+    margin: 1.3rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content {
+    margin-bottom: 0;
+    padding: 0 1.3rem;
+}
+
+.spacing {
+    margin-bottom: 2rem;
+}

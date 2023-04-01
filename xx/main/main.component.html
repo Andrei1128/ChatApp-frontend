@@ -11,7 +11,8 @@
                     </div>
                 </div>
                 <div class="icons">
-                    <i class="bi bi-question-diamond-fill" data-bs-toggle="modal" data-bs-target="#reqModal"></i>
+                    <i class="bi bi-question-diamond-fill" data-bs-toggle="modal" data-bs-target="#reqModal"
+                        (click)="getRequests()"></i>
                     <div class="modal fade" id="reqModal" tabindex="-1" aria-labelledby="reqModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
@@ -22,9 +23,9 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div *ngFor="let request of myProfile.requests">
+                                    <div *ngFor="let request of requests">
                                         <div class="request">
-                                            <h4>{{request.nickname}}</h4>
+                                            <h4>{{request.name}}</h4>
                                             <div>
                                                 <button class="btn btn-primary"
                                                     (click)="acceptRequest(request._id)">Accept</button>
@@ -41,7 +42,8 @@
                             </div>
                         </div>
                     </div>
-                    <i class="bi bi-chat-dots" data-bs-toggle="modal" data-bs-target="#findFriendsModal"></i>
+                    <i class="bi bi-chat-dots" data-bs-toggle="modal" data-bs-target="#findFriendsModal"
+                        (click)="getFriends()"></i>
                     <div class="modal fade" id="findFriendsModal" tabindex="-1" aria-labelledby="findFriendsModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
@@ -54,10 +56,10 @@
                                 <div class="modal-body">
                                     <input type="text" class="form-control findFriendInput" placeholder="Find friend.."
                                         [formControl]="findFriendForm" (keydown.enter)="findFriend()">
-                                    <div *ngFor="let friend of myProfile.friends">
-                                        <div class="chatWith" (click)="chatWith(friend)">
+                                    <div *ngFor="let friend of friends">
+                                        <div class="chatWith" (click)="newChat(friend)">
                                             <img src="{{image}}">
-                                            <p>{{friend.nickname}}</p>
+                                            <p>{{friend.name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +81,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" placeholder="Find people by nickname"
+                                    <input type="text" class="form-control" placeholder="Find people by name"
                                         [formControl]="findPeopleForm">
                                 </div>
                                 <div class="modal-footer">
@@ -103,7 +105,7 @@
                                 <div class="modal-body people-modal">
                                     <div *ngFor="let people of peoples">
                                         <div class="sendFriendRequest">
-                                            <h4>{{people.nickname}}</h4>
+                                            <h4>{{people.name}}</h4>
                                             <button class="btn btn-primary" (click)="sendRequest(people._id)">Send
                                                 friend
                                                 request</button>
@@ -124,10 +126,10 @@
                     (keydown.enter)="findChat()">
             </div>
             <div *ngFor="let conversation of myProfile.chats">
-                <div class="conversationWith" (click)="convWith(conversation)">
+                <div class="conversationWith" (click)="chatWith(conversation)">
                     <img src="{{image}}">
                     <div>
-                        <p *ngFor="let name of (conversation.participants)">{{name.nickname}}</p>
+                        <p *ngFor="let name of (conversation.participants)">{{name.name}}</p>
                     </div>
                 </div>
             </div>
@@ -138,17 +140,17 @@
                     <div class="profileImage"><img src="{{image}}">
                     </div>
                     <div>
-                        <h4 *ngFor="let name of (conversation.participants)">{{name.nickname}}</h4>
+                        <h4 *ngFor="let name of (conversation.participants)">{{name.name}}</h4>
                     </div>
                 </div>
             </div>
             <div class="chat chat-body" *ngIf="conversation">
                 <div id="messages" class="messages" *ngIf="convLoaded">
                     <div *ngFor="let msg of messages; let i=index" class="message"
-                        [ngClass]="{'messageByMe': msg.from?.nickname==myProfile.nickname}">
-                        <ng-container *ngIf="i == 0 || msg.from?.nickname != messages[i-1]?.from?.nickname">
-                            <p *ngIf="msg.from?.nickname!=myProfile.nickname; else elseBlock" class="from">
-                                {{msg.from?.nickname}}
+                        [ngClass]="{'messageByMe': msg.from?.name==myProfile.name}">
+                        <ng-container *ngIf="i == 0 || msg.from?.name != messages[i-1]?.from?.name">
+                            <p *ngIf="msg.from?.name!=myProfile.name; else elseBlock" class="from">
+                                {{msg.from?.name}}
                             </p>
                             <ng-template #elseBlock>
                                 <p class="from">
@@ -156,13 +158,13 @@
                                 </p>
                             </ng-template>
                             <div class="content">
-                                <ng-container *ngIf="msg.from?.nickname!=messages[i-1]?.from?.nickname">
+                                <ng-container *ngIf="msg.from?.name!=messages[i-1]?.from?.name">
                                     <img src="{{image}}">
                                 </ng-container>
                                 <p class="content">{{msg.content}}</p>
                             </div>
                         </ng-container>
-                        <ng-container *ngIf="i != 0 && msg.from?.nickname == messages[i-1]?.from?.nickname">
+                        <ng-container *ngIf="i != 0 && msg.from?.name == messages[i-1]?.from?.name">
                             <div class="content messageAligment">
                                 <p class="content messageAligment">{{msg.content}}</p>
                             </div>

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ChatService {
-  private readonly serverUrl = `${environment.apiURL}`;
+  private readonly serverUrl = `${environment.apiURL}/chat`;
 
   public message: BehaviorSubject<any> = new BehaviorSubject('');
 
@@ -20,8 +20,8 @@ export class ChatService {
     });
   }
 
-  send(message: string, from: string, convId: string) {
-    this.socket.emit('private message', { message, from, id: convId });
+  send(content: string, from: string, convId: string) {
+    this.socket.emit('private message', { content, from }, convId);
   }
 
   get(convId: string): Observable<any> {
