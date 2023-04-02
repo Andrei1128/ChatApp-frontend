@@ -1,11 +1,15 @@
 :root {
     --aside-background: #36414b;
-    --section-backgroud: #313941;
+    --section-background: #313941;
     --main-background: #272e34;
     --primary-font: #969fc0;
     --secondary-font: #e1e8ef;
     --active-font: #6b62d9;
     --active: #3e4b57;
+
+    --online: #06d7a1;
+    --info-color: rgba(255, 70, 109, 0.8);
+    --info-background: rgba(188, 59, 72, 0.2);
 }
 
 html,
@@ -19,5 +23,29 @@ body {
     ::-webkit-scrollbar-thumb {
         border-radius: 10px;
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .4);
+    }
+
+    input[type="text"]::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: var(--primary-font);
+    }
+
+    input[type="text"]::-moz-placeholder {
+        /* Firefox 19+ */
+        color: var(--primary-font);
+    }
+
+    input[type="text"]:-ms-input-placeholder {
+        /* IE 10+ */
+        color: var(--primary-font);
+    }
+
+    input[type="text"]:-moz-placeholder {
+        /* Firefox 18- */
+        color: var(--primary-font);
+    }
+
+    .active {
+        background-color: var(--aside-background);
     }
 }

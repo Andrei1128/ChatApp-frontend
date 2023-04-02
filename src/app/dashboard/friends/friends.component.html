@@ -1,0 +1,12 @@
+<div class="component-container">
+    <header>
+        <h4>Friends</h4> <i class="bi bi-person-add"></i>
+    </header>
+    <section>
+        <h5 routerLink="/friends" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Friends</h5>
+        <h5 routerLink="requests" routerLinkActive="active">Requests</h5>
+    </section>
+    <div class="dontoverflow">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -1,32 +1,32 @@
-<div class="component-container">
+<div class="component-container1">
     <aside>
         <div class="logo"><img src="../../../assets/logo.png"></div>
         <div class="actions">
             <div class="icon-container">
-                <i class="bi bi-person active"></i>
+                <i class="bi bi-person" routerLink="/profile" routerLinkActive="active"></i>
                 <span class="tooltip-text">Profile</span>
             </div>
             <div class="icon-container">
-                <i class="bi bi-chat-left-dots "></i>
+                <i class="bi bi-chat-left-dots " routerLink="/chats" routerLinkActive="active"></i>
                 <span class="tooltip-text">Chats</span>
             </div>
             <div class="icon-container">
-                <i class="bi bi-people"></i>
+                <i class="bi bi-people" routerLink="/projects" routerLinkActive="active"></i>
                 <span class="tooltip-text">Projects</span>
             </div>
             <div class="icon-container">
-                <i class="bi bi-person-lines-fill"></i>
+                <i class="bi bi-person-lines-fill" routerLink="/friends" routerLinkActive="active"></i>
                 <span class="tooltip-text">Friends</span>
             </div>
             <div class="icon-container">
-                <i class="bi bi-gear"></i>
+                <i class="bi bi-gear" routerLink="/settings" routerLinkActive="active"></i>
                 <span class="tooltip-text">Settings</span>
             </div>
         </div>
         <div class="profile">
             <div class="icon-container">
-                <!-- <i class="bi bi-moon"></i> -->
-                <i class="bi bi-sun"></i>
+                <i *ngIf="lightMode; else elseBlock" class="bi bi-moon" (click)="changeLightMode()"></i>
+                <ng-template #elseBlock><i class="bi bi-sun" (click)="changeLightMode()"></i></ng-template>
                 <span class="tooltip-text">Light Mode</span>
             </div>
             <div class="profile-icon">
@@ -35,10 +35,9 @@
         </div>
     </aside>
     <section>
-        <!-- <app-profile></app-profile> -->
-        <app-chats></app-chats>
+        <router-outlet></router-outlet>
     </section>
     <main>
-
+        <app-chat></app-chat>
     </main>
 </div>
