@@ -2,35 +2,49 @@
     <aside>
         <div class="logo"><img src="../../../assets/logo.png"></div>
         <div class="actions">
-            <div class="icon-container">
+            <div class="icon-container1">
                 <i class="bi bi-person" routerLink="/profile" routerLinkActive="active"></i>
-                <span class="tooltip-text">Profile</span>
+                <span class="tooltip-text1">Profile</span>
             </div>
-            <div class="icon-container">
+            <div class="icon-container1">
                 <i class="bi bi-chat-left-dots " routerLink="/chats" routerLinkActive="active"></i>
-                <span class="tooltip-text">Chats</span>
+                <span class="tooltip-text1">Chats</span>
             </div>
-            <div class="icon-container">
+            <div class="icon-container1">
                 <i class="bi bi-people" routerLink="/projects" routerLinkActive="active"></i>
-                <span class="tooltip-text">Projects</span>
+                <span class="tooltip-text1">Projects</span>
             </div>
-            <div class="icon-container">
+            <div class="icon-container1">
                 <i class="bi bi-person-lines-fill" routerLink="/friends" routerLinkActive="active"></i>
-                <span class="tooltip-text">Friends</span>
+                <span class="tooltip-text1">Friends</span>
             </div>
-            <div class="icon-container">
+            <div class="icon-container1">
                 <i class="bi bi-gear" routerLink="/settings" routerLinkActive="active"></i>
-                <span class="tooltip-text">Settings</span>
+                <span class="tooltip-text1">Settings</span>
             </div>
         </div>
         <div class="profile">
-            <div class="icon-container">
+            <div class="icon-container1">
                 <i *ngIf="lightMode; else elseBlock" class="bi bi-moon" (click)="changeLightMode()"></i>
                 <ng-template #elseBlock><i class="bi bi-sun" (click)="changeLightMode()"></i></ng-template>
-                <span class="tooltip-text">Light Mode</span>
+                <span class="tooltip-text1">Light Mode</span>
             </div>
-            <div class="profile-icon">
-                <img src="../../../assets/profile.png">
+            <div class="dropdown">
+                <div class="profile-icon" data-bs-toggle="dropdown">
+                    <img src="../../../assets/profile.png">
+                </div>
+                <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
+                    <li routerLink="/profile">
+                        <p>Profile</p><i class="bi bi-person"></i>
+                    </li>
+                    <li routerLink="/settings">
+                        <p>Settings</p><i class="bi bi-gear"></i>
+                    </li>
+                    <hr class="dropdown-divider">
+                    <li>
+                        <p>Log out</p><i class="bi bi-box-arrow-right"></i>
+                    </li>
+                </ul>
             </div>
         </div>
     </aside>

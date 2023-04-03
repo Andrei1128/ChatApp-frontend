@@ -6,6 +6,9 @@
     --secondary-font: #e1e8ef;
     --active-font: #6b62d9;
     --active: #3e4b57;
+    --dropdown: #313a43;
+    --modal-background: #262d3b;
+    --modal-input: #2d3244;
 
     --online: #06d7a1;
     --info-color: rgba(255, 70, 109, 0.8);
@@ -26,26 +29,373 @@ body {
     }
 
     input[type="text"]::-webkit-input-placeholder {
-        /* Chrome/Opera/Safari */
         color: var(--primary-font);
     }
 
     input[type="text"]::-moz-placeholder {
-        /* Firefox 19+ */
         color: var(--primary-font);
     }
 
     input[type="text"]:-ms-input-placeholder {
-        /* IE 10+ */
         color: var(--primary-font);
     }
 
     input[type="text"]:-moz-placeholder {
-        /* Firefox 18- */
         color: var(--primary-font);
     }
 
     .active {
         background-color: var(--aside-background);
     }
+
+    .dropdown {
+        ul {
+            box-shadow: 0 0 6px rgba(0, 0, 0, .2);
+        }
+
+        hr {
+            border-color: var(--aside-background);
+        }
+
+        ul {
+            border-color: var(--aside-background);
+            color: var(--primary-font);
+            background-color: var(--section-background);
+        }
+
+        li {
+            padding: 0 1.5rem;
+            display: flex;
+            cursor: pointer;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li:hover {
+            background-color: var(--aside-background);
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .bi,
+        p {
+            font-size: 0.9rem;
+        }
+    }
+
+    .component-container {
+        .dropdown {
+            p {
+                font-size: 0.9rem;
+                font-weight: 400;
+            }
+
+            li {
+                .bi {
+                    opacity: 1;
+                }
+            }
+        }
+
+
+
+        color: var(--secondary-font);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        p {
+            color: var(--primary-font);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .bi {
+            font-size: 0.9rem;
+            opacity: 0.75;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1rem;
+        }
+
+        .bi:hover {
+            opacity: 1;
+        }
+
+        h4 {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        header {
+            letter-spacing: 1px;
+            margin: 1.5rem 1.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .bi {
+                padding: 0;
+            }
+        }
+
+        h5 {
+            margin: 2rem 1.7rem 0.8rem 1.7rem;
+            font-size: 1.04rem;
+        }
+
+    }
+}
+
+.searchBar {
+    label {
+        cursor: text;
+        padding: 2px 12px;
+        display: flex;
+        background-color: var(--aside-background);
+        width: 85%;
+        border-radius: 0.2rem;
+
+        .bi {
+            color: var(--primary-font);
+            opacity: 1;
+            cursor: text;
+        }
+
+        .bi:hover {
+            opacity: 1;
+        }
+
+    }
+
+    input[type="text"] {
+        background-color: transparent;
+        border-color: transparent;
+        color: var(--primary-font);
+        font-size: 0.91rem;
+        font-weight: 500;
+    }
+
+    input[type="text"]:focus {
+        box-shadow: none;
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    display: flex;
+    justify-content: center;
+}
+
+.icon-container {
+    position: relative;
+    display: inline-block;
+
+    .tooltip-text {
+        user-select: none;
+        font-size: 0.73rem;
+        visibility: hidden;
+        position: absolute;
+        top: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: black;
+        opacity: 0.75;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        white-space: nowrap;
+    }
+
+}
+
+.icon-container:hover .tooltip-text {
+    visibility: visible;
+}
+
+.modal-content {
+    border-width: 2px;
+    border-color: var(--aside-background);
+    background: var(--modal-background);
+
+    .modal-header {
+        border-color: var(--aside-background);
+
+        .bi {
+            padding: 5px;
+            opacity: 0.5;
+        }
+
+        .bi:hover {
+            opacity: 0.9;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 1.05rem;
+        }
+
+        font-size: 0.7rem;
+        color: var(--secondary-font);
+    }
+
+    .modal-footer {
+        border-color: var(--aside-background);
+
+        .btn-primary {
+            padding: 0.45rem 1rem;
+            background-color: var(--active-font);
+            border: none;
+            border-radius: 0.2rem;
+
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border-color: transparent;
+            color: var(--active-font);
+            font-weight: 500;
+        }
+    }
+
+    .modal-body {
+
+        padding: 1.3rem;
+        font-weight: 500;
+        font-size: 0.95;
+        color: var(--primary-font);
+
+        input[type="text"],
+        textarea[type="text"] {
+            margin-top: 0.6rem;
+            border-radius: 0.2rem;
+            padding-left: 1rem;
+            background-color: var(--modal-input);
+            border-color: var(--aside-background);
+            color: var(--primary-font);
+            font-size: 0.91rem;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 1.3rem;
+        }
+
+        input[type="text"]:focus,
+        textarea[type="text"]:focus {
+            box-shadow: none;
+            border-color: var(--active);
+        }
+
+        .wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .form-check-input {
+            width: 0.9rem;
+            height: 0.9rem;
+            cursor: pointer;
+        }
+
+        .friend:hover {
+            background-color: var(--modal-input);
+        }
+
+        .searchBar {
+            label {
+                margin-top: 0.5rem;
+                font-size: 0.95;
+                width: 100%;
+                cursor: text;
+                padding: 2px 12px;
+                display: flex;
+                background-color: var(--modal-input);
+                border-radius: 0.2rem;
+                border: 1px solid var(--aside-background);
+
+                .bi {
+                    padding-top: 2px;
+                }
+            }
+
+            input[type="text"] {
+                border: none;
+                padding: 4px 12px;
+                margin: 0;
+            }
+        }
+    }
+
+    .friend {
+        gap: 1rem;
+        transition: 0.2s ease-in-out;
+        border-radius: 3px;
+        cursor: pointer;
+        padding: 1rem 1.3rem;
+        width: 95%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1px;
+
+        h6 {
+            margin: 0;
+        }
+
+        img {
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 100%;
+        }
+
+        .bi {
+            font-size: 0.9rem;
+        }
+
+        .wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+        }
+
+    }
+}
+
+.friend {
+    gap: 1rem;
+    transition: 0.2s ease-in-out;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 1rem 1.3rem;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1px;
+
+    h6 {
+        margin: 0;
+    }
+
+    img {
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 100%;
+    }
+
+    .bi {
+        font-size: 0.9rem;
+    }
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+    }
+
 }

@@ -29,9 +29,11 @@ aside {
     display: flex;
     flex-direction: column;
     gap: 2.1rem;
+
+
 }
 
-.bi {
+div>.bi {
     cursor: pointer;
     border-radius: 0.5rem;
     padding: 0.6rem 0.9rem;
@@ -39,17 +41,19 @@ aside {
     -webkit-text-stroke: 0.5px;
 }
 
+
 .active {
     background-color: var(--active);
     color: var(--active-font);
 }
 
-.icon-container {
+.icon-container1 {
     position: relative;
     display: inline-block;
 }
 
-.tooltip-text {
+.tooltip-text1 {
+    z-index: 100;
     user-select: none;
     font-size: 0.85rem;
     visibility: hidden;
@@ -58,23 +62,23 @@ aside {
     left: 50%;
     transform: translateX(-50%);
     background-color: black;
-    opacity: 0.8;
+    opacity: 0.75;
     color: white;
     padding: 5px;
     border-radius: 5px;
     white-space: nowrap;
 }
 
-.icon-container:hover .tooltip-text {
+.icon-container1:hover .tooltip-text1 {
     visibility: visible;
 }
 
 .profile {
-    .icon-container {
+    .icon-container1 {
         user-select: none;
     }
 
-    .tooltip-text {
+    .tooltip-text1 {
         left: 185%;
         bottom: 5%;
     }

@@ -9,7 +9,20 @@
             <img src="../../../assets/profile.png">
             <h6>Name</h6>
         </div>
-        <i class="bi bi-three-dots-vertical"></i>
+        <div class="dropdown">
+            <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
+            <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
+                <li routerLink="/profile">
+                    <p>Share</p><i class="bi bi-share"></i>
+                </li>
+                <li routerLink="/settings">
+                    <p>Chat</p><i class="bi bi-chat-dots"></i>
+                </li>
+                <li>
+                    <p>Remove</p><i class="bi bi-trash3"></i>
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="friend ">
         <div class="wrapper">

@@ -1,6 +1,11 @@
 <div class="component-container">
     <header>
-        <h4>Friends</h4> <i class="bi bi-person-add"></i>
+        <h4>Friends</h4>
+        <div class="icon-container">
+            <i class="bi bi-person-fill-add" data-toggle="modal" data-target="#ModalCenter" data-bs-toggle="modal"
+                data-bs-target="#Modal"></i>
+            <span class="tooltip-text">Add Friend</span>
+        </div>
     </header>
     <section>
         <h5 routerLink="/friends" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Friends</h5>
@@ -8,5 +13,92 @@
     </section>
     <div class="dontoverflow">
         <router-outlet></router-outlet>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Friends</h5>
+                <i class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <label for="members">Search people</label>
+                <div class="searchBar">
+                    <label class="form-label"><i class="bi bi-search"></i>
+                        <input type="text" class="form-control" id="members">
+                    </label>
+                </div>
+                <div class="friends-wrapper">
+                    <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label>
+                    <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <p>Add</p>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>

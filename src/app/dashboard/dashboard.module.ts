@@ -13,7 +13,17 @@ import { SettingsComponent } from './settings/settings.component';
 import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
-  declarations: [DashboardPageComponent, ProfileComponent, ChatsComponent, ProjectsComponent, FriendsComponent, FriendsListComponent, RequestsListComponent, SettingsComponent, ChatComponent],
+  declarations: [
+    DashboardPageComponent,
+    ProfileComponent,
+    ChatsComponent,
+    ProjectsComponent,
+    FriendsComponent,
+    FriendsListComponent,
+    RequestsListComponent,
+    SettingsComponent,
+    ChatComponent,
+  ],
   imports: [CommonModule, DashboardRoutingModule, ReactiveFormsModule],
 })
 export class DashboardModule {}

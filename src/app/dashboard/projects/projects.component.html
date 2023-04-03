@@ -1,6 +1,18 @@
 <div class="component-container">
     <header>
-        <h4>Projects</h4> <i class="bi bi-plus-circle"></i>
+        <h4>Projects</h4>
+        <div class="dropdown dropdown-center icon-container">
+            <i class="bi bi-plus-circle-fill" data-bs-toggle="dropdown"></i>
+            <span class="tooltip-text">New Project</span>
+            <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
+                <li data-toggle="modal" data-target="#ModalCenter" data-bs-toggle="modal" data-bs-target="#ModalJoin">
+                    <p>Join</p><i class="bi bi-box-arrow-in-right"></i>
+                </li>
+                <li data-toggle="modal" data-target="#ModalCenter" data-bs-toggle="modal" data-bs-target="#Modal">
+                    <p>Create</p><i class="bi bi-plus-lg"></i>
+                </li>
+            </ul>
+        </div>
     </header>
     <div class="searchBar">
         <label><i class="bi bi-search"></i>
@@ -121,4 +133,118 @@
             <p class="new-messages">new</p>
         </div>
     </main>
+</div>
+
+<!-- Modal here -->
+
+<div class="modal fade" id="Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create New Project</h5>
+                <i class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <label for="name">Project Name</label>
+                <input type="text" class="form-control" placeholder="Enter Project Name" id="name">
+                <label for="description">Project Description</label>
+                <textarea type="text" class="form-control" id="description"></textarea>
+                <label for="members">Send Invitations</label>
+                <div class="searchBar">
+                    <label class="form-label"><i class="bi bi-search"></i>
+                        <input type="text" class="form-control" placeholder="Search friends" id="members">
+                    </label>
+                </div>
+                <div class="friends-wrapper">
+                    <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label>
+                    <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label> <label class="friend ">
+                        <div class="wrapper">
+                            <img src="../../../assets/profile.png">
+                            <h6>Name</h6>
+                        </div>
+                        <input class="form-check-input" type="checkbox">
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create Project</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalJoin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Join Project</h5>
+                <i class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <label for="code">Invitation Code</label>
+                <input type="text" class="form-control" id="code">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Join</button>
+            </div>
+        </div>
+    </div>
 </div>
