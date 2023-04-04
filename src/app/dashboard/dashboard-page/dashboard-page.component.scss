@@ -1,4 +1,4 @@
-.component-container1 {
+.component-containerPrim {
     height: 100%;
     display: flex;
 }
@@ -29,8 +29,6 @@ aside {
     display: flex;
     flex-direction: column;
     gap: 2.1rem;
-
-
 }
 
 div>.bi {
@@ -41,18 +39,17 @@ div>.bi {
     -webkit-text-stroke: 0.5px;
 }
 
-
 .active {
     background-color: var(--active);
     color: var(--active-font);
 }
 
-.icon-container1 {
+.icon-containerPrim {
     position: relative;
     display: inline-block;
 }
 
-.tooltip-text1 {
+.tooltip-textPrim {
     z-index: 100;
     user-select: none;
     font-size: 0.85rem;
@@ -69,16 +66,16 @@ div>.bi {
     white-space: nowrap;
 }
 
-.icon-container1:hover .tooltip-text1 {
+.icon-containerPrim:hover .tooltip-textPrim {
     visibility: visible;
 }
 
 .profile {
-    .icon-container1 {
+    .icon-containerPrim {
         user-select: none;
     }
 
-    .tooltip-text1 {
+    .tooltip-textPrim {
         left: 185%;
         bottom: 5%;
     }

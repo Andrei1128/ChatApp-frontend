@@ -3,11 +3,11 @@
         <input type="text" class="form-control" placeholder="Search people...">
     </label>
 </div>
-<main>
-    <div class="friend request">
+<main class="overflow">
+    <div *ngFor="let person of persons" class="person">
         <div class="wrapper">
             <img src="../../../assets/profile.png">
-            <h6>Nicolaev Andrei</h6>
+            <h6>{{person.name}}</h6>
         </div>
         <div class="actions">
             <p>Accept</p>

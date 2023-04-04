@@ -20,115 +20,10 @@
         </label>
     </div>
     <main>
-        <div class="project active">
+        <div *ngFor="let person of persons" class="person">
             <div class="wrapper">
                 <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
-            </div>
-            <p class="new-messages">new</p>
-        </div>
-        <div class="project ">
-            <div class="wrapper">
-                <img src="../../../assets/profile.png">
-                <h6>#Name</h6>
+                <h6>#{{person.name}}</h6>
             </div>
             <p class="new-messages">new</p>
         </div>
@@ -156,70 +51,13 @@
                         <input type="text" class="form-control" placeholder="Search friends" id="members">
                     </label>
                 </div>
-                <div class="friends-wrapper">
-                    <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label>
-                    <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label> <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label> <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label> <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label> <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label> <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label> <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label> <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label> <label class="friend ">
-                        <div class="wrapper">
-                            <img src="../../../assets/profile.png">
-                            <h6>Name</h6>
-                        </div>
-                        <input class="form-check-input" type="checkbox">
-                    </label>
-                </div>
+                <label *ngFor="let person of persons" class="person">
+                    <div class="wrapper">
+                        <img src="../../../assets/profile.png">
+                        <h6>{{person.name}}</h6>
+                    </div>
+                    <input class="form-check-input" type="checkbox">
+                </label>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

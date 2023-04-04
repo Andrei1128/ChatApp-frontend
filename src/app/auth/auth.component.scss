@@ -5,10 +5,10 @@
 
 .wrapper {
     margin-top: 8vh;
-    background: white;
+    background: var(--section-background);
     padding: 27px;
     width: 360px;
-    box-shadow: 0px 0px 27px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 27px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     font-size: 88%;
 }
@@ -16,12 +16,12 @@
 h1 {
     text-align: center;
     margin-bottom: 27px;
-    color: #3b4e61;
+    color: var(--secondary-font);
     font-size: 1.6em;
 }
 
 label {
-    color: #3b4e61;
+    color: var(--secondary-font);
     font-weight: bold;
     font-size: 1.1em;
 }
@@ -31,16 +31,17 @@ input[type="password"] {
     width: 100%;
     padding: 9px;
     margin-bottom: 18px;
-    border: none;
-    border-radius: 3px;
-    background-color: #f5f5f5;
-    color: #3b4e61;
+    border-color: var(--section-background);
+    border-radius: 0.2rem;
+    background-color: var(--active);
+    color: var(--primary-font);
 }
 
 input[type="email"]:focus,
 input[type="password"]:focus {
-    outline: none;
-    background-color: #e2e2e2;
+    box-shadow: none;
+    border-color: var(--active);
+    background-color: var(--aside-background);
 }
 
 .butons {
@@ -54,8 +55,8 @@ input[type="password"]:focus {
     margin-top: 18px;
     border: none;
     border-radius: 3px;
-    color: white;
-    background-color: #3b4e61;
+    color: var(--secondary-font);
+    background-color: var(--active-font);
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -63,7 +64,7 @@ input[type="password"]:focus {
 }
 
 .buton:hover {
-    background-color: #2c3e50;
+    opacity: 0.85;
 }
 
 .form-text {

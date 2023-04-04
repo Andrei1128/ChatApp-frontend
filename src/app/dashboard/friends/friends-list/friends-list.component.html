@@ -3,11 +3,11 @@
         <input type="text" class="form-control" placeholder="Search friends...">
     </label>
 </div>
-<main>
-    <div class="friend">
+<main class="overflow">
+    <div *ngFor="let person of persons" class="person">
         <div class="wrapper">
             <img src="../../../assets/profile.png">
-            <h6>Name</h6>
+            <h6>{{person.name}}</h6>
         </div>
         <div class="dropdown">
             <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
@@ -23,110 +23,5 @@
                 </li>
             </ul>
         </div>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Name</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
-    </div>
-    <div class="friend ">
-        <div class="wrapper">
-            <img src="../../../assets/profile.png">
-            <h6>Naaaaame</h6>
-        </div>
-        <i class="bi bi-three-dots-vertical"></i>
     </div>
 </main>

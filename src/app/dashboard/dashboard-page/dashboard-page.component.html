@@ -1,33 +1,33 @@
-<div class="component-container1">
+<div class="component-containerPrim">
     <aside>
         <div class="logo"><img src="../../../assets/logo.png"></div>
         <div class="actions">
-            <div class="icon-container1">
+            <div class="icon-containerPrim">
                 <i class="bi bi-person" routerLink="/profile" routerLinkActive="active"></i>
-                <span class="tooltip-text1">Profile</span>
+                <span class="tooltip-textPrim">Profile</span>
             </div>
-            <div class="icon-container1">
+            <div class="icon-containerPrim">
                 <i class="bi bi-chat-left-dots " routerLink="/chats" routerLinkActive="active"></i>
-                <span class="tooltip-text1">Chats</span>
+                <span class="tooltip-textPrim">Chats</span>
             </div>
-            <div class="icon-container1">
+            <div class="icon-containerPrim">
                 <i class="bi bi-people" routerLink="/projects" routerLinkActive="active"></i>
-                <span class="tooltip-text1">Projects</span>
+                <span class="tooltip-textPrim">Projects</span>
             </div>
-            <div class="icon-container1">
+            <div class="icon-containerPrim">
                 <i class="bi bi-person-lines-fill" routerLink="/friends" routerLinkActive="active"></i>
-                <span class="tooltip-text1">Friends</span>
+                <span class="tooltip-textPrim">Friends</span>
             </div>
-            <div class="icon-container1">
+            <div class="icon-containerPrim">
                 <i class="bi bi-gear" routerLink="/settings" routerLinkActive="active"></i>
-                <span class="tooltip-text1">Settings</span>
+                <span class="tooltip-textPrim">Settings</span>
             </div>
         </div>
         <div class="profile">
-            <div class="icon-container1">
+            <div class="icon-containerPrim">
                 <i *ngIf="lightMode; else elseBlock" class="bi bi-moon" (click)="changeLightMode()"></i>
                 <ng-template #elseBlock><i class="bi bi-sun" (click)="changeLightMode()"></i></ng-template>
-                <span class="tooltip-text1">Light Mode</span>
+                <span class="tooltip-textPrim">Light Mode</span>
             </div>
             <div class="dropdown">
                 <div class="profile-icon" data-bs-toggle="dropdown">
