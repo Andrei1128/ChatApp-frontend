@@ -20,7 +20,8 @@
         </label>
     </div>
     <main>
-        <div *ngFor="let person of persons" class="person">
+        <div [routerLink]="['/projects']" [queryParams]="{ id: person.name }" routerLinkActive="active"
+            *ngFor="let person of persons" class="person">
             <div class="wrapper">
                 <img src="../../../assets/profile.png">
                 <h6>#{{person.name}}</h6>

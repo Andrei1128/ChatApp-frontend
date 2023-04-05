@@ -14,7 +14,8 @@
     </div>
     <h5>Recent</h5>
     <main>
-        <div *ngFor="let person of persons" class="person">
+        <div [routerLink]="['/chats']" [queryParams]="{ id: person.name }" routerLinkActive="active"
+            *ngFor="let person of persons" class="person">
             <div class="wrapper">
                 <div>
                     <img src="../../../assets/profile.png">

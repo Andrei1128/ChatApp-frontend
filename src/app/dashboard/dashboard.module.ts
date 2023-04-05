@@ -11,6 +11,7 @@ import { FriendsListComponent } from './friends/friends-list/friends-list.compon
 import { RequestsListComponent } from './friends/requests-list/requests-list.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ChatComponent } from './chat/chat.component';
+import { OffcanvasComponent } from './offcanvas/offcanvas.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ChatComponent } from './chat/chat.component';
     RequestsListComponent,
     SettingsComponent,
     ChatComponent,
+    OffcanvasComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule, ReactiveFormsModule],
 })

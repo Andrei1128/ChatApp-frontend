@@ -1,6 +1,17 @@
 header {
+    max-height: 1.56rem;
+
     .bi {
         font-size: 1.2rem;
+    }
+}
+
+.person {
+    cursor: default;
+
+    p,
+    .wrapper {
+        cursor: pointer;
     }
 }
 

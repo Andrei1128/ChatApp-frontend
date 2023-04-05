@@ -7,5 +7,9 @@ import users from '../../_core/Users';
   styleUrls: ['./chats.component.scss'],
 })
 export class ChatsComponent {
+  offcanvas = false;
   persons = users;
+  seeProfile() {
+    this.offcanvas = !this.offcanvas;
+  }
 }

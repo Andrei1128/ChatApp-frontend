@@ -10,7 +10,9 @@
     --modal-background: #262d3b;
     --modal-input: #2d3244;
 
-    --online: #06d7a1;
+    --busy: #ec4344;
+    --online: #39a55d;
+    --offline: #747e8d;
     --info-color: rgba(255, 70, 109, 0.8);
     --info-background: rgba(188, 59, 72, 0.2);
 }
@@ -96,7 +98,10 @@ p.new-messages {
 // Dropdown
 
 .dropdown {
+    user-select: none;
+
     ul {
+        transition: 0.07s ease-in-out;
         box-shadow: 0 0 6px rgba(0, 0, 0, .2);
         border-color: var(--aside-background);
         color: var(--primary-font);
@@ -127,6 +132,10 @@ p.new-messages {
 }
 
 // Modal
+
+.modal {
+    transition: 0.2s ease-in-out;
+}
 
 .modal-content {
     border-width: 2px;
@@ -363,7 +372,7 @@ p.new-messages {
         align-items: center;
         gap: 1rem;
 
-        .bi {
+        .bi-circle-fill {
             font-size: 0.4rem;
             position: relative;
             right: 10px;

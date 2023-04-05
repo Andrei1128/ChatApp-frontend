@@ -5,16 +5,13 @@
 </div>
 <main class="overflow">
     <div *ngFor="let person of persons" class="person">
-        <div class="wrapper">
+        <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
             <img src="../../../assets/profile.png">
             <h6>{{person.name}}</h6>
         </div>
         <div class="dropdown">
             <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
             <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
-                <li routerLink="/profile">
-                    <p>Share</p><i class="bi bi-share"></i>
-                </li>
                 <li routerLink="/settings">
                     <p>Chat</p><i class="bi bi-chat-dots"></i>
                 </li>

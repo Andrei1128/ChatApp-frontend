@@ -1,52 +1,40 @@
-<div class="component-container">
-    <header></header>
-    <main></main>
-    <footer></footer>
-</div>
-<!-- <div class="chat">
-    <div class=" header">
-        <div *ngIf="conversation" class="header-participants">
-            <div class="profileImage"><img src="{{image}}">
+<div class="chat-layout">
+    <header>
+        <div class="person">
+            <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
+                <img src="../../../assets/profile.png">
+                <div>
+                    <h6>Patrick Hendricks</h6><i class="bi bi-record-circle-fill"></i>
+                </div>
             </div>
+        </div>
+        <div class="actions">
+            <i class="bi bi-search"></i>
+            <i class="bi bi-telephone"></i>
+            <i class="bi bi-camera-video"></i>
+            <i class="bi bi-person"></i>
+            <i class="bi bi-three-dots"></i>
+        </div>
+    </header>
+    <main>
+        <div *ngFor="let message of messages" class="message" [ngClass]="{'from-me': message.fromMe}">
+            <h6 class="message-sender">{{ message.sender }}</h6>
+            <div class="message-wrapper">
+                <img class="profile-image" src="../../../assets/profile.png">
+                <div>
+                    <p class="message-content">{{ message.text }}</p><i class="bi bi-three-dots-vertical"></i>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <input type="text" placeholder="Enter Message..." class="form-control">
+        <div class="actions">
             <div>
-                <h4 *ngFor="let name of (conversation.participants)">{{name.name}}</h4>
+                <i class="bi bi-image"></i>
+                <i class="bi bi-paperclip"></i>
             </div>
+            <i class="bi bi-send-fill"></i>
         </div>
-    </div>
-    <div class="chat chat-body" *ngIf="conversation">
-        <div id="messages" class="messages" *ngIf="convLoaded">
-            <div *ngFor="let msg of messages; let i=index" class="message"
-                [ngClass]="{'messageByMe': msg.from?.name==myProfile.name}">
-                <ng-container *ngIf="i == 0 || msg.from?.name != messages[i-1]?.from?.name">
-                    <p *ngIf="msg.from?.name!=myProfile.name; else elseBlock" class="from">
-                        {{msg.from?.name}}
-                    </p>
-                    <ng-template #elseBlock>
-                        <p class="from">
-                            You
-                        </p>
-                    </ng-template>
-                    <div class="content">
-                        <ng-container *ngIf="msg.from?.name!=messages[i-1]?.from?.name">
-                            <img src="{{image}}">
-                        </ng-container>
-                        <p class="content">{{msg.content}}</p>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="i != 0 && msg.from?.name == messages[i-1]?.from?.name">
-                    <div class="content messageAligment">
-                        <p class="content messageAligment">{{msg.content}}</p>
-                    </div>
-                </ng-container>
-            </div>
-        </div>
-        <div *ngIf="!convLoaded" class="loadingMessages">
-            <div class="spinner-border" role="status">
-            </div>
-        </div>
-        <div class="chat-input">
-            <input type="text" class="form-control" placeholder="Send a message. ." [formControl]="messageForm"
-                (keydown.enter)="sendMessage()">
-        </div>
-    </div>
-</div> -->
+    </footer>
+</div>
