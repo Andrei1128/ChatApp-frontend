@@ -10,15 +10,15 @@ export class DashboardPageComponent {
   changeLightMode() {
     this.lightMode = !this.lightMode;
     if (this.lightMode) {
-      this.setColor('--aside-background', '#ffffff');
-      this.setColor('--section-background', '#F3F4F9');
+      this.setColor('--aside-background', '#F9f9f9');
+      this.setColor('--section-background', '#Edf1f1');
       this.setColor('--main-background', '#ffffff');
       this.setColor('--primary-font', '#797d83');
       this.setColor('--secondary-font', ' #49505a');
       this.setColor('--active-font', '#807bee');
       this.setColor('--active', '#e6ebf5');
       this.setColor('--dropdown', '#fffefe');
-      this.setColor('--modal-background', '#e8e8ec');
+      this.setColor('--modal-background', '#F1F1F7');
       this.setColor('--modal-input', '#fffefe');
     } else {
       this.setColor('--aside-background', '#36414b');

@@ -1,0 +1,102 @@
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 0;
+
+    img {
+        width: 8rem;
+        border-radius: 100%;
+        border: 5px solid var(--aside-background);
+    }
+
+    h5 {
+        margin-bottom: 0.4rem;
+    }
+}
+
+.status {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.2s ease-in-out;
+
+    .bi {
+        color: var(--primary-font);
+        opacity: 1;
+        font-size: 0.8rem;
+    }
+}
+
+.status:hover {
+    opacity: 0.8;
+}
+
+li {
+    padding: 0.3rem 1.5rem;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.dropdown-menu {
+    .bi {
+        font-size: 0.5rem;
+    }
+
+    .online {
+        color: var(--online);
+    }
+
+    .busy {
+        color: var(--busy);
+    }
+
+    .invis {
+        color: var(--offline);
+    }
+}
+
+main {
+    margin: 1rem 5px;
+    border-top: 1px solid var(--aside-background);
+    overflow: auto;
+}
+
+.accordion {
+    margin-top: 2rem;
+    width: 330px;
+}
+
+.accordion-item {
+
+    margin-bottom: 0.5rem;
+    border: none;
+    background-color: var(--aside-background);
+}
+
+.accordion-header {
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    padding: 0.7rem 1.5rem;
+    background-color: var(--aside-background);
+    color: var(--secondary-font);
+    font-size: 0.91rem;
+    font-weight: 500;
+    border-radius: 0.2rem;
+}
+
+.accordion-header:hover {
+    background-color: var(--active);
+}
+
+.accordion-collapse {
+    transition: 0.25s ease-in-out;
+}
+
+.accordion-body {
+    border: 1.5px solid var(--aside-background);
+    height: 200px;
+    background-color: var(--section-background);
+}

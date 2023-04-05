@@ -12,6 +12,7 @@ header {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--aside-background);
+    box-shadow: 0 3px 3px -3px rgba(0, 0, 0, .2);
     gap: 2rem;
     height: 5rem;
 
@@ -22,7 +23,6 @@ header {
         .bi {
             background-color: var(--main-background);
         }
-
 
         .wrapper {
             cursor: pointer;
@@ -52,13 +52,13 @@ header {
         width: fit-content;
     }
 
-    .actions {
+    .Actions {
         display: flex;
         align-items: center;
         gap: 1.1rem;
         margin-right: 1.8rem;
 
-        .bi {
+        .action {
             -webkit-text-stroke-width: 0.2px;
             cursor: pointer;
             color: var(--primary-font);
@@ -68,7 +68,9 @@ header {
     }
 }
 
-
+li {
+    padding: 0.3rem 1.5rem;
+}
 
 // Footer
 
@@ -80,10 +82,12 @@ footer {
     gap: 2.5rem;
     height: 5rem;
     border-top: 1px solid var(--aside-background);
+    box-shadow: 0 -3px 3px -3px rgba(0, 0, 0, .2);
 
     input[type="text"] {
+        transition: 0.1s ease-in-out;
+        box-shadow: 0 0 3px rgba(0, 0, 0, .2);
         flex-grow: 1;
-
         padding-left: 1rem;
         -webkit-text-stroke-width: 0.4px;
         letter-spacing: 0.6px;
@@ -95,11 +99,11 @@ footer {
     }
 
     input[type="text"]:focus {
-        box-shadow: none;
+        box-shadow: 0 0 6px rgba(0, 0, 0, .2);
         border-color: var(--active);
     }
 
-    .actions {
+    .Actions {
         div {
             display: flex;
             align-items: center;
@@ -139,7 +143,7 @@ footer {
 // Main
 
 main {
-    padding: 0 3.3rem;
+    padding: 0 3.3rem 1rem 3.3rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -168,12 +172,12 @@ main {
         }
 
         div:hover {
-            .bi {
+            .action {
                 opacity: 0.7;
             }
         }
 
-        .bi {
+        .action {
             transition: 0.2s ease-in-out;
             height: fit-content;
             padding: 0.3rem;
@@ -182,7 +186,7 @@ main {
             margin-right: 5rem;
         }
 
-        .bi:hover {
+        .action:hover {
             opacity: 0.9 !important;
         }
     }
@@ -222,5 +226,72 @@ main {
         }
     }
 
+}
 
+.search {
+    .custom-dropdown {
+        padding: 0.3rem;
+    }
+
+    input[type="text"] {
+        background-color: var(--aside-background);
+        border-color: var(--aside-background);
+        color: var(--primary-font);
+    }
+
+    input[type="text"]:focus {
+        box-shadow: none;
+    }
+}
+
+.modal-content {
+    height: 23rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-width: 1px;
+
+    img {
+        width: 6rem;
+        border-radius: 100%;
+        border: 5px solid var(--aside-background);
+    }
+
+    h4 {
+        margin-top: 1rem;
+        font-size: 1.25rem;
+        color: var(--secondary-font);
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 0.93rem;
+        color: var(--primary-font);
+    }
+
+    .Actions {
+        margin-top: 2.5rem;
+        color: var(--secondary-font);
+        display: flex;
+        gap: 1.5rem;
+
+        .bi {
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 100%;
+            background-color: var(--online);
+            border: 2px solid var(--active);
+            cursor: pointer;
+        }
+
+        .bi:hover {
+            opacity: 0.85;
+        }
+
+        .bi-x-lg {
+            background-color: var(--busy);
+        }
+    }
 }

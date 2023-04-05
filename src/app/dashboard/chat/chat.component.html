@@ -8,12 +8,27 @@
                 </div>
             </div>
         </div>
-        <div class="actions">
-            <i class="bi bi-search"></i>
-            <i class="bi bi-telephone"></i>
-            <i class="bi bi-camera-video"></i>
-            <i class="bi bi-person"></i>
-            <i class="bi bi-three-dots"></i>
+        <div class="Actions">
+            <div class="dropdown search">
+                <i class="bi action bi-search" data-bs-toggle="dropdown"></i>
+                <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
+                    <input placeholder="Search.." type="text" class="form-control">
+                </ul>
+            </div>
+            <i data-bs-toggle="modal" data-bs-target="#audioModal" class="bi action bi-telephone"></i>
+            <i data-bs-toggle="modal" data-bs-target="#videoModal" class="bi action bi-camera-video"></i>
+            <i data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="bi action bi-person"></i>
+            <div class="dropdown">
+                <i class="bi action bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
+                <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">
+                    <li>
+                        <p>Set Password</p><i class="bi bi-shield-lock"></i>
+                    </li>
+                    <li>
+                        <p>Delete</p><i class="bi bi-trash3"></i>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
     <main>
@@ -22,14 +37,31 @@
             <div class="message-wrapper">
                 <img class="profile-image" src="../../../assets/profile.png">
                 <div>
-                    <p class="message-content">{{ message.text }}</p><i class="bi bi-three-dots-vertical"></i>
+                    <p class="message-content">{{ message.text }}</p>
+                    <div class="dropdown">
+                        <i class="bi action bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
+                        <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">
+                            <li>
+                                <p>Reply</p><i class="bi bi-reply"></i>
+                            </li>
+                            <li>
+                                <p>Copy</p><i class="bi bi-files"></i>
+                            </li>
+                            <li>
+                                <p>Forward</p><i class="bi bi-chat-right-dots"></i>
+                            </li>
+                            <li>
+                                <p>Delete</p><i class="bi bi-trash3"></i>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
     <footer>
         <input type="text" placeholder="Enter Message..." class="form-control">
-        <div class="actions">
+        <div class="Actions">
             <div>
                 <i class="bi bi-image"></i>
                 <i class="bi bi-paperclip"></i>
@@ -37,4 +69,26 @@
             <i class="bi bi-send-fill"></i>
         </div>
     </footer>
+</div>
+
+<!-- Modal here! -->
+<div class="modal fade" id="audioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <img src="../../../assets/profile.png">
+            <h4>Patrick Hendricks</h4>
+            <p>Start Audio Call</p>
+            <div class="Actions"><i class="bi bi-x-lg"></i><i class="bi bi-telephone-fill"></i></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <img src="../../../assets/profile.png">
+            <h4>Patrick Hendricks</h4>
+            <p>Start Video Call</p>
+            <div class="Actions"><i class="bi bi-x-lg"></i><i class="bi bi-camera-video-fill"></i></div>
+        </div>
+    </div>
 </div>
