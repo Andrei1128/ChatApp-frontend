@@ -83,3 +83,15 @@ main {
         }
     }
 }
+
+@media only screen and (max-width: 410px) {
+    .req {
+        margin-right: 0.1rem;
+        width: 3rem;
+        flex-wrap: wrap;
+
+        p {
+            font-size: 0.75rem;
+        }
+    }
+}

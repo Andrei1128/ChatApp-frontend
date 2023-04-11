@@ -386,6 +386,14 @@ p.new-messages {
     }
 }
 
+@media only screen and (max-width: 410px) {
+    .modal-body {
+        .person {
+            width: 100%;
+        }
+    }
+}
+
 // Default
 
 html,

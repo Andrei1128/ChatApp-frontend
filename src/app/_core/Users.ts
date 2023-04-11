@@ -1,6 +1,6 @@
 const users: { name: string }[] = [
   {
-    name: 'Andrei',
+    name: 'Andrei-Ionut Nicolaev',
   },
   {
     name: 'Marian',

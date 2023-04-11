@@ -1,10 +1,13 @@
 <div class="chat-layout">
     <header>
-        <div class="person">
-            <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
-                <img src="../../../assets/profile.png">
-                <div>
-                    <h6>Patrick Hendricks</h6><i class="bi bi-record-circle-fill"></i>
+        <div class="person-wrapper">
+            <p class="bi bi-arrow-left"></p>
+            <div class="person">
+                <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
+                    <img src="../../../assets/profile.png">
+                    <div>
+                        <h6>Nicolaev Andrei-Ionut</h6><i class="bi bi-record-circle-fill"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,7 +42,7 @@
                 <div>
                     <p class="message-content">{{ message.text }}</p>
                     <div class="dropdown">
-                        <i class="bi action bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
+                        <i class="bi bi-three-dots-vertical action" data-bs-toggle="dropdown"></i>
                         <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">
                             <li>
                                 <p>Reply</p><i class="bi bi-reply"></i>

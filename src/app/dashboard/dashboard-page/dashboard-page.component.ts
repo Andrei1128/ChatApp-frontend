@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -7,6 +8,30 @@ import { Component } from '@angular/core';
 })
 export class DashboardPageComponent {
   lightMode: boolean = false;
+  visibleSection: boolean = true;
+
+  constructor(private router: Router, private elementRef: ElementRef) {}
+
+  changeSectionVisibility(event: MouseEvent) {
+    const link = (event.target as HTMLAnchorElement).getAttribute('routerLink');
+    const currentLink = this.router.url;
+    const componentList = document.querySelectorAll('.target');
+
+    if (this.visibleSection) {
+      if (link === currentLink) {
+        componentList[0].classList.add('hidden');
+        componentList[1].classList.add('hidden');
+        componentList[2].classList.remove('hidden');
+        this.visibleSection = false;
+      }
+    } else {
+      componentList[0].classList.remove('hidden');
+      componentList[1].classList.remove('hidden');
+      componentList[2].classList.add('hidden');
+      this.visibleSection = true;
+    }
+  }
+
   changeLightMode() {
     this.lightMode = !this.lightMode;
     if (this.lightMode) {
