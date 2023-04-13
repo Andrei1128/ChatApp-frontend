@@ -16,7 +16,7 @@
     </header>
     <div class="searchBar">
         <label><i class="bi bi-search"></i>
-            <input type="text" class="form-control" placeholder="Search projects...">
+            <input autocomplete="off" type="text" class="form-control" placeholder="Search projects...">
         </label>
     </div>
     <main>
@@ -43,13 +43,14 @@
             </div>
             <div class="modal-body">
                 <label for="name">Project Name</label>
-                <input type="text" class="form-control" placeholder="Enter Project Name" id="name">
+                <input autocomplete="off" type="text" class="form-control" placeholder="Enter Project Name" id="name">
                 <label for="description">Project Description</label>
                 <textarea type="text" class="form-control" id="description"></textarea>
                 <label for="members">Send Invitations</label>
                 <div class="searchBar">
                     <label class="form-label"><i class="bi bi-search"></i>
-                        <input type="text" class="form-control" placeholder="Search friends" id="members">
+                        <input autocomplete="off" type="text" class="form-control" placeholder="Search friends"
+                            id="members">
                     </label>
                 </div>
                 <label *ngFor="let person of persons" class="person">
@@ -78,7 +79,7 @@
             </div>
             <div class="modal-body">
                 <label for="code">Invitation Code</label>
-                <input type="text" class="form-control" id="code">
+                <input autocomplete="off" type="text" class="form-control" id="code">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

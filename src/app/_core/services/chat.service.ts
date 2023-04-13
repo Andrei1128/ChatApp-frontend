@@ -14,8 +14,8 @@ export class ChatService {
 
   constructor(private socket: Socket, private httpClient: HttpClient) {}
 
-  createChat(participants: any[]): Observable<any> {
-    return this.httpClient.post(`${this.serverUrl}/create`, {
+  chatWith(participants: any[]): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}/chat`, {
       participants,
     });
   }

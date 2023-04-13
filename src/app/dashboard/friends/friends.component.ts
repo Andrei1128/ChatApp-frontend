@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import users from 'src/app/_core/Users';
+import { FormControl } from '@angular/forms';
+import { Profile } from 'src/app/_core/models/profile.model';
+import { ProfileService } from 'src/app/_core/services/profile.service';
 
 @Component({
   selector: 'app-friends',
@@ -7,5 +9,20 @@ import users from 'src/app/_core/Users';
   styleUrls: ['./friends.component.scss'],
 })
 export class FriendsComponent {
-  persons = users;
+  peoples: Profile[] = [];
+  searchPeoplesForm = new FormControl();
+
+  constructor(private profileService: ProfileService) {}
+
+  searchPeoples() {
+    this.profileService
+      .getPeople(this.searchPeoplesForm.value)
+      .subscribe((res) => (this.peoples = res));
+  }
+
+  sendFriendRequest(id?: string) {
+    this.profileService.sendFriendRequest(id as string).subscribe(() => {
+      this.peoples = this.peoples.filter((ppl) => ppl._id != id);
+    });
+  }
 }

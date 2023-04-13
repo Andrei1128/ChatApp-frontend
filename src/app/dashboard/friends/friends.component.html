@@ -28,16 +28,17 @@
                 <label for="members">Search people</label>
                 <div class="searchBar">
                     <label class="form-label"><i class="bi bi-search"></i>
-                        <input type="text" class="form-control" id="members">
+                        <input [formControl]="searchPeoplesForm" autocomplete="off" type="text" class="form-control"
+                            id="members" (keydown.enter)="searchPeoples()">
                     </label>
                 </div>
-                <div *ngFor="let person of persons" class="person">
+                <div *ngFor="let person of peoples" class="person">
                     <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
                         <img src="../../../assets/profile.png">
                         <h6>{{person.name}}</h6>
                     </div>
                     <div class="actions">
-                        <p>Add</p>
+                        <p (click)="sendFriendRequest(person._id)">Add</p>
                     </div>
                 </div>
             </div>

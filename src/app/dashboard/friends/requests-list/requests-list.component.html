@@ -1,17 +1,18 @@
 <div class="searchBar">
     <label><i class="bi bi-search"></i>
-        <input type="text" class="form-control" placeholder="Search people...">
+        <input [formControl]="searchRequestsForm" (ngModelChange)="search()" autocomplete="off" type="text"
+            class="form-control" placeholder="Search people...">
     </label>
 </div>
 <main class="overflow">
-    <div *ngFor="let person of persons" class="person">
+    <div *ngFor="let person of requests" class="person">
         <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
             <img src="../../../assets/profile.png">
             <h6>{{person.name}}</h6>
         </div>
         <div class="actions req">
-            <p>Accept</p>
-            <p>Decline</p>
+            <p (click)="acceptFriendRequest(person)">Accept</p>
+            <p (click)="declineFriendRequest(person._id)">Decline</p>
         </div>
     </div>
 </main>

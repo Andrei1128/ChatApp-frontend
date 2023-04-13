@@ -1,16 +1,19 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/_core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss'],
 })
-export class DashboardPageComponent {
-  lightMode: boolean = false;
-  visibleSection: boolean = true;
+export class DashboardPageComponent implements OnInit {
+  lightMode = false;
+  visibleSection = true;
 
-  constructor(private router: Router, private elementRef: ElementRef) {}
+  constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit(): void {}
 
   changeSectionVisibility(event: MouseEvent) {
     const link = (event.target as HTMLAnchorElement).getAttribute('routerLink');
@@ -60,5 +63,13 @@ export class DashboardPageComponent {
   }
   setColor(element: string, color: string) {
     document.documentElement.style.setProperty(element, color);
+  }
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        window.sessionStorage.clear();
+        this.router.navigate(['/auth']);
+      },
+    });
   }
 }
