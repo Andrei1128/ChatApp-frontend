@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Chat } from 'src/app/_core/models/chat.model';
 import { Profile } from 'src/app/_core/models/profile.model';
+import { ChatShareService } from 'src/app/_core/services/chat-share.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 
 @Component({
@@ -15,7 +16,10 @@ export class ChatsComponent implements OnInit {
   searchChatsForm = new FormControl();
   searchFriendsForm = new FormControl();
 
-  constructor(private profileService: ProfileService) {}
+  constructor(
+    private profileService: ProfileService,
+    private chatShareService: ChatShareService
+  ) {}
 
   ngOnInit(): void {
     this.profileService.getMyProfile().subscribe((res) => {
@@ -24,6 +28,10 @@ export class ChatsComponent implements OnInit {
         this.friends = res.friends;
       }
     });
+  }
+
+  chatWith(chat: Chat) {
+    this.chatShareService.shareChat(chat);
   }
 
   searchFriends() {

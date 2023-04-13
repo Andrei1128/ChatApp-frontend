@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Chat } from 'src/app/_core/models/chat.model';
 import { AuthService } from 'src/app/_core/services/auth.service';
+import { ChatShareService } from 'src/app/_core/services/chat-share.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -10,10 +12,20 @@ import { AuthService } from 'src/app/_core/services/auth.service';
 export class DashboardPageComponent implements OnInit {
   lightMode = false;
   visibleSection = true;
+  selectedChat?: Chat;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private chatShareService: ChatShareService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.chatShareService.selectedChat$.subscribe((chat) => {
+      this.selectedChat = chat;
+      console.log(this.selectedChat._id);
+    });
+  }
 
   changeSectionVisibility(event: MouseEvent) {
     const link = (event.target as HTMLAnchorElement).getAttribute('routerLink');

@@ -6,7 +6,7 @@
                 <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
                     <img src="../../../assets/profile.png">
                     <div>
-                        <h6>Nicolaev Andrei-Ionut</h6><i class="bi bi-record-circle-fill"></i>
+                        <h6>{{chat?._id}}</h6><i class="bi bi-record-circle-fill"></i>
                     </div>
                 </div>
             </div>
@@ -35,12 +35,12 @@
         </div>
     </header>
     <main>
-        <div *ngFor="let message of messages" class="message" [ngClass]="{'from-me': message.fromMe}">
-            <h6 class="message-sender">{{ message.sender }}</h6>
+        <div *ngFor="let message of chat?.messages" class="message" [ngClass]="{'from-me': message.from===myName}">
+            <h6 class="message-sender">{{ message.from }}</h6>
             <div class="message-wrapper">
                 <img class="profile-image" src="../../../assets/profile.png">
                 <div>
-                    <p class="message-content">{{ message.text }}</p>
+                    <p class="message-content">{{ message.content }}</p>
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical action" data-bs-toggle="dropdown"></i>
                         <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">
