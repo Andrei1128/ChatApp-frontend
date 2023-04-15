@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import users from 'src/app/_core/Users';
+import { Profile } from 'src/app/_core/models/profile.model';
 
 @Component({
   selector: 'app-projects',
@@ -7,5 +7,7 @@ import users from 'src/app/_core/Users';
   styleUrls: ['./projects.component.scss'],
 })
 export class ProjectsComponent {
-  persons = users;
+  projects: any[] = [];
+  friends: Profile[] = [];
+  activeProject: any;
 }

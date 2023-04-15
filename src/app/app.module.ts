@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 const config: SocketIoConfig = {
   url: environment.apiURL,
-  options: { transports: ['websocket'] },
+  options: { transports: ['websocket'], autoConnect: false },
 };
 @NgModule({
   declarations: [AppComponent],

@@ -1,30 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chat } from 'src/app/_core/models/chat.model';
 import { AuthService } from 'src/app/_core/services/auth.service';
 import { ChatShareService } from 'src/app/_core/services/chat-share.service';
+import { ChatService } from 'src/app/_core/services/chat.service';
 
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss'],
 })
-export class DashboardPageComponent implements OnInit {
+export class DashboardPageComponent implements OnInit, OnDestroy {
   lightMode = false;
   visibleSection = true;
-  selectedChat?: Chat;
+  selectedChat!: Chat;
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private chatShareService: ChatShareService
+    private chatShareService: ChatShareService,
+    private chatService: ChatService
   ) {}
 
   ngOnInit(): void {
     this.chatShareService.selectedChat$.subscribe((chat) => {
       this.selectedChat = chat;
-      console.log(this.selectedChat._id);
     });
+    this.chatService.connect();
+  }
+  ngOnDestroy(): void {
+    this.chatService.disconnect();
   }
 
   changeSectionVisibility(event: MouseEvent) {

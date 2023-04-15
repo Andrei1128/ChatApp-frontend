@@ -6,7 +6,7 @@
                 <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
                     <img src="../../../assets/profile.png">
                     <div>
-                        <h6>{{chat?._id}}</h6><i class="bi bi-record-circle-fill"></i>
+                        <h6>{{chat._id}}</h6><i class="bi bi-record-circle-fill"></i>
                     </div>
                 </div>
             </div>
@@ -34,9 +34,10 @@
             </div>
         </div>
     </header>
-    <main>
-        <div *ngFor="let message of chat?.messages" class="message" [ngClass]="{'from-me': message.from===myName}">
-            <h6 class="message-sender">{{ message.from }}</h6>
+    <main #mainContainer>
+        <div *ngFor="let message of chat?.messages" class="message"
+            [ngClass]="{'from-me': message.from?._id===myProfile._id}">
+            <h6 class="message-sender">{{ message.from?.name }}</h6>
             <div class="message-wrapper">
                 <img class="profile-image" src="../../../assets/profile.png">
                 <div>
@@ -63,7 +64,8 @@
         </div>
     </main>
     <footer>
-        <input autocomplete="off" type="text" placeholder="Enter Message..." class="form-control">
+        <input [formControl]="messageForm" (keydown.enter)="sendMessage()" autocomplete="off" type="text"
+            placeholder="Enter Message..." class="form-control">
         <div class="Actions">
             <div>
                 <i class="bi bi-image"></i>

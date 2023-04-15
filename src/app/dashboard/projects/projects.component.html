@@ -20,8 +20,8 @@
         </label>
     </div>
     <main>
-        <div [routerLink]="['/projects']" [queryParams]="{ id: person.name }" routerLinkActive="active"
-            *ngFor="let person of persons" class="person">
+        <div routerLink="/projects" [ngClass]="{'active': activeProject === person }" *ngFor=" let person of projects"
+            class="person">
             <div class="wrapper">
                 <img src="../../../assets/profile.png">
                 <h6>#{{person.name}}</h6>
@@ -53,7 +53,7 @@
                             id="members">
                     </label>
                 </div>
-                <label *ngFor="let person of persons" class="person">
+                <label *ngFor="let person of friends" class="person">
                     <div class="wrapper">
                         <img src="../../../assets/profile.png">
                         <h6>{{person.name}}</h6>

@@ -15,8 +15,8 @@
     </div>
     <h5>Recent</h5>
     <main>
-        <div (click)="chatWith(person)" [routerLink]="['/chats']" [queryParams]="{ id: person._id }"
-            routerLinkActive="active" *ngFor="let person of chats" class="person">
+        <div (click)="chatWith(person)" *ngFor="let person of chats" [ngClass]="{'active': activeChat === person }"
+            class="person">
             <div class="wrapper">
                 <div>
                     <img src="../../../assets/profile.png">
@@ -33,6 +33,7 @@
             </div>
         </div>
     </main>
+
 </div>
 
 <!-- Modal here! -->

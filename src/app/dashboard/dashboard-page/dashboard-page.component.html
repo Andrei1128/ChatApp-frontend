@@ -56,9 +56,15 @@
     <section class="target">
         <router-outlet></router-outlet>
     </section>
-    <main class="target hidden">
+    <main *ngIf="selectedChat?._id; else noChat" class="target hidden">
         <app-chat [chat]="selectedChat"></app-chat>
     </main>
+    <ng-template #noChat>
+        <div class="noChat">
+            <i class="bi bi-chat-left"></i>
+            <h2>Start Conversation</h2>
+        </div>
+    </ng-template>
 </div>
 
 <app-offcanvas></app-offcanvas>

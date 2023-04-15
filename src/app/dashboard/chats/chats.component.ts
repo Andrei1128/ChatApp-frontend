@@ -15,6 +15,7 @@ export class ChatsComponent implements OnInit {
   friends: Profile[] = [];
   searchChatsForm = new FormControl();
   searchFriendsForm = new FormControl();
+  activeChat!: Chat;
 
   constructor(
     private profileService: ProfileService,
@@ -31,6 +32,7 @@ export class ChatsComponent implements OnInit {
   }
 
   chatWith(chat: Chat) {
+    this.activeChat = chat;
     this.chatShareService.shareChat(chat);
   }
 

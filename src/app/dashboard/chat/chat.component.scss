@@ -153,12 +153,13 @@ footer {
 
 main {
     padding: 0 3.3rem 1rem 3.3rem;
-    overflow-y: auto;
     display: flex;
+    height: 100%;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .message {
+        margin-top: 0.6rem;
         margin-bottom: 0.6rem;
         max-width: 37.5rem;
     }
