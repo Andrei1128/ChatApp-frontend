@@ -15,6 +15,7 @@ export class ChatsComponent implements OnInit {
   friends: Profile[] = [];
   searchChatsForm = new FormControl();
   searchFriendsForm = new FormControl();
+  myId?: string;
   activeChat!: Chat;
 
   constructor(
@@ -25,6 +26,7 @@ export class ChatsComponent implements OnInit {
   ngOnInit(): void {
     this.profileService.getMyProfile().subscribe((res) => {
       if (res.chats && res.friends) {
+        this.myId = res._id;
         this.chats = res.chats;
         this.friends = res.friends;
       }

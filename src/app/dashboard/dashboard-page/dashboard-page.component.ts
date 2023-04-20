@@ -25,9 +25,27 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.chatShareService.selectedChat$.subscribe((chat) => {
       this.selectedChat = chat;
+      if (this.selectedChat._id && window.innerWidth < 991) {
+        const componentList = document.querySelectorAll('.target');
+        componentList[0].classList.add('hidden');
+        componentList[1].classList.add('hidden');
+        componentList[2].classList.remove('hidden');
+        componentList[3].classList.remove('hidden');
+        this.visibleSection = false;
+      }
     });
     this.chatService.connect();
   }
+
+  closeChat() {
+    const componentList = document.querySelectorAll('.target');
+    componentList[0].classList.remove('hidden');
+    componentList[1].classList.remove('hidden');
+    componentList[2].classList.add('hidden');
+    componentList[3].classList.add('hidden');
+    this.visibleSection = true;
+  }
+
   ngOnDestroy(): void {
     this.chatService.disconnect();
   }
@@ -36,18 +54,19 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     const link = (event.target as HTMLAnchorElement).getAttribute('routerLink');
     const currentLink = this.router.url;
     const componentList = document.querySelectorAll('.target');
-
     if (this.visibleSection) {
       if (link === currentLink) {
         componentList[0].classList.add('hidden');
         componentList[1].classList.add('hidden');
         componentList[2].classList.remove('hidden');
+        componentList[3].classList.remove('hidden');
         this.visibleSection = false;
       }
     } else {
       componentList[0].classList.remove('hidden');
       componentList[1].classList.remove('hidden');
       componentList[2].classList.add('hidden');
+      componentList[3].classList.add('hidden');
       this.visibleSection = true;
     }
   }

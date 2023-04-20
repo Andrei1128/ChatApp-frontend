@@ -1,12 +1,14 @@
 <div class="chat-layout">
     <header>
         <div class="person-wrapper">
-            <p class="bi bi-arrow-left"></p>
+            <p class="bi bi-arrow-left" (click)="closeChat()"></p>
             <div class="person">
                 <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
                     <img src="../../../assets/profile.png">
                     <div>
-                        <h6>{{chat._id}}</h6><i class="bi bi-record-circle-fill"></i>
+                        <h6>{{ chat.name || chat.participants?.at(0)?._id === myProfile._id ?
+                            chat.participants?.at(1)?.name : chat.participants?.at(0)?.name }}</h6><i
+                            class="bi bi-record-circle-fill"></i>
                     </div>
                 </div>
             </div>

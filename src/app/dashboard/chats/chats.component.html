@@ -18,12 +18,13 @@
         <div (click)="chatWith(person)" *ngFor="let person of chats" [ngClass]="{'active': activeChat === person }"
             class="person">
             <div class="wrapper">
-                <div>
+                <div class="profileImg">
                     <img src="../../../assets/profile.png">
                     <i class="bi bi-circle-fill"></i>
                 </div>
                 <div class="content">
-                    <h6>{{person._id}}</h6>
+                    <h6>{{ person.name || person.participants?.at(0)?._id === myId ?
+                        person.participants?.at(1)?.name : person.participants?.at(0)?.name }}</h6>
                     <p>Last message</p>
                 </div>
             </div>

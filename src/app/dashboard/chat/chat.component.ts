@@ -1,9 +1,11 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -12,8 +14,6 @@ import { Chat } from 'src/app/_core/models/chat.model';
 import { Profile } from 'src/app/_core/models/profile.model';
 import { ChatService } from 'src/app/_core/services/chat.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
-import { Socket } from 'ngx-socket-io';
-import { Message } from 'src/app/_core/models/message.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -27,6 +27,7 @@ export class ChatComponent implements OnInit, OnChanges {
   messageForm = new FormControl();
   @ViewChild('mainContainer') mainContainer!: ElementRef;
   ChatSubscription?: Subscription;
+  @Output() changeVisibility = new EventEmitter();
 
   constructor(
     private profileService: ProfileService,
@@ -56,6 +57,10 @@ export class ChatComponent implements OnInit, OnChanges {
           }
         });
     }
+  }
+
+  closeChat() {
+    this.changeVisibility.emit();
   }
 
   updateScrollbar() {

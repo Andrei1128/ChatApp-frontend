@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Profile } from '../models/profile.model';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +14,23 @@ export class ProfileService {
     new Profile()
   );
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private socket: Socket) {
     this.httpClient
       .get(`${this.serverUrl}/myProfile`)
       .subscribe((res) => this.myProfile$.next(res));
+    this.socket.on('new friend', (friend: Profile) => {
+      this.myProfile$.value.friends?.push(friend);
+    });
+    this.socket.on('new request', (request: Profile) => {
+      this.myProfile$.value.requests?.push(request);
+    });
+    this.socket.on('rem friend', (friendId: string) => {
+      const currentProfile = this.myProfile$.value;
+      currentProfile.friends = currentProfile.friends?.filter(
+        (frd: Profile) => frd._id !== friendId
+      );
+      this.myProfile$.next(currentProfile);
+    });
   }
 
   getMyProfile(): Observable<Profile> {
@@ -34,12 +48,10 @@ export class ProfileService {
       .pipe(
         tap(() => {
           const currentProfile = this.myProfile$.value;
-          currentProfile.requests =
-            currentProfile.requests &&
-            currentProfile.requests.filter(
-              (req: Profile) => req._id !== friendId
-            );
-          currentProfile.friends && currentProfile.friends.push(friendProfile);
+          currentProfile.requests = currentProfile.requests?.filter(
+            (req: Profile) => req._id !== friendId
+          );
+          currentProfile.friends?.push(friendProfile);
           this.myProfile$.next(currentProfile);
         })
       );
@@ -49,9 +61,9 @@ export class ProfileService {
     return this.httpClient.patch(`${this.serverUrl}/decline`, { id }).pipe(
       tap(() => {
         const currentProfile = this.myProfile$.value;
-        currentProfile.requests =
-          currentProfile.requests &&
-          currentProfile.requests.filter((req: Profile) => req._id !== id);
+        currentProfile.requests = currentProfile.requests?.filter(
+          (req: Profile) => req._id !== id
+        );
         this.myProfile$.next(currentProfile);
       })
     );
@@ -61,9 +73,9 @@ export class ProfileService {
     return this.httpClient.patch(`${this.serverUrl}/remove`, { id }).pipe(
       tap(() => {
         const currentProfile = this.myProfile$.value;
-        currentProfile.friends =
-          currentProfile.friends &&
-          currentProfile.friends.filter((frd: Profile) => frd._id !== id);
+        currentProfile.friends = currentProfile.friends?.filter(
+          (frd: Profile) => frd._id !== id
+        );
         this.myProfile$.next(currentProfile);
       })
     );

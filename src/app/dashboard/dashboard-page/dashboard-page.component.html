@@ -56,14 +56,19 @@
     <section class="target">
         <router-outlet></router-outlet>
     </section>
-    <main *ngIf="selectedChat?._id; else noChat" class="target hidden">
-        <app-chat [chat]="selectedChat"></app-chat>
+    <main class="target hidden">
+        <div *ngIf="selectedChat?._id; else noChat">
+            <app-chat (changeVisibility)="closeChat()" [chat]="selectedChat"></app-chat>
+        </div>
     </main>
     <ng-template #noChat>
-        <div class="noChat">
-            <i class="bi bi-chat-left"></i>
-            <h2>Start Conversation</h2>
-        </div>
+        <main class="noChat target hidden">
+            <p class="bi bi-arrow-left" (click)="closeChat()"></p>
+            <article>
+                <i class="bi bi-chat-left"></i>
+                <h2>Start Conversation</h2>
+            </article>
+        </main>
     </ng-template>
 </div>
 

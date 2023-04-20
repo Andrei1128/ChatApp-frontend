@@ -53,8 +53,8 @@ header {
         margin: 0;
         font-size: 1.03rem;
         color: var(--secondary-font);
-        display: inline-block;
-        width: fit-content;
+        display: block;
+        word-break: break-all;
     }
 
     .Actions {
@@ -159,6 +159,7 @@ main {
     overflow-y: auto;
 
     .message {
+        overflow: visible;
         margin-top: 0.6rem;
         margin-bottom: 0.6rem;
         max-width: 37.5rem;
@@ -208,6 +209,9 @@ main {
     }
 
     .message-content {
+        overflow: visible;
+        max-width: 37.5rem;
+        overflow-wrap: break-word;
         font-size: 0.99rem;
         border: 1px solid var(--active);
         background-color: var(--aside-background);
@@ -309,12 +313,76 @@ main {
 @media only screen and (max-width: 1350px) {
     main {
         padding: 0 2.2rem 1rem 2.2rem;
+
+        .message {
+            max-width: 33rem;
+        }
+
+        .message-content {
+            max-width: 33rem;
+        }
     }
+
 }
 
 @media only screen and (max-width: 1150px) {
     main {
         padding: 0 1.5rem 1rem 1.5rem;
+
+        .message {
+            max-width: 24rem;
+        }
+
+        .message-content {
+            max-width: 24rem;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 635px) {
+    main {
+        .message {
+            max-width: 21.8rem;
+        }
+
+        .message-content {
+            max-width: 21.8rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    main {
+        .message {
+            max-width: 100%;
+        }
+
+        .message-content {
+            max-width: 63vw;
+        }
+    }
+
+    header {
+        .bi-arrow-left {
+            cursor: pointer;
+            -webkit-text-stroke-width: 0.3px;
+            background-color: var(--aside-background);
+            border-radius: 100%;
+            padding: 0.3rem;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+            color: var(--primary-font);
+            display: inherit;
+        }
+
+        .bi-arrow-left:hover {
+            opacity: 0.7
+        }
+
+        .person {
+            margin-left: 0;
+        }
     }
 }
 
@@ -322,6 +390,10 @@ main {
     footer {
         .bi {
             font-size: 1.2rem
+        }
+
+        .bi-send-fill {
+            padding: 6px 14px 5px 12px;
         }
 
         padding-left: 1.5rem;
@@ -375,6 +447,10 @@ main {
     footer {
         gap: 1rem;
         padding: 0.7rem 0.7rem 1rem 0.7rem;
+
+        .bi-send-fill {
+            padding: 4px 11px 4px 9px;
+        }
     }
 
     header {
@@ -404,28 +480,4 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-@media only screen and (max-width: 599px) {
-    header {
-        .bi-arrow-left {
-            cursor: pointer;
-            -webkit-text-stroke-width: 0.3px;
-            background-color: var(--aside-background);
-            border-radius: 100%;
-            padding: 0.3rem;
-            font-size: 1.2rem;
-            margin-left: 1rem;
-            color: var(--primary-font);
-            display: inherit;
-        }
-
-        .bi-arrow-left:hover {
-            opacity: 0.7
-        }
-
-        .person {
-            margin-left: 0;
-        }
-    }
 }

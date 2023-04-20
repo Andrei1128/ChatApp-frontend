@@ -8,6 +8,10 @@
     }
 }
 
+.profileImg {
+    min-width: 47.59px
+}
+
 main {
     .wrapper {
         gap: 0.3rem;
@@ -17,6 +21,7 @@ main {
 }
 
 .info {
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;

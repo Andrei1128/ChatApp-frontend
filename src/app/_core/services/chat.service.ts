@@ -4,6 +4,7 @@ import { Socket } from 'ngx-socket-io';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Message } from '../models/message.model';
+import { ProfileService } from './profile.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,11 @@ export class ChatService {
   public message: BehaviorSubject<any> = new BehaviorSubject('');
   private lastChatListener: string | undefined;
 
-  constructor(private socket: Socket, private httpClient: HttpClient) {}
+  constructor(
+    private socket: Socket,
+    private httpClient: HttpClient,
+    private profileService: ProfileService
+  ) {}
 
   chatWith(participants: any[]): Observable<any> {
     return this.httpClient.post(`${this.serverUrl}/chat`, {
@@ -23,7 +28,11 @@ export class ChatService {
   }
 
   connect() {
-    this.socket.connect();
+    this.profileService.getMyProfile().subscribe((res) => {
+      const userID = res._id;
+      this.socket.ioSocket.auth = { userID };
+      this.socket.connect();
+    });
   }
   disconnect() {
     this.socket.disconnect();
