@@ -3,7 +3,7 @@
         <div class="person-wrapper">
             <p class="bi bi-arrow-left" (click)="closeChat()"></p>
             <div class="person">
-                <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
+                <div (click)="viewProfile()" class="wrapper">
                     <img src="../../../assets/profile.png">
                     <div>
                         <h6>{{ chat.name || chat.participants?.at(0)?._id === myProfile._id ?
@@ -22,7 +22,7 @@
             </div>
             <i data-bs-toggle="modal" data-bs-target="#audioModal" class="bi action bi-telephone"></i>
             <i data-bs-toggle="modal" data-bs-target="#videoModal" class="bi action bi-camera-video"></i>
-            <i data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="bi action bi-person"></i>
+            <i (click)="viewProfile()" class="bi action bi-person"></i>
             <div class="dropdown">
                 <i class="bi action bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
                 <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">

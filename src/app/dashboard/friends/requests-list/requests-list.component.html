@@ -6,7 +6,7 @@
 </div>
 <main class="overflow">
     <div *ngFor="let person of requests" class="person">
-        <div data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" class="wrapper">
+        <div (click)="viewProfile(person._id)" class="wrapper">
             <img src="../../../assets/profile.png">
             <h6>{{person.name}}</h6>
         </div>

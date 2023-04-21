@@ -15,7 +15,7 @@ import { Profile } from 'src/app/_core/models/profile.model';
 import { ChatService } from 'src/app/_core/services/chat.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 import { Subscription } from 'rxjs';
-import { ChatShareService } from 'src/app/_core/services/chat-share.service';
+import { DataShareService } from 'src/app/_core/services/data-share.service';
 
 @Component({
   selector: 'app-chat',
@@ -33,7 +33,7 @@ export class ChatComponent implements OnInit, OnChanges {
   constructor(
     private profileService: ProfileService,
     private chatService: ChatService,
-    private chatShareService: ChatShareService
+    private dataShareService: DataShareService
   ) {}
 
   ngOnInit(): void {
@@ -65,9 +65,18 @@ export class ChatComponent implements OnInit, OnChanges {
     this.changeVisibility.emit();
   }
 
+  viewProfile() {
+    let id;
+    const participants = this.chat.participants;
+    if (participants && participants[0]._id === this.myProfile._id)
+      id = participants[1]._id;
+    else id = participants && participants[0]._id;
+    this.dataShareService.shareProfile(id as string);
+  }
+
   deleteChat() {
     this.chatService.deleteChat(this.chat._id as string).subscribe((res) => {
-      this.chatShareService.shareChat(undefined);
+      this.dataShareService.shareChat(undefined);
       const currentProfile = this.profileService.myProfile$.value;
       currentProfile.chats = currentProfile.chats?.filter(
         (chat: Chat) => chat._id !== this.chat._id

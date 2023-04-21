@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Profile } from 'src/app/_core/models/profile.model';
+import { DataShareService } from 'src/app/_core/services/data-share.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 
 @Component({
@@ -12,7 +13,10 @@ export class FriendsComponent {
   peoples: Profile[] = [];
   searchPeoplesForm = new FormControl();
 
-  constructor(private profileService: ProfileService) {}
+  constructor(
+    private profileService: ProfileService,
+    private dataShareService: DataShareService
+  ) {}
 
   searchPeoples() {
     this.profileService
@@ -24,5 +28,8 @@ export class FriendsComponent {
     this.profileService.sendFriendRequest(id as string).subscribe(() => {
       this.peoples = this.peoples.filter((ppl) => ppl._id != id);
     });
+  }
+  viewProfile(id?: string) {
+    this.dataShareService.shareProfile(id as string);
   }
 }

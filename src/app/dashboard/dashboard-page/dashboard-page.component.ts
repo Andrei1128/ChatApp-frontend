@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chat } from 'src/app/_core/models/chat.model';
 import { AuthService } from 'src/app/_core/services/auth.service';
-import { ChatShareService } from 'src/app/_core/services/chat-share.service';
+import { DataShareService } from 'src/app/_core/services/data-share.service';
 import { ChatService } from 'src/app/_core/services/chat.service';
+import { Profile } from 'src/app/_core/models/profile.model';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-dashboard-page',
@@ -14,16 +16,17 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   lightMode = false;
   visibleSection = true;
   selectedChat!: Chat;
+  selectedProfile!: Profile;
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private chatShareService: ChatShareService,
+    private dataShareService: DataShareService,
     private chatService: ChatService
   ) {}
 
   ngOnInit(): void {
-    this.chatShareService.selectedChat$.subscribe((chat) => {
+    this.dataShareService.selectedChat$.subscribe((chat) => {
       if (chat) this.selectedChat = chat;
       else {
         if (this.selectedChat) this.selectedChat._id = undefined;
@@ -35,6 +38,14 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         componentList[2].classList.remove('hidden');
         if (componentList[3]) componentList[3].classList.remove('hidden');
         this.visibleSection = false;
+      }
+    });
+    this.dataShareService.selectedProfile$.subscribe((profile: Profile) => {
+      this.selectedProfile = profile;
+      if (this.selectedProfile.name) {
+        var myOffcanvas = document.getElementById('offcanvasExample');
+        var offcanvas = new bootstrap.Offcanvas(myOffcanvas);
+        offcanvas.show();
       }
     });
     this.chatService.connect();

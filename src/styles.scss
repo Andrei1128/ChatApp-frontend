@@ -436,3 +436,7 @@ input[type="text"]:-ms-input-placeholder {
 input[type="text"]:-moz-placeholder {
     color: var(--primary-font);
 }
+
+.offcanvas-backdrop {
+    z-index: 1900;
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Profile } from 'src/app/_core/models/profile.model';
+import { DataShareService } from 'src/app/_core/services/data-share.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 
 @Component({
@@ -12,7 +13,10 @@ export class RequestsListComponent implements OnInit {
   requests: Profile[] = [];
   searchRequestsForm = new FormControl();
 
-  constructor(private profileService: ProfileService) {}
+  constructor(
+    private profileService: ProfileService,
+    private dataShareService: DataShareService
+  ) {}
 
   ngOnInit(): void {
     this.profileService.getMyProfile().subscribe((res) => {
@@ -37,5 +41,8 @@ export class RequestsListComponent implements OnInit {
         );
       }
     });
+  }
+  viewProfile(id?: string) {
+    this.dataShareService.shareProfile(id as string);
   }
 }
