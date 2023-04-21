@@ -64,6 +64,11 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .bi-check-lg {
+        font-size: 1.1rem;
+        margin-top: -6px;
+    }
 }
 
 main {
@@ -74,5 +79,26 @@ main {
 }
 
 .content {
+    overflow-wrap: break-word;
+    max-width: 100%;
     padding: 0 1.3rem;
+}
+
+.form-control {
+    width: calc(100% - 2.6rem);
+    margin: 0 1.3rem;
+    background-color: var(--aside-background);
+    border-color: var(--main-background);
+    color: var(--primary-font);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.margin {
+    margin-bottom: -15px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--active);
 }

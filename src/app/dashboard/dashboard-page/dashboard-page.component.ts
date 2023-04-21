@@ -24,13 +24,16 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.chatShareService.selectedChat$.subscribe((chat) => {
-      this.selectedChat = chat;
-      if (this.selectedChat._id && window.innerWidth < 991) {
+      if (chat) this.selectedChat = chat;
+      else {
+        if (this.selectedChat) this.selectedChat._id = undefined;
+      }
+      if (this.selectedChat?._id && window.innerWidth < 991) {
         const componentList = document.querySelectorAll('.target');
         componentList[0].classList.add('hidden');
         componentList[1].classList.add('hidden');
         componentList[2].classList.remove('hidden');
-        componentList[3].classList.remove('hidden');
+        if (componentList[3]) componentList[3].classList.remove('hidden');
         this.visibleSection = false;
       }
     });
@@ -42,7 +45,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     componentList[0].classList.remove('hidden');
     componentList[1].classList.remove('hidden');
     componentList[2].classList.add('hidden');
-    componentList[3].classList.add('hidden');
+    if (componentList[3]) componentList[3].classList.add('hidden');
     this.visibleSection = true;
   }
 
@@ -59,14 +62,14 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         componentList[0].classList.add('hidden');
         componentList[1].classList.add('hidden');
         componentList[2].classList.remove('hidden');
-        componentList[3].classList.remove('hidden');
+        if (componentList[3]) componentList[3].classList.remove('hidden');
         this.visibleSection = false;
       }
     } else {
       componentList[0].classList.remove('hidden');
       componentList[1].classList.remove('hidden');
       componentList[2].classList.add('hidden');
-      componentList[3].classList.add('hidden');
+      if (componentList[3]) componentList[3].classList.add('hidden');
       this.visibleSection = true;
     }
   }

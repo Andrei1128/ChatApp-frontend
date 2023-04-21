@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Profile } from 'src/app/_core/models/profile.model';
+import { ChatShareService } from 'src/app/_core/services/chat-share.service';
 import { ChatService } from 'src/app/_core/services/chat.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 
@@ -16,7 +17,8 @@ export class FriendsListComponent {
 
   constructor(
     private profileService: ProfileService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private chatShareService: ChatShareService
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +32,18 @@ export class FriendsListComponent {
 
   chatWith(id?: string) {
     const participants = [id, this.myId];
-    this.chatService.chatWith(participants).subscribe();
+    this.chatService.chatWith(participants).subscribe((chat) => {
+      console.log(chat);
+      if (typeof chat === 'string') {
+        this.profileService.getMyProfile().subscribe((res) => {
+          const chatFound = res.chats?.find((ch) => ch._id === chat);
+          if (chatFound) this.chatShareService.shareChat(chatFound);
+        });
+      } else {
+        this.profileService.myProfile$.value.chats?.push(chat);
+        this.chatShareService.shareChat(chat);
+      }
+    });
   }
 
   removeFriend(id?: string) {

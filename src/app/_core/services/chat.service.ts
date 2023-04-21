@@ -27,6 +27,10 @@ export class ChatService {
     });
   }
 
+  deleteChat(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.serverUrl}/delete/${id}`);
+  }
+
   connect() {
     this.profileService.getMyProfile().subscribe((res) => {
       const userID = res._id;

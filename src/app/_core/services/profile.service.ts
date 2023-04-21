@@ -10,7 +10,7 @@ import { Socket } from 'ngx-socket-io';
 })
 export class ProfileService {
   private readonly serverUrl = `${environment.apiURL}/profile`;
-  private myProfile$: BehaviorSubject<Profile> = new BehaviorSubject<Profile>(
+  public myProfile$: BehaviorSubject<Profile> = new BehaviorSubject<Profile>(
     new Profile()
   );
 
@@ -35,6 +35,19 @@ export class ProfileService {
 
   getMyProfile(): Observable<Profile> {
     return this.myProfile$.asObservable();
+  }
+
+  updateName(content: string, id: string): Observable<any> {
+    return this.httpClient.patch(`${this.serverUrl}/updateName`, {
+      id,
+      name: content,
+    });
+  }
+  updateAbout(content: string, id: string): Observable<any> {
+    return this.httpClient.patch(`${this.serverUrl}/updateAbout`, {
+      id,
+      about: content,
+    });
   }
 
   sendFriendRequest(id: string): Observable<any> {

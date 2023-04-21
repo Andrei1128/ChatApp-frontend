@@ -13,12 +13,25 @@
     </section>
     <main>
         <div class="title">
-            <h6>Your name</h6><i class="bi bi-pencil-fill"></i>
+            <h6>Your name</h6>
+            <i class="bi targetedIcons bi-pencil-fill" (click)="editInfo('name')"></i>
         </div>
-        <p class="content">{{myProfile.name}}</p>
+        <ng-container *ngIf="!showNameInput; else nameInput">
+            <p class="content">{{myProfile.name}}</p>
+        </ng-container>
+        <ng-template #nameInput>
+            <input class="form-control margin" type="text" [(ngModel)]="myProfile.name">
+        </ng-template>
         <div class="title">
-            <h6>About</h6><i class="bi bi-pencil-fill"></i>
+            <h6>About</h6>
+            <i class="bi targetedIcons bi-pencil-fill" (click)="editInfo('about')"></i>
         </div>
-        <p class="content">{{myProfile.about}}</p>
+        <ng-container *ngIf="!showAboutTextarea; else aboutTextarea">
+            <p class="content">{{myProfile.about}}</p>
+        </ng-container>
+        <ng-template #aboutTextarea>
+            <textarea class="form-control" [(ngModel)]=" myProfile.about"></textarea>
+        </ng-template>
     </main>
+
 </div>

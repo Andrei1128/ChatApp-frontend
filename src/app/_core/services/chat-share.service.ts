@@ -6,10 +6,10 @@ import { Chat } from '../models/chat.model';
   providedIn: 'root',
 })
 export class ChatShareService {
-  private chat = new BehaviorSubject<Chat>(new Chat());
+  private chat = new BehaviorSubject<Chat | undefined>(undefined);
   selectedChat$ = this.chat.asObservable();
 
-  shareChat(chat: Chat) {
+  shareChat(chat?: Chat) {
     this.chat.next(chat);
   }
 }

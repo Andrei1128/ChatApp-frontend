@@ -12,6 +12,7 @@ import { RequestsListComponent } from './friends/requests-list/requests-list.com
 import { SettingsComponent } from './settings/settings.component';
 import { ChatComponent } from './chat/chat.component';
 import { OffcanvasComponent } from './offcanvas/offcanvas.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,11 @@ import { OffcanvasComponent } from './offcanvas/offcanvas.component';
     ChatComponent,
     OffcanvasComponent,
   ],
-  imports: [CommonModule, DashboardRoutingModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
 })
 export class DashboardModule {}
