@@ -37,12 +37,20 @@ export class ProfileService {
     return this.myProfile$.asObservable();
   }
 
+  updateImage(image: string, id: string): Observable<any> {
+    return this.httpClient.patch(`${this.serverUrl}/updateImage`, {
+      id,
+      image,
+    });
+  }
+
   updateName(content: string, id: string): Observable<any> {
     return this.httpClient.patch(`${this.serverUrl}/updateName`, {
       id,
       name: content,
     });
   }
+
   updateAbout(content: string, id: string): Observable<any> {
     return this.httpClient.patch(`${this.serverUrl}/updateAbout`, {
       id,

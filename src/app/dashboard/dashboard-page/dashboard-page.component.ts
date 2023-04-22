@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/_core/services/auth.service';
 import { DataShareService } from 'src/app/_core/services/data-share.service';
 import { ChatService } from 'src/app/_core/services/chat.service';
 import { Profile } from 'src/app/_core/models/profile.model';
+import { ProfileService } from 'src/app/_core/services/profile.service';
 declare var bootstrap: any;
 
 @Component({
@@ -17,15 +18,20 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   visibleSection = true;
   selectedChat!: Chat;
   selectedProfile!: Profile;
+  myProfileImage?: string;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private dataShareService: DataShareService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
+    this.profileService.getMyProfile().subscribe((res) => {
+      this.myProfileImage = res.image;
+    });
     this.dataShareService.selectedChat$.subscribe((chat) => {
       if (chat) this.selectedChat = chat;
       else {

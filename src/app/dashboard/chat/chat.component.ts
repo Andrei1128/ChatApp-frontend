@@ -58,6 +58,7 @@ export class ChatComponent implements OnInit, OnChanges {
             });
           }
         });
+      console.log(this.chat.participants);
     }
   }
 

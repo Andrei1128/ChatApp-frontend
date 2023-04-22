@@ -34,7 +34,7 @@
                 </div>
                 <div *ngFor="let person of peoples" class="person">
                     <div (click)="viewProfile(person._id)" class="wrapper">
-                        <img src="../../../assets/profile.png">
+                        <img [src]="person.image || '../../../assets/profile.png'">
                         <h6>{{person.name}}</h6>
                     </div>
                     <div class="actions">

@@ -4,6 +4,7 @@ import { Profile } from './profile.model';
 export class Chat {
   _id?: string;
   name?: string;
+  image?: string;
   participants?: Profile[];
   messages?: Message[];
 }

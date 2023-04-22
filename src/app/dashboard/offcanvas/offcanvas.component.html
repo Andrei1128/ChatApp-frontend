@@ -4,7 +4,7 @@
     </div>
     <div class="offcanvas-body">
         <header class="flex">
-            <img src="../../../assets/profile.png">
+            <img [src]="profile.image || '../../../assets/profile.png'">
             <div class="flex">
                 <h5>{{profile.name}}</h5>
                 <div class="flex inline">

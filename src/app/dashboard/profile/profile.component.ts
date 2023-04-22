@@ -19,6 +19,48 @@ export class ProfileComponent implements OnInit {
       .subscribe((res) => (this.myProfile = res));
   }
 
+  uploadFile(event: any) {
+    const imageFile = event.target.files[0];
+    if (!imageFile.type.startsWith('image/')) {
+      console.error('Selected file is not an image');
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(imageFile);
+    reader.onload = () => {
+      const img = new Image();
+      img.src = reader.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const size = Math.min(img.width, img.height);
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(
+            img,
+            (img.width - size) / 2,
+            (img.height - size) / 2,
+            size,
+            size,
+            0,
+            0,
+            size,
+            size
+          );
+          const dataUrl = canvas.toDataURL();
+          this.profileService
+            .updateImage(dataUrl, this.myProfile._id as string)
+            .subscribe(() => {
+              this.myProfile.image = dataUrl;
+            });
+        } else {
+          console.error('Failed to get canvas context');
+        }
+      };
+    };
+  }
+
   editInfo(elem: string) {
     const icons = document.getElementsByClassName('targetedIcons');
     if (elem === 'name') {

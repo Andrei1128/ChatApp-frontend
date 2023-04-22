@@ -4,7 +4,8 @@
             <p class="bi bi-arrow-left" (click)="closeChat()"></p>
             <div class="person">
                 <div (click)="viewProfile()" class="wrapper">
-                    <img src="../../../assets/profile.png">
+                    <img [src]="(chat.image || (chat.participants?.at(0)?._id === myProfile._id ?
+    chat.participants?.at(1)?.image : chat.participants?.at(0)?.image)) || '../../../assets/profile.png'">
                     <div>
                         <h6>{{ chat.name || chat.participants?.at(0)?._id === myProfile._id ?
                             chat.participants?.at(1)?.name : chat.participants?.at(0)?.name }}</h6><i
@@ -41,7 +42,7 @@
             [ngClass]="{'from-me': message.from?._id===myProfile._id}">
             <h6 class="message-sender">{{ message.from?.name }}</h6>
             <div class="message-wrapper">
-                <img class="profile-image" src="../../../assets/profile.png">
+                <img class="profile-image" [src]="message.from?.image || '../../../assets/profile.png'">
                 <div>
                     <p class="message-content">{{ message.content }}</p>
                     <div class="dropdown">
@@ -82,7 +83,7 @@
 <div class="modal fade" id="audioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-            <img src="../../../assets/profile.png">
+            [src]="myProfile.image || '../../../assets/profile.png'"
             <h4>Patrick Hendricks</h4>
             <p>Start Audio Call</p>
             <div class="Actions"><i class="bi bi-x-lg"></i><i class="bi bi-telephone-fill"></i></div>
@@ -92,7 +93,7 @@
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-            <img src="../../../assets/profile.png">
+            <img [src]="myProfile.image || '../../../assets/profile.png'">
             <h4>Patrick Hendricks</h4>
             <p>Start Video Call</p>
             <div class="Actions"><i class="bi bi-x-lg"></i><i class="bi bi-camera-video-fill"></i></div>
