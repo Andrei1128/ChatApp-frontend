@@ -15,15 +15,14 @@ export class ProfileService {
   );
 
   constructor(private httpClient: HttpClient, private socket: Socket) {
-    this.httpClient
-      .get(`${this.serverUrl}/myProfile`)
-      .subscribe((res) => this.myProfile$.next(res));
     this.socket.on('new friend', (friend: Profile) => {
       this.myProfile$.value.friends?.push(friend);
     });
+
     this.socket.on('new request', (request: Profile) => {
       this.myProfile$.value.requests?.push(request);
     });
+
     this.socket.on('rem friend', (friendId: string) => {
       const currentProfile = this.myProfile$.value;
       currentProfile.friends = currentProfile.friends?.filter(
@@ -33,27 +32,32 @@ export class ProfileService {
     });
   }
 
+  clearProfile() {
+    this.myProfile$.next(new Profile());
+  }
+
   getMyProfile(): Observable<Profile> {
+    if (!this.myProfile$.value._id)
+      this.httpClient
+        .get(`${this.serverUrl}/myProfile`)
+        .subscribe((res) => this.myProfile$.next(res));
     return this.myProfile$.asObservable();
   }
 
-  updateImage(image: string, id: string): Observable<any> {
+  updateImage(image: string): Observable<any> {
     return this.httpClient.patch(`${this.serverUrl}/updateImage`, {
-      id,
       image,
     });
   }
 
-  updateName(content: string, id: string): Observable<any> {
+  updateName(content: string): Observable<any> {
     return this.httpClient.patch(`${this.serverUrl}/updateName`, {
-      id,
       name: content,
     });
   }
 
-  updateAbout(content: string, id: string): Observable<any> {
+  updateAbout(content: string): Observable<any> {
     return this.httpClient.patch(`${this.serverUrl}/updateAbout`, {
-      id,
       about: content,
     });
   }

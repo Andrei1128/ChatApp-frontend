@@ -319,6 +319,7 @@ p.new-messages {
 .icon-container {
     position: relative;
     display: inline-block;
+    z-index: 100;
 
     .tooltip-text {
         user-select: none;

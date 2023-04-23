@@ -30,6 +30,6 @@ export class FriendsComponent {
     });
   }
   viewProfile(id?: string) {
-    this.dataShareService.shareProfile(id as string);
+    this.dataShareService.shareProfile(id as string, false);
   }
 }

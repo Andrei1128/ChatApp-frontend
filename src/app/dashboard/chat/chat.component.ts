@@ -58,7 +58,6 @@ export class ChatComponent implements OnInit, OnChanges {
             });
           }
         });
-      console.log(this.chat.participants);
     }
   }
 
@@ -68,11 +67,16 @@ export class ChatComponent implements OnInit, OnChanges {
 
   viewProfile() {
     let id;
-    const participants = this.chat.participants;
-    if (participants && participants[0]._id === this.myProfile._id)
-      id = participants[1]._id;
-    else id = participants && participants[0]._id;
-    this.dataShareService.shareProfile(id as string);
+    if (this.chat.name) {
+      id = this.chat._id;
+      this.dataShareService.shareProfile(id as string, true);
+    } else {
+      const participants = this.chat.participants;
+      if (participants && participants[0]._id === this.myProfile._id)
+        id = participants[1]._id;
+      else id = participants && participants[0]._id;
+      this.dataShareService.shareProfile(id as string, false);
+    }
   }
 
   deleteChat() {

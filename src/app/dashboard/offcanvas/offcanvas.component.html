@@ -6,15 +6,39 @@
         <header class="flex">
             <img [src]="profile.image || '../../../assets/profile.png'">
             <div class="flex">
-                <h5>{{profile.name}}</h5>
-                <div class="flex inline">
+                <div *ngIf="chat; else elseBlock" class="title">
+                    <h5>{{profile.name}}</h5><i (click)="editInfo('name')" class="bi Edit bi-pencil-fill"></i>
+                </div>
+                <ng-template #elseBlock>
+                    <h5>{{profile.name}}</h5>
+                </ng-template>
+                <div *ngIf="!chat;" class="flex inline">
                     <i class="bi bi-record-circle-fill"></i>
                     <p> online</p>
                 </div>
             </div>
         </header>
-        <footer>
+        <footer *ngIf="!chat">
             <p>{{profile.about}}</p>
+        </footer>
+        <footer *ngIf="chat">
+            <div class="about">
+                <h6 class="titles">About</h6>
+                <i (click)="editInfo('about')" class="bi Edit bi-pencil-fill"></i>
+            </div>
+            <ng-container *ngIf="!showAboutTextarea; else aboutTextarea">
+                <p class="content">{{profile.about}}</p>
+            </ng-container>
+            <ng-template #aboutTextarea>
+                <textarea class="form-control" [(ngModel)]="profile.about"></textarea>
+            </ng-template>
+            <h6 class="titles">Participants ({{profile.participants.length}})</h6>
+            <div *ngFor="let person of profile.participants" class="person">
+                <div class="wrapper">
+                    <img [src]="person.image || '../../../assets/profile.png'">
+                    <h6>{{person.name}}</h6>
+                </div>
+            </div>
         </footer>
     </div>
 </div>

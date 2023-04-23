@@ -33,7 +33,6 @@ export class FriendsListComponent {
   chatWith(id?: string) {
     const participants = [id, this.myId];
     this.chatService.chatWith(participants).subscribe((chat) => {
-      console.log(chat);
       if (typeof chat === 'string') {
         this.profileService.getMyProfile().subscribe((res) => {
           const chatFound = res.chats?.find((ch) => ch._id === chat);
@@ -62,6 +61,6 @@ export class FriendsListComponent {
   }
 
   viewProfile(id?: string) {
-    this.dataShareService.shareProfile(id as string);
+    this.dataShareService.shareProfile(id as string, false);
   }
 }

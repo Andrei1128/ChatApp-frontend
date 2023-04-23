@@ -24,7 +24,7 @@
             <input class="form-control margin" type="text" [(ngModel)]="myProfile.name">
         </ng-template>
         <div class="title">
-            <h6>About</h6>
+            <h6>Info</h6>
             <i class="bi targetedIcons bi-pencil-fill" (click)="editInfo('about')"></i>
         </div>
         <ng-container *ngIf="!showAboutTextarea; else aboutTextarea">

@@ -43,6 +43,6 @@ export class RequestsListComponent implements OnInit {
     });
   }
   viewProfile(id?: string) {
-    this.dataShareService.shareProfile(id as string);
+    this.dataShareService.shareProfile(id as string, false);
   }
 }

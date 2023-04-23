@@ -8,10 +8,12 @@ import { ProfileService } from 'src/app/_core/services/profile.service';
 })
 export class SettingsComponent implements OnInit {
   myProfileImage?: string;
+  myName?: string;
   constructor(private profileService: ProfileService) {}
   ngOnInit(): void {
     this.profileService.getMyProfile().subscribe((res) => {
       this.myProfileImage = res.image;
+      this.myName = res.name;
     });
   }
 }

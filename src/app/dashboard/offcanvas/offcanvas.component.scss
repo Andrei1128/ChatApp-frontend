@@ -18,12 +18,31 @@
 }
 
 h5 {
+    margin: 0;
     font-size: 1.1rem;
     color: var(--secondary-font);
 }
 
+h6 {
+    color: var(--secondary-font);
+}
+
+.titles {
+    margin: 0;
+
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 p {
     color: var(--primary-font);
+    overflow-wrap: break-word;
 }
 
 .flex {
@@ -64,4 +83,30 @@ footer {
     p {
         font-size: 0.95rem;
     }
+}
+
+.Edit {
+    color: var(--primary-font);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 5px;
+}
+
+.Edit:hover {
+    opacity: 0.8;
+}
+
+.title {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    margin-left: 2.5rem;
+}
+
+.person {
+    cursor: default;
+}
+
+.person:active {
+    opacity: 1;
 }

@@ -9,3 +9,7 @@ export class Profile {
   chats?: Chat[];
   requests?: Profile[];
 }
+
+export class customProfile extends Profile {
+  selected?: boolean = false;
+}

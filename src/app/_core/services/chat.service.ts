@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Message } from '../models/message.model';
 import { ProfileService } from './profile.service';
+import { Profile } from '../models/profile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +22,10 @@ export class ChatService {
     private profileService: ProfileService
   ) {}
 
-  chatWith(participants: any[]): Observable<any> {
+  chatWith(participants: any[], name?: string): Observable<any> {
     return this.httpClient.post(`${this.serverUrl}/chat`, {
       participants,
+      name,
     });
   }
 

@@ -121,11 +121,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     document.documentElement.style.setProperty(element, color);
   }
   logout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        window.sessionStorage.clear();
-        this.router.navigate(['/auth']);
-      },
+    this.authService.logout().subscribe(() => {
+      this.profileService.clearProfile();
+      this.dataShareService.clearData();
+      window.sessionStorage.clear();
+      this.router.navigate(['/auth']);
     });
   }
 }

@@ -49,11 +49,10 @@ export class ProfileComponent implements OnInit {
             size
           );
           const dataUrl = canvas.toDataURL();
-          this.profileService
-            .updateImage(dataUrl, this.myProfile._id as string)
-            .subscribe(() => {
-              this.myProfile.image = dataUrl;
-            });
+          this.profileService.updateImage(dataUrl).subscribe(() => {
+            this.myProfile.image = dataUrl;
+            this.profileService.myProfile$.next(this.myProfile);
+          });
         } else {
           console.error('Failed to get canvas context');
         }
@@ -69,10 +68,7 @@ export class ProfileComponent implements OnInit {
       else {
         icons[0].classList.replace('bi-check-lg', 'bi-pencil-fill');
         this.profileService
-          .updateName(
-            this.myProfile.name as string,
-            this.myProfile._id as string
-          )
+          .updateName(this.myProfile.name as string)
           .subscribe();
       }
       this.showNameInput = !this.showNameInput;
@@ -82,10 +78,7 @@ export class ProfileComponent implements OnInit {
       else {
         icons[1].classList.replace('bi-check-lg', 'bi-pencil-fill');
         this.profileService
-          .updateAbout(
-            this.myProfile.about as string,
-            this.myProfile._id as string
-          )
+          .updateAbout(this.myProfile.about as string)
           .subscribe();
       }
       this.showAboutTextarea = !this.showAboutTextarea;
