@@ -6,7 +6,7 @@
         <header class="flex">
             <ng-container *ngIf="chat; else photo">
                 <label class="image-container">
-                    <img [src]="profile.image || '../../../assets/profile.png'">
+                    <img class="groupImage" [src]="profile.image || '../../../assets/profile.png'">
                     <div class="overlay">
                         <i class="bi bi-camera"></i>
                         <p>change photo</p>
@@ -31,7 +31,7 @@
                     <h5>{{profile.name}}</h5>
                 </ng-template>
                 <div *ngIf="!chat;" class="flex inline">
-                    <i class="bi bi-record-circle-fill"></i>
+                    <i class="bi bi-record-circle-fill online"></i>
                     <p> online</p>
                 </div>
             </div>
@@ -41,7 +41,7 @@
         </footer>
         <footer *ngIf="chat">
             <div class="about">
-                <h6 class="titles">About</h6>
+                <h6 class="titles">Info</h6>
                 <i (click)="editInfo('about')" class="bi Edit bi-pencil-fill"></i>
             </div>
             <ng-container *ngIf="!showAboutTextarea; else aboutTextarea">

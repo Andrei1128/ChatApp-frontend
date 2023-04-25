@@ -41,9 +41,13 @@ header {
             .bi {
                 padding-top: 1px;
                 font-size: 0.55rem;
-                color: var(--online);
+                color: var(--offline);
                 display: inline-block;
                 width: auto;
+            }
+
+            .online {
+                color: var(--online);
             }
         }
     }

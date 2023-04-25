@@ -14,7 +14,7 @@
                             ? chat.participants?.[1]?.name
                             : chat.participants?.[0]?.name)
                             }}
-                        </h6><i *ngIf="!chat.name" class="bi bi-record-circle-fill"></i>
+                        </h6><i *ngIf="!chat.name" class="bi bi-record-circle-fill online"></i>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,8 @@
             <div class="dropdown search">
                 <i class="bi action bi-search" data-bs-toggle="dropdown"></i>
                 <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
-                    <input autocomplete="off" placeholder="Search.." type="text" class="form-control">
+                    <input [formControl]="searchMessageForm" (ngModelChange)="searchMessage()" autocomplete="off"
+                        placeholder="Search.." type="text" class="form-control">
                 </ul>
             </div>
             <i data-bs-toggle="modal" data-bs-target="#audioModal" class="bi action bi-telephone"></i>
@@ -79,7 +80,7 @@
                 <i class="bi bi-image"></i>
                 <i class="bi bi-paperclip"></i>
             </div>
-            <i class="bi bi-send-fill"></i>
+            <i (click)="sendMessage()" class="bi bi-send-fill"></i>
         </div>
     </footer>
 </div>

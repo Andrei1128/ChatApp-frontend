@@ -5,25 +5,6 @@
     <section>
         <img [src]="myProfileImage || '../../../assets/profile.png'">
         <h5>{{myName}}</h5>
-        <div class="dropdown">
-            <div data-bs-toggle="dropdown" class="status">
-                <p>Available</p><i class="bi bi-caret-down"></i>
-            </div>
-            <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">
-                <li>
-                    <i class="bi bi-circle-fill online"></i>
-                    <p>Online</p>
-                </li>
-                <li>
-                    <i class="bi bi-circle-fill busy"></i>
-                    <p>Busy</p>
-                </li>
-                <li>
-                    <i class="bi bi-circle-fill invis"></i>
-                    <p>Invisible</p>
-                </li>
-            </ul>
-        </div>
     </section>
     <main>
         <div class="accordion" id="accordionExample">

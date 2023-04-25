@@ -5,6 +5,7 @@ export class Profile {
   name?: string;
   image?: string;
   about?: string;
+  online?: boolean;
   friends?: Profile[];
   chats?: Chat[];
   requests?: Profile[];

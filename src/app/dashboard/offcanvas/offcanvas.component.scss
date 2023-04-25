@@ -62,6 +62,10 @@ header {
         width: 6rem;
         border-radius: 100%;
     }
+
+    .groupImage {
+        width: 8rem;
+    }
 }
 
 .inline {
@@ -72,6 +76,10 @@ header {
     .bi {
         padding-top: 2px;
         font-size: 0.5rem;
+        color: var(--offline);
+    }
+
+    .online {
         color: var(--online);
     }
 }
@@ -157,7 +165,8 @@ footer {
 
     user-select: none;
     position: absolute;
-    bottom: 1.1rem;
+    left: 0.7rem;
+    bottom: 2.6rem;
     padding: 0;
     text-align: center;
     border-radius: 100%;

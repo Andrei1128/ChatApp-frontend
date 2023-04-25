@@ -380,11 +380,15 @@ p.new-messages {
             position: relative;
             right: 10px;
             top: 10px;
-            color: var(--online);
+            color: var(--offline);
             padding: 1px 3px;
             border-radius: 100%;
             background-color: var(--section-background);
             opacity: 1;
+        }
+
+        .online {
+            color: var(--online);
         }
     }
 }

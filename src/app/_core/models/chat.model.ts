@@ -7,5 +7,5 @@ export class Chat {
   image?: string;
   about?: string;
   participants?: Profile[];
-  messages?: Message[];
+  messages!: Message[];
 }

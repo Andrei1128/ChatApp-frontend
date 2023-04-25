@@ -24,6 +24,7 @@ import { DataShareService } from 'src/app/_core/services/data-share.service';
 })
 export class ChatComponent implements OnInit, OnChanges {
   @Input() chat!: Chat;
+  searchMessageForm: FormControl = new FormControl();
   myProfile!: Profile;
   messageForm = new FormControl();
   @ViewChild('mainContainer') mainContainer!: ElementRef;
@@ -59,6 +60,19 @@ export class ChatComponent implements OnInit, OnChanges {
           }
         });
     }
+  }
+
+  searchMessage() {
+    this.profileService.getMyProfile().subscribe((res) => {
+      if (res.chats) {
+        const searchTerm = this.searchMessageForm.value.toLowerCase();
+        const chat = res.chats.find((chat) => chat._id === this.chat._id);
+        if (chat)
+          this.chat.messages = chat.messages.filter((msg) =>
+            msg.content?.toLowerCase().includes(searchTerm)
+          );
+      }
+    });
   }
 
   closeChat() {
