@@ -33,6 +33,24 @@ export class ChatService {
     return this.httpClient.delete(`${this.serverUrl}/delete/${id}`);
   }
 
+  updateName(id: string, content: string): Observable<any> {
+    return this.httpClient.patch(`${this.serverUrl}/updateName`, {
+      id,
+      name: content,
+    });
+  }
+  updateAbout(id: string, content: string): Observable<any> {
+    return this.httpClient.patch(`${this.serverUrl}/updateAbout`, {
+      id,
+      about: content,
+    });
+  }
+  updateImage(id: string, image: string): Observable<any> {
+    return this.httpClient.patch(`${this.serverUrl}/updateImage`, {
+      id,
+      image,
+    });
+  }
   connect() {
     this.profileService.getMyProfile().subscribe((res) => {
       const userID = res._id;

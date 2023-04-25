@@ -6,6 +6,7 @@ import { DataShareService } from 'src/app/_core/services/data-share.service';
 import { ChatService } from 'src/app/_core/services/chat.service';
 import { Profile } from 'src/app/_core/models/profile.model';
 import { ProfileService } from 'src/app/_core/services/profile.service';
+import { Subscription } from 'rxjs';
 declare var bootstrap: any;
 
 @Component({
@@ -19,6 +20,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   selectedChat!: Chat;
   selectedProfile!: Profile;
   myProfileImage?: string;
+  private selectedProfileSubscription!: Subscription;
 
   constructor(
     private router: Router,
@@ -46,14 +48,15 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         this.visibleSection = false;
       }
     });
-    this.dataShareService.selectedProfile$.subscribe((profile: Profile) => {
-      this.selectedProfile = profile;
-      if (this.selectedProfile.name) {
-        var myOffcanvas = document.getElementById('offcanvasExample');
-        var offcanvas = new bootstrap.Offcanvas(myOffcanvas);
-        offcanvas.show();
-      }
-    });
+    this.selectedProfileSubscription =
+      this.dataShareService.selectedProfile$.subscribe((profile: Profile) => {
+        this.selectedProfile = profile;
+        if (this.selectedProfile.name) {
+          var myOffcanvas = document.getElementById('offcanvasExample');
+          var offcanvas = new bootstrap.Offcanvas(myOffcanvas);
+          offcanvas.show();
+        }
+      });
     this.chatService.connect();
   }
 
@@ -67,6 +70,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.selectedProfileSubscription.unsubscribe();
     this.chatService.disconnect();
   }
 

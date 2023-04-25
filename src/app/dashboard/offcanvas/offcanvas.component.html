@@ -4,10 +4,28 @@
     </div>
     <div class="offcanvas-body">
         <header class="flex">
-            <img [src]="profile.image || '../../../assets/profile.png'">
+            <ng-container *ngIf="chat; else photo">
+                <label class="image-container">
+                    <img [src]="profile.image || '../../../assets/profile.png'">
+                    <div class="overlay">
+                        <i class="bi bi-camera"></i>
+                        <p>change photo</p>
+                    </div>
+                    <input #fileInput type="file" class="fileChooser" accept="image/*" (change)="uploadFile($event)">
+                </label>
+            </ng-container>
+            <ng-template #photo>
+                <img [src]="profile.image || '../../../assets/profile.png'">
+            </ng-template>
             <div class="flex">
                 <div *ngIf="chat; else elseBlock" class="title">
-                    <h5>{{profile.name}}</h5><i (click)="editInfo('name')" class="bi Edit bi-pencil-fill"></i>
+                    <ng-container *ngIf="!showNameInput; else nameInput">
+                        <h5 class="content">{{profile.name}}</h5>
+                    </ng-container>
+                    <ng-template #nameInput>
+                        <input class="form-control minusmargin " type="text" [(ngModel)]="profile.name">
+                    </ng-template>
+                    <i (click)="editInfo('name')" class="bi Edit bi-pencil-fill"></i>
                 </div>
                 <ng-template #elseBlock>
                     <h5>{{profile.name}}</h5>
@@ -27,10 +45,10 @@
                 <i (click)="editInfo('about')" class="bi Edit bi-pencil-fill"></i>
             </div>
             <ng-container *ngIf="!showAboutTextarea; else aboutTextarea">
-                <p class="content">{{profile.about}}</p>
+                <p class="content margin">{{profile.about}}</p>
             </ng-container>
             <ng-template #aboutTextarea>
-                <textarea class="form-control" [(ngModel)]="profile.about"></textarea>
+                <textarea class="form-control margin" [(ngModel)]="profile.about"></textarea>
             </ng-template>
             <h6 class="titles">Participants ({{profile.participants.length}})</h6>
             <div *ngFor="let person of profile.participants" class="person">

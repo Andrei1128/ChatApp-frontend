@@ -24,17 +24,16 @@ h5 {
 }
 
 h6 {
+    margin: 0;
     color: var(--secondary-font);
 }
 
 .titles {
-    margin: 0;
-
     font-size: 1rem;
-    margin-bottom: 1rem;
 }
 
 .about {
+    margin-bottom: 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -58,6 +57,7 @@ header {
     border-bottom: 1px solid var(--aside-background);
 
     img {
+        transition: opacity 0.3s ease-in-out;
         border: 5px solid var(--aside-background);
         width: 6rem;
         border-radius: 100%;
@@ -109,4 +109,75 @@ footer {
 
 .person:active {
     opacity: 1;
+}
+
+.bi-check-lg {
+    padding: 3px;
+    font-size: 1.1rem;
+}
+
+.form-control {
+    background-color: var(--modal-input);
+    border-color: var(--section-background);
+    color: var(--primary-font);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--active);
+}
+
+.margin {
+    margin-bottom: 1.5rem;
+}
+
+.minusmargin {
+    margin-bottom: -5.16px;
+}
+
+
+.image-container {
+    border-radius: 100%;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.overlay {
+    .bi {
+        opacity: 1;
+        font-size: 1.2rem;
+    }
+
+    p {
+        color: var(--secondary-font);
+    }
+
+    user-select: none;
+    position: absolute;
+    bottom: 1.1rem;
+    padding: 0;
+    text-align: center;
+    border-radius: 100%;
+    color: #fff;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    text-transform: uppercase;
+}
+
+.image-container:hover {
+    img {
+        opacity: 0.3;
+    }
+
+    .overlay {
+        opacity: 1;
+    }
+}
+
+.fileChooser {
+    display: none;
 }

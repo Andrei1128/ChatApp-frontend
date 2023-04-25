@@ -353,6 +353,13 @@ main {
 }
 
 @media only screen and (max-width: 599px) {
+    header {
+        .Actions {
+            gap: 1rem;
+            margin-right: 1rem;
+        }
+    }
+
     main {
         .message {
             max-width: 100%;
@@ -443,7 +450,18 @@ main {
     }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 374px) {
+    header {
+        .Actions {
+            gap: 0.8rem;
+            margin-right: 0.5rem;
+
+            .action {
+                font-size: 1.15rem;
+            }
+        }
+    }
+
     footer {
         gap: 1rem;
         padding: 0.7rem 0.7rem 1rem 0.7rem;
