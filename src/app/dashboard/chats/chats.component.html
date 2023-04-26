@@ -22,7 +22,7 @@
                     <img
                         [src]="(person.image || ((person.participants?.length===2 && person.participants?.at(0)?._id === myId) ?
                     person.participants?.at(1)?.image : person.participants?.at(0)?.image)) || '../../../assets/profile.png'">
-                    <i *ngIf="!person.name" class="bi bi-circle-fill online"></i>
+                    <i *ngIf="!person.name" class="bi bi-circle-fill" [class.online]="getOnlineClass(person)"></i>
                 </div>
                 <div class="content">
                     <h6>

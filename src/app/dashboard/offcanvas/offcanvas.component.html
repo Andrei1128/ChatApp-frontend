@@ -31,8 +31,13 @@
                     <h5>{{profile.name}}</h5>
                 </ng-template>
                 <div *ngIf="!chat;" class="flex inline">
-                    <i class="bi bi-record-circle-fill online"></i>
-                    <p> online</p>
+                    <i class="bi bi-record-circle-fill" [class.online]="profile.online"></i>
+                    <ng-container *ngIf="profile.online; else elseBlock2">
+                        <p> online</p>
+                    </ng-container>
+                    <ng-template #elseBlock2>
+                        <p> offline</p>
+                    </ng-template>
                 </div>
             </div>
         </header>
@@ -53,7 +58,10 @@
             <h6 class="titles">Participants ({{profile.participants.length}})</h6>
             <div *ngFor="let person of profile.participants" class="person">
                 <div class="wrapper">
-                    <img [src]="person.image || '../../../assets/profile.png'">
+                    <div class="profileImg">
+                        <img [src]="person.image || '../../../assets/profile.png'">
+                        <i class="bi bi-circle-fill" [class.online]="person.online"></i>
+                    </div>
                     <h6>{{person.name}}</h6>
                 </div>
             </div>

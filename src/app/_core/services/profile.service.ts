@@ -30,6 +30,24 @@ export class ProfileService {
       );
       this.myProfile$.next(currentProfile);
     });
+    this.socket.on('user connected', (userID: string) => {
+      this.updateStatus(userID, true);
+    });
+
+    this.socket.on('user disconnected', (userID: string) => {
+      this.updateStatus(userID, false);
+    });
+  }
+
+  updateStatus(id: string, online: boolean) {
+    const currentProfile = this.myProfile$.value;
+    currentProfile.friends = currentProfile.friends?.map((friend) => {
+      if (friend._id === id) {
+        friend.online = online;
+      }
+      return friend;
+    });
+    this.myProfile$.next(currentProfile);
   }
 
   clearProfile() {

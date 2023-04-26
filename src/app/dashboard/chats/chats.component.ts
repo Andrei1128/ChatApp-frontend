@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Chat } from 'src/app/_core/models/chat.model';
 import { customProfile } from 'src/app/_core/models/profile.model';
@@ -39,6 +39,17 @@ export class ChatsComponent implements OnInit {
   chatWith(chat: Chat) {
     this.activeChatId = chat._id as string;
     this.dataShareService.shareChat(chat);
+  }
+
+  getOnlineClass(chat: Chat) {
+    const id =
+      chat.participants?.length === 2 &&
+      chat.participants?.at(0)?._id === this.myId
+        ? chat.participants?.at(1)?._id
+        : chat.participants?.at(0)?._id;
+
+    const friend = this.friends.find((friend) => friend._id === id);
+    return friend?.online;
   }
 
   createGroup() {

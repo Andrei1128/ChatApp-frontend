@@ -74,6 +74,17 @@ export class ChatComponent implements OnInit, OnChanges {
       }
     });
   }
+  getOnlineClass() {
+    const id =
+      this.chat.participants?.length === 2 &&
+      this.chat.participants?.at(0)?._id === this.myProfile._id
+        ? this.chat.participants?.at(1)?._id
+        : this.chat.participants?.at(0)?._id;
+
+    if (this.myProfile.friends)
+      var friend = this.myProfile.friends.find((friend) => friend._id === id);
+    return friend?.online;
+  }
 
   closeChat() {
     this.changeVisibility.emit();

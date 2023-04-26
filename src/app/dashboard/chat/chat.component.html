@@ -14,7 +14,8 @@
                             ? chat.participants?.[1]?.name
                             : chat.participants?.[0]?.name)
                             }}
-                        </h6><i *ngIf="!chat.name" class="bi bi-record-circle-fill online"></i>
+                        </h6><i *ngIf="!chat.name" class="bi bi-record-circle-fill"
+                            [class.online]="getOnlineClass()"></i>
                     </div>
                 </div>
             </div>

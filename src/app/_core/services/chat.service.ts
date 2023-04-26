@@ -5,7 +5,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Message } from '../models/message.model';
 import { ProfileService } from './profile.service';
-import { Profile } from '../models/profile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +57,7 @@ export class ChatService {
       this.socket.connect();
     });
   }
+
   disconnect() {
     this.socket.disconnect();
   }
