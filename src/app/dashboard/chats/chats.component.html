@@ -40,7 +40,8 @@
                 </div>
             </div>
             <div class="info">
-                <p>05 min</p>
+                <p *ngIf="person.messages.length>0">{{getTime(person.messages.at(person.messages.length-1).timestamp)}}
+                </p>
                 <p class="new-messages">22</p>
             </div>
         </div>

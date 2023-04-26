@@ -23,11 +23,11 @@ import { DataShareService } from 'src/app/_core/services/data-share.service';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, OnChanges {
-  @Input() chat!: Chat;
+  @Input() chat: Chat;
   searchMessageForm: FormControl = new FormControl();
-  myProfile!: Profile;
+  myProfile: Profile;
   messageForm = new FormControl();
-  @ViewChild('mainContainer') mainContainer!: ElementRef;
+  @ViewChild('mainContainer') mainContainer: ElementRef;
   ChatSubscription?: Subscription;
   @Output() changeVisibility = new EventEmitter();
 
@@ -53,7 +53,7 @@ export class ChatComponent implements OnInit, OnChanges {
         .get(this.chat._id as string)
         .subscribe((msg) => {
           if (msg) {
-            this.chat?.messages?.push(msg);
+            this.chat.messages.push(msg);
             setTimeout(() => {
               this.updateScrollbar();
             });
@@ -67,23 +67,44 @@ export class ChatComponent implements OnInit, OnChanges {
       if (res.chats) {
         const searchTerm = this.searchMessageForm.value.toLowerCase();
         const chat = res.chats.find((chat) => chat._id === this.chat._id);
-        if (chat)
-          this.chat.messages = chat.messages.filter((msg) =>
-            msg.content?.toLowerCase().includes(searchTerm)
-          );
+        this.chat.messages = chat.messages.filter((msg) =>
+          msg.content.toLowerCase().includes(searchTerm)
+        );
       }
     });
   }
+
+  getTime(timestamp: number) {
+    const date = new Date(timestamp);
+    const diffMilliseconds = Math.abs(Date.now() - timestamp);
+    const diffMinutes = Math.floor(diffMilliseconds / 1000 / 60);
+
+    if (diffMinutes < 1) {
+      return 'just now';
+    } else if (diffMinutes < 1440) {
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      return `${hours}:${minutes}`;
+    } else if (diffMinutes < 2880) {
+      return 'yesterday';
+    } else {
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear().toString();
+      return `${day}/${month}/${year}`;
+    }
+  }
+
   getOnlineClass() {
     const id =
-      this.chat.participants?.length === 2 &&
-      this.chat.participants?.at(0)?._id === this.myProfile._id
-        ? this.chat.participants?.at(1)?._id
-        : this.chat.participants?.at(0)?._id;
+      this.chat.participants.length === 2 &&
+      this.chat.participants.at(0)._id === this.myProfile._id
+        ? this.chat.participants.at(1)._id
+        : this.chat.participants.at(0)._id;
 
     if (this.myProfile.friends)
       var friend = this.myProfile.friends.find((friend) => friend._id === id);
-    return friend?.online;
+    return friend.online;
   }
 
   closeChat() {
@@ -108,8 +129,8 @@ export class ChatComponent implements OnInit, OnChanges {
     this.chatService.deleteChat(this.chat._id as string).subscribe((res) => {
       this.dataShareService.shareChat(undefined);
       const currentProfile = this.profileService.myProfile$.value;
-      currentProfile.chats = currentProfile.chats?.filter(
-        (chat: Chat) => chat._id !== this.chat._id
+      currentProfile.chats = currentProfile.chats.filter(
+        (chat: Chat) => chat._id == this.chat._id
       );
       this.profileService.myProfile$.next(currentProfile);
     });

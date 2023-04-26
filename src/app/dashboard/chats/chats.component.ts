@@ -36,6 +36,31 @@ export class ChatsComponent implements OnInit {
     });
   }
 
+  getTime(timestamp: number) {
+    const date = new Date(timestamp);
+    const diffMilliseconds = Math.abs(Date.now() - timestamp);
+    const diffMinutes = Math.floor(diffMilliseconds / 1000 / 60);
+
+    if (diffMinutes < 1) {
+      return 'just now';
+    } else if (diffMinutes < 1440) {
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      return `${hours}:${minutes}`;
+    } else if (diffMinutes < 2880) {
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      return `yesterday-${hours}:${minutes}`;
+    } else {
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear().toString();
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      return `${day}/${month}/${year}-${hours}:${minutes}`;
+    }
+  }
+
   chatWith(chat: Chat) {
     this.activeChatId = chat._id as string;
     this.dataShareService.shareChat(chat);

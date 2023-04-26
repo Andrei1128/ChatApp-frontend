@@ -52,6 +52,7 @@
                 <img class="profile-image" [src]="message.from?.image || '../../../assets/profile.png'">
                 <div>
                     <p class="message-content">{{ message.content }}</p>
+                    <p class="timestamp">{{getTime(message.timestamp)}}</p>
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical action" data-bs-toggle="dropdown"></i>
                         <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">
@@ -90,8 +91,14 @@
 <div class="modal fade" id="audioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-            [src]="myProfile.image || '../../../assets/profile.png'"
-            <h4>Patrick Hendricks</h4>
+            <img [src]="(chat.image || ((chat.participants?.length===2 && chat.participants?.at(0)?._id === myProfile._id) ?
+    chat.participants?.at(1)?.image : chat.participants?.at(0)?.image)) || '../../../assets/profile.png'">
+            <h4>{{
+                chat.name ||
+                (chat.participants?.[0]?._id === myProfile._id
+                ? chat.participants?.[1]?.name
+                : chat.participants?.[0]?.name)
+                }}</h4>
             <p>Start Audio Call</p>
             <div class="Actions"><i class="bi bi-x-lg"></i><i class="bi bi-telephone-fill"></i></div>
         </div>
@@ -100,8 +107,14 @@
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-            <img [src]="myProfile.image || '../../../assets/profile.png'">
-            <h4>Patrick Hendricks</h4>
+            <img [src]="(chat.image || ((chat.participants?.length===2 && chat.participants?.at(0)?._id === myProfile._id) ?
+            chat.participants?.at(1)?.image : chat.participants?.at(0)?.image)) || '../../../assets/profile.png'">
+            <h4>{{
+                chat.name ||
+                (chat.participants?.[0]?._id === myProfile._id
+                ? chat.participants?.[1]?.name
+                : chat.participants?.[0]?.name)
+                }}</h4>
             <p>Start Video Call</p>
             <div class="Actions"><i class="bi bi-x-lg"></i><i class="bi bi-camera-video-fill"></i></div>
         </div>

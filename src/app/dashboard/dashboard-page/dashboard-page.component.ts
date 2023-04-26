@@ -34,6 +34,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.profileService.getMyProfile().subscribe((res) => {
       this.myProfileImage = res.image;
     });
+
     this.dataShareService.selectedChat$.subscribe((chat) => {
       if (chat) this.selectedChat = chat;
       else {
@@ -48,6 +49,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         this.visibleSection = false;
       }
     });
+
     this.selectedProfileSubscription =
       this.dataShareService.selectedProfile$.subscribe((profile: Profile) => {
         this.selectedProfile = profile;
