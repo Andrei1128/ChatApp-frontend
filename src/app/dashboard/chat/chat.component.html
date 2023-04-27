@@ -4,8 +4,8 @@
             <p class="bi bi-arrow-left" (click)="closeChat()"></p>
             <div class="person">
                 <div (click)="viewProfile()" class="wrapper">
-                    <img [src]="(chat.image || ((chat.participants?.length===2 && chat.participants?.at(0)?._id === myProfile._id) ?
-    chat.participants?.at(1)?.image : chat.participants?.at(0)?.image)) || '../../../assets/profile.png'">
+                    <img [src]="(chat.image || ((chat.participants.length===2 && chat.participants.at(0)._id === myProfile._id) ?
+    chat.participants.at(1).image : chat.participants.at(0).image)) || '../../../assets/profile.png'">
                     <div>
                         <h6>
                             {{
@@ -100,7 +100,8 @@
                 : chat.participants?.[0]?.name)
                 }}</h4>
             <p>Start Audio Call</p>
-            <div class="Actions"><i class="bi bi-x-lg"></i><i class="bi bi-telephone-fill"></i></div>
+            <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i class="bi bi-telephone-fill"></i>
+            </div>
         </div>
     </div>
 </div>
@@ -116,7 +117,8 @@
                 : chat.participants?.[0]?.name)
                 }}</h4>
             <p>Start Video Call</p>
-            <div class="Actions"><i class="bi bi-x-lg"></i><i class="bi bi-camera-video-fill"></i></div>
+            <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i
+                    class="bi bi-camera-video-fill"></i></div>
         </div>
     </div>
 </div>

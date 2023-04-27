@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_core/services/auth.service';
 
@@ -9,7 +14,8 @@ import { AuthService } from 'src/app/_core/services/auth.service';
   styleUrls: ['../auth.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup('');
+  loginForm: FormGroup;
+  errorMessage: string;
 
   constructor(
     private authService: AuthService,
@@ -19,15 +25,32 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: [null],
-      password: [null],
+      email: [
+        null,
+        [
+          Validators.required,
+          //  Validators.email
+        ],
+      ],
+      password: [
+        null,
+        [
+          Validators.required,
+          // Validators.minLength(8)
+        ],
+      ],
     });
   }
 
   login() {
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Enter valid data!';
+      return;
+    }
+    this.errorMessage = null;
     const payload = {
-      email: this.email.value,
-      password: this.password.value,
+      email: this.email.value.trim(),
+      password: this.password.value.trim(),
     };
     this.authService.login(payload).subscribe({
       next: (res) => {
@@ -35,7 +58,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
       },
       error: (e: any) => {
-        console.log(e);
+        if (typeof e.error === 'string') this.errorMessage = e.error;
+        else this.errorMessage = 'Lost server connection!';
       },
     });
   }

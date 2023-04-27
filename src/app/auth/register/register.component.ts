@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_core/services/auth.service';
 
@@ -9,7 +15,9 @@ import { AuthService } from 'src/app/_core/services/auth.service';
   styleUrls: ['../auth.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup = new FormGroup('');
+  registerForm: FormGroup;
+  errorMessage: string;
+  submitted: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -19,18 +27,36 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      username: [null],
-      email: [null],
-      password: [null],
-      confirmPassword: [null],
+      username: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(16),
+        ],
+      ],
+      email: [null, [Validators.required, Validators.email]],
+      password: [
+        null,
+        [Validators.required, Validators.minLength(8), this.passwordValidator],
+      ],
+      confirmPassword: [null, [Validators.required]],
     });
   }
 
   register() {
+    this.submitted = true;
+    if (this.password.value.trim() !== this.confirmPassword.value.trim())
+      this.confirmPassword.setErrors({ required: true });
+    if (this.registerForm.invalid) {
+      return;
+    }
+    this.errorMessage = null;
+    this.submitted = false;
     const payload = {
-      username: this.username.value,
-      email: this.email.value,
-      password: this.password.value,
+      username: this.username.value.trim(),
+      email: this.email.value.trim(),
+      password: this.password.value.trim(),
     };
     this.authService.register(payload).subscribe({
       next: (res) => {
@@ -38,9 +64,17 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['']);
       },
       error: (e: any) => {
-        console.log(e);
+        if (typeof e.error === 'string') this.errorMessage = e.error;
+        else this.errorMessage = 'Lost server connection!';
       },
     });
+  }
+
+  passwordValidator(control: AbstractControl) {
+    const password = control.value;
+    const valid = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])/.test(password);
+    if (!valid) return { passwordInvalid: true };
+    return null;
   }
 
   get username(): FormControl {

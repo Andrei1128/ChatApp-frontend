@@ -11,6 +11,7 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" [formControl]="password" class="form-control" id="password">
             </div>
+            <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
             <div class="butons">
                 <button type="submit" class="buton">Submit</button>
                 <p routerLink="register" class="buton-secondary buton">Register</p>

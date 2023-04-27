@@ -85,13 +85,12 @@ export class ChatComponent implements OnInit, OnChanges {
       const hours = date.getHours().toString().padStart(2, '0');
       const minutes = date.getMinutes().toString().padStart(2, '0');
       return `${hours}:${minutes}`;
-    } else if (diffMinutes < 2880) {
-      return 'yesterday';
     } else {
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
       const day = date.getDate().toString().padStart(2, '0');
       const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const year = date.getFullYear().toString();
-      return `${day}/${month}/${year}`;
+      return `${day}/${month} at ${hours}:${minutes}`;
     }
   }
 
@@ -145,13 +144,15 @@ export class ChatComponent implements OnInit, OnChanges {
   }
 
   sendMessage() {
-    const content = this.messageForm.value.trim();
-    if (content)
-      this.chatService.send(
-        content,
-        this.myProfile._id as string,
-        this.chat._id as string
-      );
-    this.messageForm.reset();
+    if (this.messageForm.value) {
+      var content = this.messageForm.value.trim();
+      if (content)
+        this.chatService.send(
+          content,
+          this.myProfile._id as string,
+          this.chat._id as string
+        );
+      this.messageForm.reset();
+    }
   }
 }

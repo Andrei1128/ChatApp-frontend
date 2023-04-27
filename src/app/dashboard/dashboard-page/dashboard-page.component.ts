@@ -16,6 +16,7 @@ declare var bootstrap: any;
 })
 export class DashboardPageComponent implements OnInit, OnDestroy {
   lightMode = false;
+  loaded = false;
   visibleSection = true;
   selectedChat!: Chat;
   selectedProfile!: Profile;
@@ -33,6 +34,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.profileService.getMyProfile().subscribe((res) => {
       this.myProfileImage = res.image;
+      if (this.myProfileImage) this.loaded = true;
     });
 
     this.dataShareService.selectedChat$.subscribe((chat) => {

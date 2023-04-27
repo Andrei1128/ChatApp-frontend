@@ -189,6 +189,14 @@ section.hidden {
     display: none;
 }
 
+.notLoaded {
+    color: var(--primary-font);
+    display: flex;
+    align-items: center;
+    height: 90%;
+    justify-content: center;
+}
+
 @media only screen and (max-width: 1300px) {
     section {
         min-width: 350px;

@@ -4,26 +4,52 @@
         <form [formGroup]="registerForm" (ngSubmit)="register()">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="email" [formControl]="username" class="form-control" id="username"
-                    aria-describedby="emailHelp">
+                <input type="email" [formControl]="username" [ngClass]="{'is-invalid':submitted&&username.invalid}"
+                    class="form-control" id="username" aria-describedby="emailHelp">
+                <div class="invalid-feedback">
+                    <p>
+                        Username should have between 4 and 16 characters!
+                    </p>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" [formControl]="email" class="form-control" id="email" aria-describedby="emailHelp">
+                <input type="email" [formControl]="email" [ngClass]="{'is-invalid':submitted&&email.invalid}"
+                    class="form-control is-invalid" id="email" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <div class="invalid-feedback">
+                    <p>
+                        Invalid email!
+                    </p>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" [formControl]="password" class="form-control" id="password">
+                <input type="password" [formControl]="password" [ngClass]="{'is-invalid':submitted&&password.invalid}"
+                    class="form-control is-invalid" id="password">
+                <div class="invalid-feedback">
+                    <p>
+                        Password should have at least 8 characters, one uppercase, one lowercase, one number!
+                    </p>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="confirmpassword" class="form-label">Confirm password</label>
-                <input type="password" [formControl]="confirmPassword" class="form-control" id="confirmpassword">
+                <input type="password" [formControl]="confirmPassword"
+                    [ngClass]="{'is-invalid':submitted&&confirmPassword.invalid}" class="form-control is-invalid"
+                    id="confirmpassword">
+                <div class="invalid-feedback">
+                    <p>
+                        Passwords does not match!
+                    </p>
+                </div>
             </div>
+            <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
             <div class="butons">
                 <button type="submit" class="buton">Submit</button>
                 <p class="buton-secondary buton" routerLink="/auth">Back</p>
             </div>
         </form>
+
     </div>
 </div>
