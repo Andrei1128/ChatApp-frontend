@@ -76,10 +76,10 @@ export class ChatComponent implements OnInit, OnChanges {
 
   getTime(timestamp: number) {
     const date = new Date(timestamp);
-    const diffMilliseconds = Math.abs(Date.now() - timestamp);
-    const diffMinutes = Math.floor(diffMilliseconds / 1000 / 60);
+    const diffSeconds = Math.abs(Date.now() - timestamp) / 1000;
+    const diffMinutes = Math.floor(diffSeconds / 60);
 
-    if (diffMinutes < 1) {
+    if (diffSeconds < 15) {
       return 'just now';
     } else if (diffMinutes < 1440) {
       const hours = date.getHours().toString().padStart(2, '0');
@@ -129,7 +129,7 @@ export class ChatComponent implements OnInit, OnChanges {
       this.dataShareService.shareChat(undefined);
       const currentProfile = this.profileService.myProfile$.value;
       currentProfile.chats = currentProfile.chats.filter(
-        (chat: Chat) => chat._id == this.chat._id
+        (chat: Chat) => chat._id !== this.chat._id
       );
       this.profileService.myProfile$.next(currentProfile);
     });

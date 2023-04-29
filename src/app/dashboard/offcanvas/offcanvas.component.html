@@ -23,7 +23,7 @@
                         <h5 class="content">{{profile.name}}</h5>
                     </ng-container>
                     <ng-template #nameInput>
-                        <input class="form-control minusmargin " type="text" [(ngModel)]="profile.name">
+                        <input class="form-control minusmargin " type="text" [formControl]="chatNameForm">
                     </ng-template>
                     <i (click)="editInfo('name')" class="bi Edit bi-pencil-fill"></i>
                 </div>

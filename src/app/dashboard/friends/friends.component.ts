@@ -24,6 +24,11 @@ export class FriendsComponent {
       .subscribe((res) => (this.peoples = res));
   }
 
+  closeModal() {
+    this.searchPeoplesForm.reset();
+    this.peoples = [];
+  }
+
   sendFriendRequest(id?: string) {
     this.profileService.sendFriendRequest(id as string).subscribe(() => {
       this.peoples = this.peoples.filter((ppl) => ppl._id != id);

@@ -38,10 +38,10 @@ export class ChatsComponent implements OnInit {
 
   getTime(timestamp: number) {
     const date = new Date(timestamp);
-    const diffMilliseconds = Math.abs(Date.now() - timestamp);
-    const diffMinutes = Math.floor(diffMilliseconds / 1000 / 60);
+    const diffSeconds = Math.abs(Date.now() - timestamp) / 1000;
+    const diffMinutes = Math.floor(diffSeconds / 60);
 
-    if (diffMinutes < 1) {
+    if (diffSeconds < 15) {
       return 'just now';
     } else if (diffMinutes < 1440) {
       const hours = date.getHours().toString().padStart(2, '0');
@@ -93,7 +93,14 @@ export class ChatsComponent implements OnInit {
           this.activeChatId = chat._id as string;
         }
       });
+    this.profileService.getMyProfile().subscribe((res) => {
+      this.friends = res.friends;
+    });
     this.groupName.reset();
+    this.friends = this.friends.map((friend) => {
+      friend.selected = false;
+      return friend;
+    });
   }
 
   searchFriends() {

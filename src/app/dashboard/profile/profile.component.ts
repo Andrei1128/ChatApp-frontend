@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Profile } from 'src/app/_core/models/profile.model';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 
@@ -11,6 +12,7 @@ export class ProfileComponent implements OnInit {
   myProfile = new Profile();
   showNameInput = false;
   showAboutTextarea = false;
+  profileNameForm: FormControl = new FormControl();
   constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
@@ -63,15 +65,20 @@ export class ProfileComponent implements OnInit {
   editInfo(elem: string) {
     const icons = document.getElementsByClassName('targetedIcons');
     if (elem === 'name') {
-      if (this.showNameInput == false)
+      if (this.showNameInput == false) {
+        this.profileNameForm.setValue(this.myProfile.name);
         icons[0].classList.replace('bi-pencil-fill', 'bi-check-lg');
-      else {
+        this.showNameInput = true;
+      } else if (
+        this.showNameInput &&
+        this.profileNameForm.value.length > 3 &&
+        this.profileNameForm.value.length < 17
+      ) {
         icons[0].classList.replace('bi-check-lg', 'bi-pencil-fill');
-        this.profileService
-          .updateName(this.myProfile.name as string)
-          .subscribe();
+        this.profileService.updateName(this.profileNameForm.value).subscribe();
+        this.myProfile.name = this.profileNameForm.value;
+        this.showNameInput = false;
       }
-      this.showNameInput = !this.showNameInput;
     } else {
       if (this.showAboutTextarea == false)
         icons[1].classList.replace('bi-pencil-fill', 'bi-check-lg');

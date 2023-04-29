@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ChatService } from 'src/app/_core/services/chat.service';
 
 @Component({
@@ -10,6 +11,7 @@ export class OffcanvasComponent implements OnChanges {
   @Input() profile!: any;
   showNameInput = false;
   showAboutTextarea = false;
+  chatNameForm: FormControl = new FormControl();
   chat?: boolean;
 
   constructor(private chatService: ChatService) {}
@@ -23,15 +25,22 @@ export class OffcanvasComponent implements OnChanges {
   editInfo(elem: string) {
     const icons = document.getElementsByClassName('Edit');
     if (elem === 'name') {
-      if (this.showNameInput == false)
+      if (this.showNameInput == false) {
+        this.chatNameForm.setValue(this.profile.name);
         icons[0].classList.replace('bi-pencil-fill', 'bi-check-lg');
-      else {
+        this.showNameInput = true;
+      } else if (
+        this.showNameInput &&
+        this.chatNameForm.value.length > 3 &&
+        this.chatNameForm.value.length < 17
+      ) {
         icons[0].classList.replace('bi-check-lg', 'bi-pencil-fill');
         this.chatService
-          .updateName(this.profile._id, this.profile.name as string)
+          .updateName(this.profile._id, this.chatNameForm.value)
           .subscribe();
+        this.profile.name = this.chatNameForm.value;
+        this.showNameInput = false;
       }
-      this.showNameInput = !this.showNameInput;
     } else {
       if (this.showAboutTextarea == false)
         icons[1].classList.replace('bi-pencil-fill', 'bi-check-lg');

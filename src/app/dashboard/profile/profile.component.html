@@ -21,7 +21,7 @@
             <p class="content">{{myProfile.name}}</p>
         </ng-container>
         <ng-template #nameInput>
-            <input class="form-control margin" type="text" [(ngModel)]="myProfile.name">
+            <input class="form-control margin" type="text" [formControl]="profileNameForm">
         </ng-template>
         <div class="title">
             <h6>About</h6>
