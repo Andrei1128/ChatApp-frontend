@@ -29,6 +29,13 @@ main {
     gap: 6px;
 
     p {
+        white-space: nowrap;
         font-size: 0.72rem;
     }
+}
+
+.invalid-feedback {
+    margin-top: -12px;
+    margin-bottom: 0.5rem;
+    display: block;
 }

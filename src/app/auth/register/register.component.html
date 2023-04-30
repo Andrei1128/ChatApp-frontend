@@ -3,12 +3,12 @@
         <h1>Register</h1>
         <form [formGroup]="registerForm" (ngSubmit)="register()">
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label">Name</label>
                 <input type="email" [formControl]="username" [ngClass]="{'is-invalid':submitted&&username.invalid}"
                     class="form-control" id="username" aria-describedby="emailHelp">
                 <div class="invalid-feedback">
                     <p>
-                        Username should have between 4 and 16 characters!
+                        Name should have between 4 and 16 characters!
                     </p>
                 </div>
             </div>

@@ -46,9 +46,9 @@
     </header>
     <main #mainContainer>
         <div *ngFor="let message of chat?.messages" class="message"
-            [ngClass]="{'from-me': message.from?._id===myProfile._id}">
+            [ngClass]="{'from-server': !message.from, 'from-me': message.from?._id===myProfile._id}">
             <h6 class="message-sender">{{ message.from?.name }}</h6>
-            <div class="message-wrapper">
+            <div *ngIf="message.from" class="message-wrapper">
                 <img class="profile-image" [src]="message.from?.image || '../../../assets/profile.png'">
                 <div>
                     <p class="message-content">{{ message.content }}</p>
@@ -71,6 +71,10 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="!message.from" class="server-message">
+                <p class="content">{{message.content+' -'}}</p>
+                <p class="timestamp">{{getTime(message.timestamp)}}</p>
             </div>
         </div>
     </main>

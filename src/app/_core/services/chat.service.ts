@@ -66,16 +66,16 @@ export class ChatService {
     this.socket.emit('private message', { content, from }, convId);
   }
 
-  get(convId: string): Observable<Message> {
-    this.message.next('');
-    if (this.lastChatListener)
-      this.socket.removeListener(this.lastChatListener);
-    this.socket.on(convId, (message: Message) => {
-      this.message.next(message);
-    });
-    this.lastChatListener = convId;
-    return this.message.asObservable();
-  }
+  // get(convId: string): Observable<Message> {
+  //   this.message.next('');
+  //   if (this.lastChatListener)
+  //     this.socket.removeListener(this.lastChatListener);
+  //   this.socket.on(convId, (message: Message) => {
+  //     this.message.next(message);
+  //   });
+  //   this.lastChatListener = convId;
+  //   return this.message.asObservable();
+  // }
 
   findChat(convId: string): Observable<any> {
     return this.httpClient.get(`${this.serverUrl}/${convId}`);

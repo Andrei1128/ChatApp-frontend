@@ -19,6 +19,7 @@ export class ChatsComponent implements OnInit {
   groupName = new FormControl();
   myId?: string;
   activeChatId!: string;
+  groupNameError = false;
 
   constructor(
     private profileService: ProfileService,
@@ -71,36 +72,42 @@ export class ChatsComponent implements OnInit {
   }
 
   createGroup() {
-    let selectedFriends: any[] = [];
-    selectedFriends = this.friends
-      .filter((friend) => friend.selected)
-      .map((friend) => friend._id);
-    selectedFriends.push(this.myId);
-    this.chatService
-      .chatWith(selectedFriends, this.groupName.value)
-      .subscribe((chat) => {
-        if (typeof chat === 'string') {
-          this.profileService.getMyProfile().subscribe((res) => {
-            const chatFound = res.chats?.find((ch) => ch._id === chat);
-            if (chatFound) {
-              this.dataShareService.shareChat(chatFound);
-              this.activeChatId = chatFound._id as string;
-            }
-          });
-        } else {
-          this.profileService.myProfile$.value.chats?.push(chat);
-          this.dataShareService.shareChat(chat);
-          this.activeChatId = chat._id as string;
-        }
+    const groupName = this.groupName.value.trim();
+    if (groupName.length < 3 || groupName.length > 17) {
+      this.groupNameError = true;
+    } else {
+      this.groupNameError = false;
+      let selectedFriends: any[] = [];
+      selectedFriends = this.friends
+        .filter((friend) => friend.selected)
+        .map((friend) => friend._id);
+      selectedFriends.push(this.myId);
+      this.chatService
+        .chatWith(selectedFriends, groupName)
+        .subscribe((chat) => {
+          if (typeof chat === 'string') {
+            this.profileService.getMyProfile().subscribe((res) => {
+              const chatFound = res.chats?.find((ch) => ch._id === chat);
+              if (chatFound) {
+                this.dataShareService.shareChat(chatFound);
+                this.activeChatId = chatFound._id as string;
+              }
+            });
+          } else {
+            this.profileService.myProfile$.value.chats?.push(chat);
+            this.dataShareService.shareChat(chat);
+            this.activeChatId = chat._id as string;
+          }
+        });
+      this.profileService.getMyProfile().subscribe((res) => {
+        this.friends = res.friends;
       });
-    this.profileService.getMyProfile().subscribe((res) => {
-      this.friends = res.friends;
-    });
-    this.groupName.reset();
-    this.friends = this.friends.map((friend) => {
-      friend.selected = false;
-      return friend;
-    });
+      this.groupName.reset();
+      this.friends = this.friends.map((friend) => {
+        friend.selected = false;
+        return friend;
+      });
+    }
   }
 
   searchFriends() {

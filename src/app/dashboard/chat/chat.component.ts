@@ -48,17 +48,17 @@ export class ChatComponent implements OnInit, OnChanges {
       setTimeout(() => {
         this.updateScrollbar();
       });
-      if (this.ChatSubscription) this.ChatSubscription.unsubscribe();
-      this.ChatSubscription = this.chatService
-        .get(this.chat._id as string)
-        .subscribe((msg) => {
-          if (msg) {
-            this.chat.messages.push(msg);
-            setTimeout(() => {
-              this.updateScrollbar();
-            });
-          }
-        });
+      // if (this.ChatSubscription) this.ChatSubscription.unsubscribe();
+      // this.ChatSubscription = this.chatService
+      //   .get(this.chat._id as string)
+      //   .subscribe((msg) => {
+      //     if (msg) {
+      //       this.chat.messages.push(msg);
+      //       setTimeout(() => {
+      //         this.updateScrollbar();
+      //       });
+      //     }
+      //   });
     }
   }
 

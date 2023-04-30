@@ -322,6 +322,23 @@ main {
     }
 }
 
+.server-message {
+    color: var(--primary-font);
+    display: flex;
+    justify-content: center;
+    gap: 0.2rem;
+
+    * {
+        font-size: 0.8rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    .lines {
+        letter-spacing: -1.9px;
+    }
+}
+
 @media only screen and (max-width: 1350px) {
     main {
         padding: 0 2.2rem 1rem 2.2rem;
@@ -510,4 +527,10 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+main {
+    .from-server {
+        max-width: 100%;
+    }
 }

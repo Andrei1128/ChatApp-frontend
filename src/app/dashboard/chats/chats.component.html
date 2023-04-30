@@ -10,7 +10,7 @@
     <div class="searchBar">
         <label class="form-label"><i class="bi bi-search"></i>
             <input [formControl]="searchChatsForm" (ngModelChange)="searchChats()" autocomplete="off" type="text"
-                class="form-control" placeholder="Search messages or users">
+                class="form-control" placeholder="Search conversations...">
         </label>
     </div>
     <h5>Recent</h5>
@@ -34,8 +34,9 @@
                         }}
                     </h6>
                     <p class="lastMessage" *ngIf="person.messages.length>0">
-                        {{person.messages.at(person.messages.length-1)?.from?._id===myId ? 'You' :
-                        person.messages.at(person.messages.length-1)?.from?.name}}:
+                        {{person.messages.at(person.messages.length-1)?.from?._id===myId ? 'You:' :
+                        person.messages.at(person.messages.length-1)?.from?.name ?
+                        (person.messages.at(person.messages.length-1)?.from?.name + ":") : '' }}
                         {{person.messages.at(person.messages.length-1)?.content}}</p>
                 </div>
             </div>
@@ -63,6 +64,9 @@
                 <label for="name">Group Name</label>
                 <input autocomplete="off" type="text" class="form-control" [formControl]="groupName"
                     placeholder="Enter Group Name" id="name">
+                <p *ngIf="groupNameError" class="invalid-feedback">
+                    Name should have between 4 and 16 characters!
+                </p>
                 <label for="members">Group Members</label>
                 <div class="searchBar">
                     <label class="form-label"><i class="bi bi-search"></i>
@@ -80,7 +84,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button (click)="createGroup()" type="button" data-bs-dismiss="modal" class="btn btn-primary">Create
+                <button (click)="createGroup()" type="button" class="btn btn-primary">Create
                     Group</button>
             </div>
         </div>
