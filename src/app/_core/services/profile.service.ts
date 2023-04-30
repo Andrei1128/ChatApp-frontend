@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Profile } from '../models/profile.model';
 import { Socket } from 'ngx-socket-io';
-import { Chat } from '../models/chat.model';
 import { Message } from '../models/message.model';
 
 @Injectable({
@@ -17,15 +16,6 @@ export class ProfileService {
   );
 
   constructor(private httpClient: HttpClient, private socket: Socket) {
-    this.socket.on('chat message', (res: any) => {
-      const currentProfile = this.myProfile$.value;
-      currentProfile.chats = currentProfile.chats.map((chat) => {
-        if (chat._id === res.convId) chat.messages.push(res.message);
-        return chat;
-      });
-      this.myProfile$.next(currentProfile);
-    });
-
     this.socket.on('new friend', (friend: Profile) => {
       this.myProfile$.value.friends?.push(friend);
     });
@@ -50,7 +40,7 @@ export class ProfileService {
       const currentProfile = this.myProfile$.value;
       let message = {
         content: 'Group image updated',
-        timestamp: Date.now(),
+        createdAt: new Date(),
       };
       currentProfile.chats = currentProfile.chats.map((chat) => {
         if (chat._id === res.id) {
@@ -66,7 +56,7 @@ export class ProfileService {
       const currentProfile = this.myProfile$.value;
       let message = {
         content: `Group name changed to '${res.name}'`,
-        timestamp: Date.now(),
+        createdAt: new Date(),
       };
       currentProfile.chats = currentProfile.chats.map((chat) => {
         if (chat._id === res.id) {
@@ -91,7 +81,7 @@ export class ProfileService {
       const currentProfile = this.myProfile$.value;
       let message = {
         content: 'Group info updated',
-        timestamp: Date.now(),
+        createdAt: new Date(),
       };
       currentProfile.chats = currentProfile.chats.map((chat) => {
         if (chat._id === res.id) {

@@ -37,9 +37,9 @@ export class ChatsComponent implements OnInit {
     });
   }
 
-  getTime(timestamp: number) {
-    const date = new Date(timestamp);
-    const diffSeconds = Math.abs(Date.now() - timestamp) / 1000;
+  _getTime(createdAt: Date) {
+    const date = new Date(createdAt);
+    const diffSeconds = Math.abs(Date.now() - date.getTime()) / 1000;
     const diffMinutes = Math.floor(diffSeconds / 60);
 
     if (diffSeconds < 15) {

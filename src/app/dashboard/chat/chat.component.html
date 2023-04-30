@@ -1,4 +1,4 @@
-<div class="chat-layout">
+<div class="chat-layout" *ngIf="chat?._id; else noChat">
     <header>
         <div class="person-wrapper">
             <p class="bi bi-arrow-left" (click)="closeChat()"></p>
@@ -44,7 +44,7 @@
             </div>
         </div>
     </header>
-    <main #mainContainer>
+    <main [ngClass]="{'visible':!firstLoad}" #mainContainer>
         <div *ngFor="let message of chat?.messages" class="message"
             [ngClass]="{'from-server': !message.from, 'from-me': message.from?._id===myProfile._id}">
             <h6 class="message-sender">{{ message.from?.name }}</h6>
@@ -52,7 +52,7 @@
                 <img class="profile-image" [src]="message.from?.image || '../../../assets/profile.png'">
                 <div>
                     <p class="message-content">{{ message.content }}</p>
-                    <p class="timestamp">{{getTime(message.timestamp)}}</p>
+                    <p class="timestamp">{{_getTime(message.createdAt)}}</p>
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical action" data-bs-toggle="dropdown"></i>
                         <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">
@@ -74,7 +74,7 @@
             </div>
             <div *ngIf="!message.from" class="server-message">
                 <p class="content">{{message.content+' -'}}</p>
-                <p class="timestamp">{{getTime(message.timestamp)}}</p>
+                <p class="timestamp">{{_getTime(message.createdAt)}}</p>
             </div>
         </div>
     </main>
@@ -89,19 +89,30 @@
             <i (click)="sendMessage()" class="bi bi-send-fill"></i>
         </div>
     </footer>
+    <i *ngIf="!isAtBottom" (click)="updateScrollbar(false)" class="bi bi-arrow-down-short"></i>
 </div>
+
+<ng-template #noChat>
+    <main class="noChat">
+        <p class="bi bi-arrow-left" (click)="closeChat()"></p>
+        <article>
+            <i class="bi bi-chat-left"></i>
+            <h2>Start Conversation</h2>
+        </article>
+    </main>
+</ng-template>
 
 <!-- Modal here! -->
 <div class="modal fade" id="audioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-            <img [src]="(chat.image || ((chat.participants?.length===2 && chat.participants?.at(0)?._id === myProfile._id) ?
-    chat.participants?.at(1)?.image : chat.participants?.at(0)?.image)) || '../../../assets/profile.png'">
+            <img [src]="(chat?.image || ((chat?.participants?.length===2 && chat?.participants?.at(0)?._id === myProfile?._id) ?
+    chat?.participants?.at(1)?.image : chat?.participants?.at(0)?.image)) || '../../../assets/profile.png'">
             <h4>{{
-                chat.name ||
-                (chat.participants?.[0]?._id === myProfile._id
-                ? chat.participants?.[1]?.name
-                : chat.participants?.[0]?.name)
+                chat?.name ||
+                (chat?.participants?.[0]?._id === myProfile._id
+                ? chat?.participants?.[1]?.name
+                : chat?.participants?.[0]?.name)
                 }}</h4>
             <p>Start Audio Call</p>
             <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i class="bi bi-telephone-fill"></i>
@@ -112,13 +123,13 @@
 <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-            <img [src]="(chat.image || ((chat.participants?.length===2 && chat.participants?.at(0)?._id === myProfile._id) ?
-            chat.participants?.at(1)?.image : chat.participants?.at(0)?.image)) || '../../../assets/profile.png'">
+            <img [src]="(chat?.image || ((chat?.participants?.length===2 && chat?.participants?.at(0)?._id === myProfile?._id) ?
+            chat?.participants?.at(1)?.image : chat?.participants?.at(0)?.image)) || '../../../assets/profile.png'">
             <h4>{{
-                chat.name ||
-                (chat.participants?.[0]?._id === myProfile._id
-                ? chat.participants?.[1]?.name
-                : chat.participants?.[0]?.name)
+                chat?.name ||
+                (chat?.participants?.[0]?._id === myProfile._id
+                ? chat?.participants?.[1]?.name
+                : chat?.participants?.[0]?.name)
                 }}</h4>
             <p>Start Video Call</p>
             <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i

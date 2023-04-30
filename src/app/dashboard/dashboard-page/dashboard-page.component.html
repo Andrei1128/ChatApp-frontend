@@ -62,18 +62,7 @@
         <router-outlet></router-outlet>
     </section>
     <main class="target hidden">
-        <div *ngIf="selectedChat?._id; else noChat">
-            <app-chat (changeVisibility)="closeChat()" [chat]="selectedChat"></app-chat>
-        </div>
+        <app-chat (changeVisibility)="closeChat()" [chat]="selectedChat"></app-chat>
     </main>
-    <ng-template #noChat>
-        <main class="noChat target hidden">
-            <p class="bi bi-arrow-left" (click)="closeChat()"></p>
-            <article>
-                <i class="bi bi-chat-left"></i>
-                <h2>Start Conversation</h2>
-            </article>
-        </main>
-    </ng-template>
 </div>
 <app-offcanvas [profile]="selectedProfile"></app-offcanvas>

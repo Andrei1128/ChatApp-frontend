@@ -4,5 +4,5 @@ export class Message {
   _id: string;
   content: string;
   from: Profile;
-  timestamp: number;
+  createdAt: Date;
 }

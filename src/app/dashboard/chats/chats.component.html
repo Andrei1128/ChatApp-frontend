@@ -15,7 +15,7 @@
     </div>
     <h5>Recent</h5>
     <main>
-        <div (click)="chatWith(person)" *ngFor="let person of chats"
+        <div (click)="chatWith(person)" *ngFor="let person of chats.reverse()"
             [ngClass]="{'active': activeChatId === person._id }" class="person">
             <div class="wrapper">
                 <div class="profileImg">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="info">
-                <p *ngIf="person.messages.length>0">{{getTime(person.messages.at(person.messages.length-1).timestamp)}}
+                <p *ngIf="person.messages.length>0">{{_getTime(person.messages.at(person.messages.length-1).createdAt)}}
                 </p>
                 <p class="new-messages">22</p>
             </div>

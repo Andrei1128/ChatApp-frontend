@@ -16,6 +16,8 @@ import { ChatService } from 'src/app/_core/services/chat.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 import { Subscription } from 'rxjs';
 import { DataShareService } from 'src/app/_core/services/data-share.service';
+import { Message } from 'src/app/_core/models/message.model';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-chat',
@@ -30,35 +32,42 @@ export class ChatComponent implements OnInit, OnChanges {
   @ViewChild('mainContainer') mainContainer: ElementRef;
   ChatSubscription?: Subscription;
   @Output() changeVisibility = new EventEmitter();
+  isAtBottom: boolean = true;
+  firstLoad: boolean = true;
 
   constructor(
     private profileService: ProfileService,
     private chatService: ChatService,
-    private dataShareService: DataShareService
+    private dataShareService: DataShareService,
+    private socket: Socket
   ) {}
 
   ngOnInit(): void {
     this.profileService
       .getMyProfile()
       .subscribe((res) => (this.myProfile = res));
+    this.socket.on('chat message', (res: any) => {
+      const currentProfile = this.profileService.myProfile$.value;
+      let targetChatIndex = currentProfile.chats.findIndex(
+        (chat) => chat._id === res.convId
+      );
+      if (targetChatIndex !== -1) {
+        currentProfile.chats[targetChatIndex].messages.push({
+          ...res.message,
+          createdAt: new Date(),
+        });
+        const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+        currentProfile.chats.push(targetChat);
+        this.profileService.myProfile$.next(currentProfile);
+        if (res.convId === this.chat?._id) this.updateScrollbar(true);
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('chat' in changes) {
-      setTimeout(() => {
-        this.updateScrollbar();
-      });
-      // if (this.ChatSubscription) this.ChatSubscription.unsubscribe();
-      // this.ChatSubscription = this.chatService
-      //   .get(this.chat._id as string)
-      //   .subscribe((msg) => {
-      //     if (msg) {
-      //       this.chat.messages.push(msg);
-      //       setTimeout(() => {
-      //         this.updateScrollbar();
-      //       });
-      //     }
-      //   });
+      this.firstLoad = true;
+      this.updateScrollbar(true);
     }
   }
 
@@ -74,9 +83,9 @@ export class ChatComponent implements OnInit, OnChanges {
     });
   }
 
-  getTime(timestamp: number) {
-    const date = new Date(timestamp);
-    const diffSeconds = Math.abs(Date.now() - timestamp) / 1000;
+  _getTime(createdAt: Date) {
+    const date = new Date(createdAt);
+    const diffSeconds = Math.abs(Date.now() - date.getTime()) / 1000;
     const diffMinutes = Math.floor(diffSeconds / 60);
 
     if (diffSeconds < 15) {
@@ -135,12 +144,52 @@ export class ChatComponent implements OnInit, OnChanges {
     });
   }
 
-  updateScrollbar() {
-    const mainContainer = this.mainContainer.nativeElement;
-    mainContainer.scrollTo({
-      top: mainContainer.scrollHeight,
-      behavior: 'smooth',
-    });
+  updateScrollbar(flag: boolean) {
+    const mainContainer = this.mainContainer?.nativeElement;
+    if (mainContainer) {
+      if (!this.firstLoad)
+        if (flag) {
+          this.isAtBottom =
+            mainContainer.scrollTop + mainContainer.clientHeight >=
+            mainContainer.scrollHeight;
+        } else {
+          this.isAtBottom = true;
+        }
+      if (this.isAtBottom || this.firstLoad) {
+        setTimeout(() => {
+          mainContainer.scrollTo({
+            top: mainContainer.scrollHeight,
+            behavior: 'smooth',
+          });
+          this.firstLoad = false;
+        });
+      }
+    }
+    // trash
+    else {
+      setTimeout(() => {
+        const mainContainer = this.mainContainer?.nativeElement;
+        if (mainContainer) {
+          if (!this.firstLoad)
+            if (flag) {
+              this.isAtBottom =
+                mainContainer.scrollTop + mainContainer.clientHeight >=
+                mainContainer.scrollHeight;
+            } else {
+              this.isAtBottom = true;
+            }
+          if (this.isAtBottom || this.firstLoad) {
+            setTimeout(() => {
+              mainContainer.scrollTo({
+                top: mainContainer.scrollHeight,
+                behavior: 'smooth',
+              });
+              this.firstLoad = false;
+            });
+          }
+        }
+      });
+    }
   }
 
   sendMessage() {
@@ -152,6 +201,22 @@ export class ChatComponent implements OnInit, OnChanges {
           this.myProfile._id as string,
           this.chat._id as string
         );
+      const message = {
+        content: content,
+        from: this.myProfile,
+        createdAt: new Date(),
+      };
+      this.chat.messages.push(message as Message);
+      const currentProfile = this.profileService.myProfile$.value;
+      const targetChatIndex = currentProfile.chats.findIndex(
+        (chat) => chat._id === this.chat._id
+      );
+      if (targetChatIndex !== -1) {
+        const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+        currentProfile.chats.push(targetChat);
+        this.profileService.myProfile$.next(currentProfile);
+      }
+      this.updateScrollbar(true);
       this.messageForm.reset();
     }
   }
