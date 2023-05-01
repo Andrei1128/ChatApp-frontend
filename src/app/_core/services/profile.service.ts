@@ -36,37 +36,6 @@ export class ProfileService {
       this.myProfile$.value.chats.push(res);
     });
 
-    this.socket.on('new chat image', (res: any) => {
-      const currentProfile = this.myProfile$.value;
-      let message = {
-        content: 'Group image updated',
-        createdAt: new Date(),
-      };
-      currentProfile.chats = currentProfile.chats.map((chat) => {
-        if (chat._id === res.id) {
-          chat.messages.push(message as Message);
-          chat.image = res.image;
-        }
-        return chat;
-      });
-      this.myProfile$.next(currentProfile);
-    });
-
-    this.socket.on('new chat name', (res: any) => {
-      const currentProfile = this.myProfile$.value;
-      let message = {
-        content: `Group name changed to '${res.name}'`,
-        createdAt: new Date(),
-      };
-      currentProfile.chats = currentProfile.chats.map((chat) => {
-        if (chat._id === res.id) {
-          chat.messages.push(message as Message);
-          chat.name = res.name;
-        }
-        return chat;
-      });
-      this.myProfile$.next(currentProfile);
-    });
     this.socket.on('new friend about', (res: any) => {
       const currentProfile = this.myProfile$.value;
       currentProfile.friends = currentProfile.friends.map((friend) => {
@@ -74,21 +43,6 @@ export class ProfileService {
           friend.about = res.about;
         }
         return friend;
-      });
-      this.myProfile$.next(currentProfile);
-    });
-    this.socket.on('new chat about', (res: any) => {
-      const currentProfile = this.myProfile$.value;
-      let message = {
-        content: 'Group info updated',
-        createdAt: new Date(),
-      };
-      currentProfile.chats = currentProfile.chats.map((chat) => {
-        if (chat._id === res.id) {
-          chat.messages.push(message as Message);
-          chat.about = res.about;
-        }
-        return chat;
       });
       this.myProfile$.next(currentProfile);
     });

@@ -46,6 +46,8 @@ export class ChatComponent implements OnInit, OnChanges {
     this.profileService
       .getMyProfile()
       .subscribe((res) => (this.myProfile = res));
+
+    //Chat message
     this.socket.on('chat message', (res: any) => {
       const currentProfile = this.profileService.myProfile$.value;
       let targetChatIndex = currentProfile.chats.findIndex(
@@ -56,16 +58,92 @@ export class ChatComponent implements OnInit, OnChanges {
           ...res.message,
           createdAt: new Date(),
         });
+        if (currentProfile.chats[targetChatIndex]._id !== this.chat?._id)
+          currentProfile.chats[targetChatIndex].notifications++;
         const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
         currentProfile.chats.push(targetChat);
         this.profileService.myProfile$.next(currentProfile);
         if (res.convId === this.chat?._id) this.updateScrollbar(true);
       }
     });
+
+    //Update name
+    this.socket.on('new chat name', (res: any) => {
+      const currentProfile = this.profileService.myProfile$.value;
+      let targetChatIndex = currentProfile.chats.findIndex(
+        (chat) => chat._id === res.id
+      );
+      if (targetChatIndex !== -1) {
+        let message = {
+          content: `Group name changed to '${res.name}'`,
+          createdAt: new Date(),
+        };
+        currentProfile.chats[targetChatIndex].messages.push(message as Message);
+        currentProfile.chats[targetChatIndex].name = res.name;
+        if (currentProfile.chats[targetChatIndex]._id !== this.chat?._id)
+          currentProfile.chats[targetChatIndex].notifications++;
+        const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+        currentProfile.chats.push(targetChat);
+        this.profileService.myProfile$.next(currentProfile);
+        if (res.id === this.chat?._id) this.updateScrollbar(true);
+      }
+    });
+
+    //Update image
+    this.socket.on('new chat image', (res: any) => {
+      const currentProfile = this.profileService.myProfile$.value;
+      let targetChatIndex = currentProfile.chats.findIndex(
+        (chat) => chat._id === res.id
+      );
+      if (targetChatIndex !== -1) {
+        let message = {
+          content: 'Group image updated',
+          createdAt: new Date(),
+        };
+        currentProfile.chats[targetChatIndex].messages.push(message as Message);
+        currentProfile.chats[targetChatIndex].image = res.image;
+        if (currentProfile.chats[targetChatIndex]._id !== this.chat?._id)
+          currentProfile.chats[targetChatIndex].notifications++;
+        const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+        currentProfile.chats.push(targetChat);
+        this.profileService.myProfile$.next(currentProfile);
+        if (res.id === this.chat?._id) this.updateScrollbar(true);
+      }
+    });
+
+    //Update about
+    this.socket.on('new chat about', (res: any) => {
+      const currentProfile = this.profileService.myProfile$.value;
+      let targetChatIndex = currentProfile.chats.findIndex(
+        (chat) => chat._id === res.id
+      );
+      if (targetChatIndex !== -1) {
+        let message = {
+          content: 'Group info updated',
+          createdAt: new Date(),
+        };
+        currentProfile.chats[targetChatIndex].messages.push(message as Message);
+        currentProfile.chats[targetChatIndex].about = res.about;
+        if (currentProfile.chats[targetChatIndex]._id !== this.chat?._id)
+          currentProfile.chats[targetChatIndex].notifications++;
+        const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+        currentProfile.chats.push(targetChat);
+        this.profileService.myProfile$.next(currentProfile);
+        if (res.id === this.chat?._id) this.updateScrollbar(true);
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('chat' in changes) {
+      const currentProfile = this.profileService.myProfile$.value;
+      currentProfile.chats = currentProfile.chats.map((chat) => {
+        if (chat._id === this.chat?._id) {
+          chat.notifications = 0;
+        }
+        return chat;
+      });
+      this.profileService.myProfile$.next(currentProfile);
       this.firstLoad = true;
       this.updateScrollbar(true);
     }

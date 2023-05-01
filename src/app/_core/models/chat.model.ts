@@ -6,6 +6,7 @@ export class Chat {
   name: string;
   image: string;
   about: string;
+  notifications: number;
   participants: Profile[];
   messages: Message[];
 }

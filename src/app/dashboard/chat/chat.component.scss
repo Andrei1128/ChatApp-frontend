@@ -177,6 +177,12 @@ li {
     font-size: 0.7rem;
 }
 
+p {
+    .timestamp {
+        font-size: 0.7rem;
+    }
+}
+
 // Footer
 
 footer {
@@ -420,7 +426,7 @@ main {
     color: var(--primary-font);
     display: flex;
     justify-content: center;
-    gap: 0.2rem;
+    text-align: center;
 
     * {
         font-size: 0.8rem;

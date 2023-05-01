@@ -43,7 +43,7 @@
             <div class="info">
                 <p *ngIf="person.messages.length>0">{{_getTime(person.messages.at(person.messages.length-1).createdAt)}}
                 </p>
-                <p class="new-messages">22</p>
+                <p *ngIf="person.notifications" class="new-messages">{{person.notifications}}</p>
             </div>
         </div>
     </main>

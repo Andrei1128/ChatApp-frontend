@@ -56,7 +56,8 @@ export class ChatsComponent implements OnInit {
   }
 
   chatWith(chat: Chat) {
-    this.activeChatId = chat._id as string;
+    this.activeChatId = chat._id;
+    this.chatService.clearNotifications(chat._id);
     this.dataShareService.shareChat(chat);
   }
 
