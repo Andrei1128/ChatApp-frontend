@@ -66,3 +66,39 @@
     </main>
 </div>
 <app-offcanvas [profile]="selectedProfile"></app-offcanvas>
+<!-- Modal here! -->
+<div class="modal fade" id="answearaudioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <img [src]="(chat?.image || ((chat?.participants?.length===2 && chat?.participants?.at(0)?._id === myProfileId) ?
+    chat?.participants?.at(1)?.image : chat?.participants?.at(0)?.image)) || '../../../assets/profile.png'">
+            <h4>{{
+                chat?.name ||
+                (chat?.participants?.[0]?._id ===myProfileId
+                ? chat?.participants?.[1]?.name
+                : chat?.participants?.[0]?.name)
+                }}</h4>
+            <p>Enter Audio Call</p>
+            <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i data-bs-dismiss="modal"
+                    (click)="enterAudioCall()" class="bi bi-telephone-fill"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="answearvideoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <img [src]="(chat?.image || ((chat?.participants?.length===2 && chat?.participants?.at(0)?._id === myProfileId) ?
+            chat?.participants?.at(1)?.image : chat?.participants?.at(0)?.image)) || '../../../assets/profile.png'">
+            <h4>{{
+                chat?.name ||
+                (chat?.participants?.[0]?._id ===myProfileId
+                ? chat?.participants?.[1]?.name
+                : chat?.participants?.[0]?.name)
+                }}</h4>
+            <p>Enter Video Call</p>
+            <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i data-bs-dismiss="modal"
+                    (click)="enterVideoCall()" class="bi bi-camera-video-fill"></i></div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 <div class="chat-layout" *ngIf="chat?._id; else noChat">
+    <app-call></app-call>
     <header>
         <div class="person-wrapper">
             <p class="bi bi-arrow-left" (click)="closeChat()"></p>
@@ -29,7 +30,7 @@
                 </ul>
             </div>
             <i data-bs-toggle="modal" data-bs-target="#audioModal" class="bi action bi-telephone"></i>
-            <i data-bs-toggle="modal" data-bs-target="#videoModal" class="bi action bi-camera-video"></i>
+            <i data-bs-toggle="modal" data-bs-target="#videoModal" class="bi action active bi-camera-video"></i>
             <i (click)="viewProfile()" class="bi action bi-person"></i>
             <div class="dropdown">
                 <i class="bi action bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
@@ -115,7 +116,8 @@
                 : chat?.participants?.[0]?.name)
                 }}</h4>
             <p>Start Audio Call</p>
-            <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i class="bi bi-telephone-fill"></i>
+            <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i data-bs-dismiss="modal"
+                    (click)="startAudioCall()" class="bi bi-telephone-fill"></i>
             </div>
         </div>
     </div>
@@ -132,8 +134,8 @@
                 : chat?.participants?.[0]?.name)
                 }}</h4>
             <p>Start Video Call</p>
-            <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i
-                    class="bi bi-camera-video-fill"></i></div>
+            <div class="Actions"><i data-bs-dismiss="modal" class="bi bi-x-lg"></i><i data-bs-dismiss="modal"
+                    (click)="startVideoCall()" class="bi bi-camera-video-fill"></i></div>
         </div>
     </div>
 </div>

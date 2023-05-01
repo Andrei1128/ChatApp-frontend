@@ -13,6 +13,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { ChatComponent } from './chat/chat.component';
 import { OffcanvasComponent } from './offcanvas/offcanvas.component';
 import { FormsModule } from '@angular/forms';
+import { CallComponent } from './chat/call/call.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     SettingsComponent,
     ChatComponent,
     OffcanvasComponent,
+    CallComponent,
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Message } from '../models/message.model';
 import { ProfileService } from './profile.service';
 
 @Injectable({
@@ -13,7 +12,6 @@ export class ChatService {
   private readonly serverUrl = `${environment.apiURL}/chat`;
 
   public message: BehaviorSubject<any> = new BehaviorSubject('');
-  private lastChatListener: string | undefined;
 
   constructor(
     private socket: Socket,
@@ -50,6 +48,15 @@ export class ChatService {
       image,
     });
   }
+
+  startVideoCall(convId: string) {
+    this.socket.emit('video call', convId);
+  }
+
+  startAudioCall(convId: string) {
+    this.socket.emit('audio call', convId);
+  }
+
   connect() {
     this.profileService.getMyProfile().subscribe((res) => {
       const userID = res._id;

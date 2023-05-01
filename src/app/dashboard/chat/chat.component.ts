@@ -270,6 +270,47 @@ export class ChatComponent implements OnInit, OnChanges {
     }
   }
 
+  startVideoCall() {
+    this.chatService.startVideoCall(this.chat._id);
+    const currentProfile = this.profileService.myProfile$.value;
+    let targetChatIndex = currentProfile.chats.findIndex(
+      (chat) => chat._id === this.chat._id
+    );
+    if (targetChatIndex !== -1) {
+      let message = {
+        content: 'Started a video call',
+        createdAt: new Date(),
+      };
+      currentProfile.chats[targetChatIndex].messages.push(message as Message);
+      if (currentProfile.chats[targetChatIndex]._id !== this.chat?._id)
+        currentProfile.chats[targetChatIndex].notifications++;
+      const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+      currentProfile.chats.push(targetChat);
+      this.profileService.myProfile$.next(currentProfile);
+      this.updateScrollbar(true);
+    }
+  }
+  startAudioCall() {
+    this.chatService.startAudioCall(this.chat._id);
+    const currentProfile = this.profileService.myProfile$.value;
+    let targetChatIndex = currentProfile.chats.findIndex(
+      (chat) => chat._id === this.chat._id
+    );
+    if (targetChatIndex !== -1) {
+      let message = {
+        content: 'Started a video call',
+        createdAt: new Date(),
+      };
+      currentProfile.chats[targetChatIndex].messages.push(message as Message);
+      if (currentProfile.chats[targetChatIndex]._id !== this.chat?._id)
+        currentProfile.chats[targetChatIndex].notifications++;
+      const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+      currentProfile.chats.push(targetChat);
+      this.profileService.myProfile$.next(currentProfile);
+      this.updateScrollbar(true);
+    }
+  }
+
   sendMessage() {
     if (this.messageForm.value) {
       var content = this.messageForm.value.trim();

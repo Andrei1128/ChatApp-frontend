@@ -164,6 +164,14 @@ header {
         .action:hover {
             opacity: 0.8;
         }
+
+        .active {
+            margin: 0 -5px;
+            font-size: 1.1rem;
+            border-radius: 100%;
+            padding: 0.3rem 0.6rem;
+            color: var(--online)
+        }
     }
 }
 
@@ -413,6 +421,10 @@ main {
 
         .bi:hover {
             opacity: 0.85;
+        }
+
+        .bi:active {
+            opacity: 1;
         }
 
         .bi-x-lg {

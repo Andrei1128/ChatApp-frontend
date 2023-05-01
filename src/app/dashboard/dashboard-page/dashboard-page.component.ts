@@ -7,6 +7,8 @@ import { ChatService } from 'src/app/_core/services/chat.service';
 import { Profile } from 'src/app/_core/models/profile.model';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 import { Subscription } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
+import { Message } from 'src/app/_core/models/message.model';
 declare var bootstrap: any;
 
 @Component({
@@ -21,6 +23,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   selectedChat!: Chat;
   selectedProfile!: Profile;
   myProfileImage?: string;
+  myProfileId: string;
+  chat: Chat;
+  activeChatId: string;
   private selectedProfileSubscription!: Subscription;
 
   constructor(
@@ -28,11 +33,67 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private dataShareService: DataShareService,
     private chatService: ChatService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private socket: Socket
   ) {}
 
   ngOnInit(): void {
+    this.dataShareService;
+    this.socket.on('incoming video call', (convId: string) => {
+      this.chat = this.profileService.myProfile$.value.chats.find(
+        (chat) => chat._id === convId
+      );
+      var myModal = document.getElementById('answearvideoModal');
+      var modal = new bootstrap.Modal(myModal);
+      modal.show();
+      const currentProfile = this.profileService.myProfile$.value;
+      let targetChatIndex = currentProfile.chats.findIndex(
+        (chat) => chat._id === this.chat._id
+      );
+      if (targetChatIndex !== -1) {
+        let message = {
+          content: 'Started a video call',
+          createdAt: new Date(),
+        };
+        currentProfile.chats[targetChatIndex].messages.push(message as Message);
+        if (
+          currentProfile.chats[targetChatIndex]._id !== this.selectedChat?._id
+        )
+          currentProfile.chats[targetChatIndex].notifications++;
+        const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+        currentProfile.chats.push(targetChat);
+        this.profileService.myProfile$.next(currentProfile);
+      }
+    });
+    this.socket.on('incoming audio call', (convId: string) => {
+      this.chat = this.profileService.myProfile$.value.chats.find(
+        (chat) => chat._id === convId
+      );
+      var myModal = document.getElementById('answearaudioModal');
+      var modal = new bootstrap.Modal(myModal);
+      modal.show();
+      const currentProfile = this.profileService.myProfile$.value;
+      let targetChatIndex = currentProfile.chats.findIndex(
+        (chat) => chat._id === this.chat._id
+      );
+      if (targetChatIndex !== -1) {
+        let message = {
+          content: 'Started a audio call',
+          createdAt: new Date(),
+        };
+        currentProfile.chats[targetChatIndex].messages.push(message as Message);
+        if (
+          currentProfile.chats[targetChatIndex]._id !== this.selectedChat?._id
+        )
+          currentProfile.chats[targetChatIndex].notifications++;
+        const targetChat = currentProfile.chats.splice(targetChatIndex, 1)[0];
+        currentProfile.chats.push(targetChat);
+        this.profileService.myProfile$.next(currentProfile);
+      }
+    });
+
     this.profileService.getMyProfile().subscribe((res) => {
+      this.myProfileId = res._id;
       this.myProfileImage = res.image;
       if (this.myProfileImage) this.loaded = true;
     });
@@ -62,6 +123,13 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         }
       });
     this.chatService.connect();
+  }
+
+  enterVideoCall() {
+    this.dataShareService.shareChat(this.chat);
+  }
+  enterAudioCall() {
+    this.dataShareService.shareChat(this.chat);
   }
 
   closeChat() {

@@ -35,6 +35,9 @@ export class ChatsComponent implements OnInit {
         this.friends = res.friends;
       }
     });
+    this.dataShareService.selectedChat$.subscribe((res) => {
+      if (res) this.activeChatId = res._id;
+    });
   }
 
   _getTime(createdAt: Date) {
@@ -56,7 +59,6 @@ export class ChatsComponent implements OnInit {
   }
 
   chatWith(chat: Chat) {
-    this.activeChatId = chat._id;
     this.chatService.clearNotifications(chat._id);
     this.dataShareService.shareChat(chat);
   }
@@ -91,13 +93,11 @@ export class ChatsComponent implements OnInit {
               const chatFound = res.chats?.find((ch) => ch._id === chat);
               if (chatFound) {
                 this.dataShareService.shareChat(chatFound);
-                this.activeChatId = chatFound._id as string;
               }
             });
           } else {
             this.profileService.myProfile$.value.chats?.push(chat);
             this.dataShareService.shareChat(chat);
-            this.activeChatId = chat._id as string;
           }
         });
       this.profileService.getMyProfile().subscribe((res) => {

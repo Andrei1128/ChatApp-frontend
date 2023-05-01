@@ -114,6 +114,7 @@ section {
 
 // Main
 
+
 main {
     div {
         width: 100%;
@@ -199,5 +200,63 @@ section.hidden {
 
     .profile>img {
         width: 1.8rem;
+    }
+}
+
+.modal-content {
+    height: 23rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-width: 1px;
+
+    img {
+        width: 6rem;
+        border-radius: 100%;
+        border: 5px solid var(--aside-background);
+    }
+
+    h4 {
+        margin-top: 1rem;
+        font-size: 1.25rem;
+        color: var(--secondary-font);
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 0.93rem;
+        color: var(--primary-font);
+    }
+
+    .Actions {
+        margin-top: 2.5rem;
+        color: var(--secondary-font);
+        display: flex;
+        gap: 1.5rem;
+
+        .bi {
+            -webkit-text-stroke-width: 0;
+            font-size: 1rem;
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 100%;
+            background-color: var(--online);
+            border: 2px solid var(--active);
+            cursor: pointer;
+        }
+
+        .bi:hover {
+            opacity: 0.85;
+        }
+
+        .bi:active {
+            opacity: 1;
+        }
+
+        .bi-x-lg {
+            background-color: var(--busy);
+        }
     }
 }
