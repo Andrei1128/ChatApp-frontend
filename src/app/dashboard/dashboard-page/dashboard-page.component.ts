@@ -95,7 +95,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.profileService.getMyProfile().subscribe((res) => {
       this.myProfileId = res._id;
       this.myProfileImage = res.image;
-      if (this.myProfileImage) this.loaded = true;
+      if (this.myProfileId) this.loaded = true;
     });
 
     this.dataShareService.selectedChat$.subscribe((chat) => {

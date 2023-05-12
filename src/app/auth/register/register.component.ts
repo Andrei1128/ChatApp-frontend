@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
     this.errorMessage = null;
     this.submitted = false;
     const payload = {
-      username: this.username.value.trim(),
+      name: this.username.value.trim(),
       email: this.email.value.trim(),
       password: this.password.value.trim(),
     };
