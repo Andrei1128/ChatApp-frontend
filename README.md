@@ -1,27 +1,22 @@
-# Chat
+# ChatApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.2.
+This project represents a significant step in my programming journey because I learned important things while developing it. I spent some time on it, but for now, it is abandoned because I didn't plan it well from the beginning, making it harder to scale.
 
-## Development server
+## Why I created it?
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+At first, it was just a game, but over time, the project started to grow and take shape. I simply wanted to learn and improve myself.
 
-## Code scaffolding
+## About the project
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The project is a chat application that allows users to create accounts, send/accept/decline friend requests, create individual chats and groups, modify profile and group information such as name and image, send messages, and see connected/disconnected friends or group members.
 
-## Build
+### Socket.io
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The project uses sockets to establish a real-time connection between users so that they receive messages, requests, and information about friends at the same moment as the action is performed.
 
-## Running unit tests
+## Future changes
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+In the future, the project will have the option to make video and audio calls, as well as send files and images.
 
-## Running end-to-end tests
+### Backend here -> [https://github.com/Andrei1128/ChatApp-backend](https://github.com/Andrei1128/ChatApp-backend)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
