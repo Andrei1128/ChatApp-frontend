@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Profile } from '../models/profile.model';
 import { Socket } from 'ngx-socket-io';
 import { Message } from '../models/message.model';
+import { Chat, UserUtil } from '../models/chat.model';
 
 @Injectable({
   providedIn: 'root',
@@ -72,10 +73,22 @@ export class ProfileService {
   }
 
   getMyProfile(): Observable<Profile> {
-    if (!this.myProfile$.value._id)
+    if (!this.myProfile$.value._id) {
       this.httpClient
         .get(`${this.serverUrl}/myProfile`)
-        .subscribe((res) => this.myProfile$.next(res));
+        .subscribe((res: Profile) => {
+          const profile = res;
+          profile.chats.forEach((chat: Chat) => {
+            chat.userUtil.forEach((userUtil: UserUtil) => {
+              if (userUtil.userId === profile._id) {
+                chat.notifications = userUtil.notifications;
+              }
+            });
+          });
+
+          this.myProfile$.next(profile);
+        });
+    }
     return this.myProfile$.asObservable();
   }
 
