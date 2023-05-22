@@ -1,0 +1,25 @@
+section {
+    height: 100%;
+}
+
+.bi-arrow-left {
+    cursor: pointer;
+    -webkit-text-stroke-width: 0.3px;
+    background-color: var(--aside-background);
+    color: var(--primary-font);
+    border-radius: 100%;
+    padding: 0.15rem 0.4rem;
+    font-size: 1.3rem;
+    border: 1px solid var(--active);
+}
+
+.bi-arrow-left:hover {
+    border: 1px solid var(--aside-background);
+    opacity: 0.7
+}
+
+li {
+    .bi {
+        opacity: 1;
+    }
+}

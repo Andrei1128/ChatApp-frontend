@@ -149,6 +149,10 @@ export class ChatComponent implements OnInit, OnChanges {
     }
   }
 
+  copyMessageContent(content: string) {
+    navigator.clipboard.writeText(content);
+  }
+
   searchMessage() {
     this.profileService.getMyProfile().subscribe((res) => {
       if (res.chats) {
@@ -212,13 +216,15 @@ export class ChatComponent implements OnInit, OnChanges {
   }
 
   deleteChat() {
-    this.chatService.deleteChat(this.chat._id as string).subscribe((res) => {
-      this.dataShareService.shareChat(undefined);
+    this.chatService.deleteChat(this.chat._id as string).subscribe(async () => {
       const currentProfile = this.profileService.myProfile$.value;
-      currentProfile.chats = currentProfile.chats.filter(
-        (chat: Chat) => chat._id !== this.chat._id
-      );
-      this.profileService.myProfile$.next(currentProfile);
+      await currentProfile.chats.forEach((chat: Chat) => {
+        if (chat._id === this.chat._id) {
+          chat.messages = [];
+          console.log(chat);
+        }
+      });
+      this.dataShareService.shareChat(this.chat);
     });
   }
 

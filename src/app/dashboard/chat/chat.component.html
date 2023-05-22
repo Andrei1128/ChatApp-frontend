@@ -39,7 +39,7 @@
                         <p>Set Password</p><i class="bi bi-shield-lock"></i>
                     </li>
                     <li (click)="deleteChat()">
-                        <p>Delete</p><i class="bi bi-trash3"></i>
+                        <p>Clear</p><i class="bi bi-trash3"></i>
                     </li>
                 </ul>
             </div>
@@ -60,7 +60,7 @@
                             <li>
                                 <p>Reply</p><i class="bi bi-reply"></i>
                             </li>
-                            <li>
+                            <li (click)="copyMessageContent(message.content)">
                                 <p>Copy</p><i class="bi bi-files"></i>
                             </li>
                             <li>

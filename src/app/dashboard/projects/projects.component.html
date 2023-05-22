@@ -1,3 +1,4 @@
+<router-outlet></router-outlet>
 <div class="component-container">
     <header>
         <h4>Projects</h4>
@@ -16,12 +17,12 @@
     </header>
     <div class="searchBar">
         <label><i class="bi bi-search"></i>
-            <input autocomplete="off" type="text" class="form-control" placeholder="Search projects...">
+            <input autocomplete="off" type="text" class="form-control" [formControl]="searchProjectsForm"
+                (ngModelChange)="searchProjects()" placeholder="Search projects...">
         </label>
     </div>
     <main>
-        <div routerLink="/projects" [ngClass]="{'active': activeProject === person }" *ngFor=" let person of projects"
-            class="person">
+        <div (click)="selectProject(person)" routerLink={{person.name}} *ngFor=" let person of projects" class="person">
             <div class="wrapper">
                 <img [src]="person.image || '../../../assets/profile.png'">
                 <h6>#{{person.name}}</h6>
@@ -43,14 +44,19 @@
             </div>
             <div class="modal-body">
                 <label for="name">Project Name</label>
-                <input autocomplete="off" type="text" class="form-control" placeholder="Enter Project Name" id="name">
+                <input autocomplete="off" type="text" class="form-control" [formControl]="projectName"
+                    placeholder="Enter Project Name" id="name">
+                <p *ngIf="projectNameError" class="invalid-feedback">
+                    Name should have between 4 and 16 characters!
+                </p>
                 <label for="description">Project Description</label>
-                <textarea type="text" class="form-control" id="description"></textarea>
-                <label for="members">Send Invitations</label>
+                <textarea type="text" class="form-control" id="description"
+                    [formControl]="projectDescription"></textarea>
+                <label for="members">Project Members</label>
                 <div class="searchBar">
                     <label class="form-label"><i class="bi bi-search"></i>
-                        <input autocomplete="off" type="text" class="form-control" placeholder="Search friends"
-                            id="members">
+                        <input [formControl]="searchFriendsForm" (ngModelChange)="searchFriends()" autocomplete="off"
+                            type="text" class="form-control" placeholder="Search friends" id="members">
                     </label>
                 </div>
                 <label *ngFor="let person of friends" class="person">
@@ -58,12 +64,12 @@
                         <img [src]="person.image || '../../../assets/profile.png'">
                         <h6>{{person.name}}</h6>
                     </div>
-                    <input class="form-check-input" type="checkbox">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="person.selected">
                 </label>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Create Project</button>
+                <button (click)="createProject()" type="button" class="btn btn-primary">Create Project</button>
             </div>
         </div>
     </div>

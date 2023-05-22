@@ -15,38 +15,45 @@
     </div>
     <h5>Recent</h5>
     <main>
-        <div (click)="chatWith(person)" *ngFor="let person of chats.reverse()"
-            [ngClass]="{'active': activeChatId === person._id }" class="person">
-            <div class="wrapper">
-                <div class="profileImg">
-                    <img
-                        [src]="(person.image || ((person.participants?.length===2 && person.participants?.at(0)?._id === myId) ?
-                    person.participants?.at(1)?.image : person.participants?.at(0)?.image)) || '../../../assets/profile.png'">
-                    <i *ngIf="!person.name" class="bi bi-circle-fill" [class.online]="getOnlineClass(person)"></i>
+        <ng-container *ngFor="let person of chats.reverse()">
+            <ng-container *ngIf="person.messages.length > 0">
+                <div (click)="chatWith(person)" [ngClass]="{'active': activeChatId === person._id }" class="person">
+                    <div class="wrapper">
+                        <div class="profileImg">
+                            <img
+                                [src]="(person.image || ((person.participants?.length===2 && person.participants?.at(0)?._id === myId) ? person.participants?.at(1)?.image : person.participants?.at(0)?.image)) || '../../../assets/profile.png'">
+                            <i *ngIf="!person.name" class="bi bi-circle-fill"
+                                [class.online]="getOnlineClass(person)"></i>
+                        </div>
+                        <div class="content">
+                            <h6>
+                                {{
+                                person.name ||
+                                (person.participants?.[0]?._id === myId ? person.participants?.[1]?.name :
+                                person.participants?.[0]?.name)
+                                }}
+                            </h6>
+
+                            <p class="lastMessage">
+                                {{
+                                person.messages.at(person.messages.length-1)?.from?._id === myId ? 'You:' :
+                                person.messages.at(person.messages.length-1)?.from?.name ?
+                                (person.messages.at(person.messages.length-1)?.from?.name + ":") : ''
+                                }}
+                                {{ person.messages.at(person.messages.length-1)?.content }}
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="info">
+                        <p>{{ _getTime(person.messages.at(person.messages.length-1).createdAt) }}</p>
+                        <p *ngIf="person.notifications" class="new-messages">{{ person.notifications }}</p>
+                    </div>
                 </div>
-                <div class="content">
-                    <h6>
-                        {{
-                        person.name ||
-                        (person.participants?.[0]?._id === myId
-                        ? person.participants?.[1]?.name
-                        : person.participants?.[0]?.name)
-                        }}
-                    </h6>
-                    <p class="lastMessage" *ngIf="person.messages.length>0">
-                        {{person.messages.at(person.messages.length-1)?.from?._id===myId ? 'You:' :
-                        person.messages.at(person.messages.length-1)?.from?.name ?
-                        (person.messages.at(person.messages.length-1)?.from?.name + ":") : '' }}
-                        {{person.messages.at(person.messages.length-1)?.content}}</p>
-                </div>
-            </div>
-            <div class="info">
-                <p *ngIf="person.messages.length>0">{{_getTime(person.messages.at(person.messages.length-1).createdAt)}}
-                </p>
-                <p *ngIf="person.notifications" class="new-messages">{{person.notifications}}</p>
-            </div>
-        </div>
+            </ng-container>
+        </ng-container>
     </main>
+
 
 </div>
 

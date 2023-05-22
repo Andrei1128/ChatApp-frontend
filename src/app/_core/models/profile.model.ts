@@ -1,4 +1,5 @@
 import { Chat } from './chat.model';
+import { Project } from './project.model';
 
 export class Profile {
   _id?: string;
@@ -9,6 +10,7 @@ export class Profile {
   friends?: Profile[];
   chats?: Chat[];
   requests?: Profile[];
+  projects?: Project[];
 }
 
 export class customProfile extends Profile {

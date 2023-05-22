@@ -19,6 +19,7 @@ export class ChatsComponent implements OnInit {
   groupName = new FormControl();
   myId?: string;
   activeChatId!: string;
+  lastChatId: string;
   groupNameError = false;
 
   constructor(
@@ -59,6 +60,8 @@ export class ChatsComponent implements OnInit {
   }
 
   chatWith(chat: Chat) {
+    if (this.lastChatId) this.chatService.clearNotifications(this.lastChatId);
+    this.lastChatId = chat._id;
     this.chatService.clearNotifications(chat._id);
     this.dataShareService.shareChat(chat);
   }

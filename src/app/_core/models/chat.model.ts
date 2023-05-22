@@ -4,7 +4,7 @@ import { Profile } from './profile.model';
 export class UserUtil {
   userId: string;
   notifications: number;
-  deletedAt: number;
+  deletedAt: Date;
 }
 
 export class Chat {

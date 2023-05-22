@@ -8,6 +8,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { RequestsListComponent } from './friends/requests-list/requests-list.component';
 import { FriendsListComponent } from './friends/friends-list/friends-list.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ProjectComponent } from './project/project.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
     children: [
       { path: 'profile', component: ProfileComponent },
       { path: 'chats', component: ChatsComponent },
-      { path: 'projects', component: ProjectsComponent },
+      {
+        path: 'projects',
+        component: ProjectsComponent,
+        children: [{ path: ':name', component: ProjectComponent }],
+      },
       { path: 'settings', component: SettingsComponent },
       {
         path: 'friends',
