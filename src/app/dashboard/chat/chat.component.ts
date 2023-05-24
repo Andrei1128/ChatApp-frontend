@@ -16,6 +16,7 @@ import { ChatService } from 'src/app/_core/services/chat.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 import { Subscription } from 'rxjs';
 import { DataShareService } from 'src/app/_core/services/data-share.service';
+import { ChatGPTService } from 'src/app/_core/services/chatgpt.service';
 import { Message } from 'src/app/_core/models/message.model';
 import { Socket } from 'ngx-socket-io';
 
@@ -26,6 +27,7 @@ import { Socket } from 'ngx-socket-io';
 })
 export class ChatComponent implements OnInit, OnChanges {
   @Input() chat: Chat;
+  gptProfile = new Profile();
   searchMessageForm: FormControl = new FormControl();
   myProfile: Profile;
   messageForm = new FormControl();
@@ -36,6 +38,7 @@ export class ChatComponent implements OnInit, OnChanges {
   firstLoad: boolean = true;
 
   constructor(
+    private chatGPTService: ChatGPTService,
     private profileService: ProfileService,
     private chatService: ChatService,
     private dataShareService: DataShareService,
@@ -46,7 +49,8 @@ export class ChatComponent implements OnInit, OnChanges {
     this.profileService
       .getMyProfile()
       .subscribe((res) => (this.myProfile = res));
-
+    this.gptProfile.name = 'ChatGPT';
+    this.gptProfile.image = '../../../assets/gpt.png';
     //Chat message
     this.socket.on('chat message', (res: any) => {
       const currentProfile = this.profileService.myProfile$.value;
@@ -132,6 +136,46 @@ export class ChatComponent implements OnInit, OnChanges {
         if (res.id === this.chat?._id) this.updateScrollbar(true);
       }
     });
+  }
+  deletePrompt() {
+    this.chat.messages = [];
+    this.dataShareService.shareChat(this.chat);
+  }
+  sendPrompt() {
+    if (this.messageForm.value) var content = this.messageForm.value.trim();
+    if (content) {
+      const message = {
+        content: content,
+        from: this.myProfile,
+        createdAt: new Date(),
+      };
+      this.chat.messages.push(message as Message);
+      this.dataShareService.shareChat(this.chat);
+      this.updateScrollbar(true);
+      this.messageForm.reset();
+      this.chatGPTService.ask(content).subscribe(
+        (m) => {
+          const response = {
+            content: m.result.content,
+            from: this.gptProfile,
+            createdAt: new Date(),
+          };
+          this.chat.messages.push(response as Message);
+          this.dataShareService.shareChat(this.chat);
+          this.updateScrollbar(true);
+        },
+        (error) => {
+          const response = {
+            content: 'Something went wrong!',
+            from: this.gptProfile,
+            createdAt: new Date(),
+          };
+          this.chat.messages.push(response as Message);
+          this.dataShareService.shareChat(this.chat);
+          this.updateScrollbar(true);
+        }
+      );
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

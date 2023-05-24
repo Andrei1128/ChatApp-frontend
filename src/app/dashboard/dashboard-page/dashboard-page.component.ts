@@ -38,7 +38,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.dataShareService;
     this.socket.on('incoming video call', (convId: string) => {
       this.chat = this.profileService.myProfile$.value.chats.find(
         (chat) => chat._id === convId

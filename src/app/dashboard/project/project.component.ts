@@ -13,6 +13,7 @@ import { ProjectService } from 'src/app/_core/services/project.service';
   styleUrls: ['./project.component.scss'],
 })
 export class ProjectComponent implements OnInit {
+  gptChat: Chat = new Chat();
   project: Project = undefined;
   showNotification: boolean = false;
   chatName = new FormControl();
@@ -31,6 +32,10 @@ export class ProjectComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.gptChat._id = '0';
+    this.gptChat.name = 'ChatGPT';
+    this.gptChat.participants = [];
+    this.gptChat.messages = [];
     this.dataShareService.selectedProject$.subscribe((project) => {
       if (project) this.project = project;
       else this.router.navigate(['/projects']);
@@ -66,6 +71,9 @@ export class ProjectComponent implements OnInit {
   }
   chatWith(chat: Chat) {
     this.dataShareService.shareChat(chat);
+  }
+  gpt() {
+    this.dataShareService.shareChat(this.gptChat);
   }
 
   createPool() {
