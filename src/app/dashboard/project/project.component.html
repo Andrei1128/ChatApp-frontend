@@ -1,21 +1,123 @@
 <section class="component-container">
+    <div class="alert alert-success" [hidden]="!showNotification">
+        Copied!
+    </div>
     <header>
-        <p class="bi bi-arrow-left" routerLink="/projects"></p>
-        <h4>projecttt</h4>
-        <!-- *ngIf="project.adminId===myId" -->
-        <div class="dropdown dropdown-center icon-container">
-            <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
-            <span class="tooltip-text">Options</span>
-            <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
-                <li>
-                    <p>Add Field</p><i class="bi bi-plus-lg"></i>
-                </li>
-                <li>
-                    <p>Get Code</p><i class="bi bi-person-add"></i>
-                </li>
-            </ul>
+        <div class="title-wrapper">
+            <h3>#{{project.name}}</h3>
+            <div *ngIf="project.adminId===myId" class="dropdown dropdown-center icon-container">
+                <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
+                <span class="tooltip-text">Options</span>
+                <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
+                    <li data-toggle="modal" data-target="#ModalCenter" data-bs-toggle="modal"
+                        data-bs-target="#chatModal">
+                        <p>Add Chat</p><i class="bi bi-plus-lg"></i>
+                    </li>
+                    <li data-toggle="modal" data-target="#ModalCenter" data-bs-toggle="modal"
+                        data-bs-target="#poolModal">
+                        <p>Add Pool</p><i class="bi bi-plus-lg"></i>
+                    </li>
+                    <li data-toggle="modal" data-target="#ModalCenter" data-bs-toggle="modal"
+                        data-bs-target="#deadlineModal">
+                        <p>Add Deadline</p><i class="bi bi-plus-lg"></i>
+                    </li>
+                    <li (click)="getCode()">
+                        <p>Get Code</p><i class="bi bi-person-add"></i>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <p class="bi bi-arrow-left" routerLink="/projects"></p>
     </header>
     <main>
+        <h1 class="title">⚛ ChatGPT</h1>
+        <div class="person">
+            <h6># Prompt</h6>
+        </div>
+        <h1 class="title">💬 Chats</h1>
+        <div (click)="chatWith(chat)" class="person" *ngFor="let chat of project.chats">
+            <h6># {{chat.name}}</h6>
+        </div>
+        <h1 class="title">📊 Pools</h1>
+        <div class="person" *ngFor="let pool of project.pools">
+            <h6># {{pool.name}}</h6>
+        </div>
+        <h1 class="title">📅 Deadlines</h1>
+        <div class="person" *ngFor="let deadline of project.deadlines">
+            <h6># {{deadline.name}}</h6>
+        </div>
     </main>
 </section>
+
+<div class="modal fade" id="chatModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create New Chat</h5>
+                <i class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <label for="name">Chat Name</label>
+                <input autocomplete="off" type="text" class="form-control" [formControl]="chatName"
+                    placeholder="Enter Chat Name" id="name">
+                <p *ngIf="chatNameError" class="invalid-feedback">
+                    Name should have between 4 and 16 characters!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="createChat()" type="button" class="btn btn-primary">Create
+                    Chat</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="poolModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create New Pool</h5>
+                <i class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <label for="name">Pool Name</label>
+                <input autocomplete="off" type="text" class="form-control" [formControl]="poolName"
+                    placeholder="Enter Pool Name" id="name">
+                <p *ngIf="poolNameError" class="invalid-feedback">
+                    Name should have between 4 and 16 characters!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="createPool()" type="button" class="btn btn-primary">Create
+                    Pool</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deadlineModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create New Deadline</h5>
+                <i class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <label for="name">Deadline Name</label>
+                <input autocomplete="off" type="text" class="form-control" [formControl]="deadlineName"
+                    placeholder="Enter Deadline Name" id="name">
+                <p *ngIf="deadlineNameError" class="invalid-feedback">
+                    Name should have between 4 and 16 characters!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="createDeadline()" type="button" class="btn btn-primary">Create
+                    Deadline</button>
+            </div>
+        </div>
+    </div>
+</div>

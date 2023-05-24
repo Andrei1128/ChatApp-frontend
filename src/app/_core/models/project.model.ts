@@ -1,3 +1,4 @@
+import { Chat } from './chat.model';
 import { Profile } from './profile.model';
 
 export class Project {
@@ -6,4 +7,7 @@ export class Project {
   image: string;
   adminId: string;
   participants: Profile[];
+  chats: Chat[];
+  pools: Chat[];
+  deadlines: Chat[];
 }

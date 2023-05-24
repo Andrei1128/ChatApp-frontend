@@ -18,10 +18,13 @@ export class ProjectsComponent implements OnInit {
   searchFriendsForm = new FormControl();
   projectName = new FormControl();
   projectDescription = new FormControl();
+  codeForm = new FormControl();
   myId?: string;
   activeProjectId!: string;
   lastProjectId: string;
   projectNameError = false;
+  errorMessage: string;
+  codeError = false;
 
   constructor(
     private profileService: ProfileService,
@@ -41,13 +44,27 @@ export class ProjectsComponent implements OnInit {
   selectProject(proj: Project) {
     this.dataShareService.shareProject(proj);
   }
-
+  join() {
+    const code = this.codeForm.value.trim();
+    this.projectService.joinProject(code).subscribe(
+      (res) => {
+        this.profileService.addProject(res);
+        this.codeError = false;
+      },
+      (error) => {
+        this.codeError = true;
+        this.errorMessage = error.error;
+      }
+    );
+  }
   createProject() {
-    const projectName = this.projectName.value.trim();
+    let projectName;
+    if (this.projectName.value) projectName = this.projectName.value.trim();
+    else projectName = '';
     let projectDescription = this.projectDescription.value;
     if (projectDescription == null) projectDescription = '';
     else projectDescription = projectDescription.trim();
-    if (projectName.length < 3 || projectName.length > 17) {
+    if (projectName.length < 4 || projectName.length > 16) {
       this.projectNameError = true;
     } else {
       this.projectNameError = false;
@@ -72,6 +89,7 @@ export class ProjectsComponent implements OnInit {
         return friend;
       });
     }
+    console.log(this.projectNameError);
   }
 
   searchFriends() {

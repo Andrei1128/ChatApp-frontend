@@ -2,13 +2,25 @@ section {
     height: 100%;
 }
 
+header {
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+
+    h3 {
+        margin: 0;
+        margin-left: 0.4rem;
+    }
+}
+
 .bi-arrow-left {
     cursor: pointer;
     -webkit-text-stroke-width: 0.3px;
     background-color: var(--aside-background);
     color: var(--primary-font);
-    border-radius: 100%;
-    padding: 0.15rem 0.4rem;
+    border-radius: 0.2rem;
+    padding: 0 1rem;
     font-size: 1.3rem;
     border: 1px solid var(--active);
 }
@@ -22,4 +34,59 @@ li {
     .bi {
         opacity: 1;
     }
+}
+
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    .bi {
+        font-size: 1rem;
+    }
+}
+
+.alert {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    background-color: var(--section-background);
+    border-color: var(--aside-background);
+    margin-top: 1rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.dropdown {
+    ul {
+        width: max-content;
+    }
+}
+
+.title {
+    align-self: flex-start;
+    margin: 1.3rem 1.7rem 0.4rem 1.7rem;
+    font-size: 1.04rem;
+
+}
+
+h4 {
+    font-size: 1.3rem;
+}
+
+.person {
+    color: var(--primary-font);
+}
+
+main {
+    padding-bottom: 2rem;
+}
+
+.invalid-feedback {
+    margin-top: -12px;
+    margin-bottom: 0.5rem;
+    display: block;
 }

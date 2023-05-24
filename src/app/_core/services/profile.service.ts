@@ -6,6 +6,7 @@ import { Profile } from '../models/profile.model';
 import { Socket } from 'ngx-socket-io';
 import { Message } from '../models/message.model';
 import { Chat, UserUtil } from '../models/chat.model';
+import { Project } from '../models/project.model';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +71,12 @@ export class ProfileService {
 
   clearProfile() {
     this.myProfile$.next(new Profile());
+  }
+
+  addProject(project: Project) {
+    const currentProfile = this.myProfile$.value;
+    currentProfile.projects.push(project);
+    this.myProfile$.next(currentProfile);
   }
 
   getMyProfile(): Observable<Profile> {

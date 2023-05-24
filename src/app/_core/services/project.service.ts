@@ -21,4 +21,20 @@ export class ProjectService {
       description,
     });
   }
+  createCode(projId: string): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}/createCode`, {
+      projId,
+    });
+  }
+  joinProject(code: string): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}/join`, {
+      code,
+    });
+  }
+  addChat(name: string, projId: string): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}/addChat`, {
+      name,
+      projId,
+    });
+  }
 }

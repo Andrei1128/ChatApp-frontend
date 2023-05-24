@@ -5,17 +5,21 @@
             <p class="bi bi-arrow-left" (click)="closeChat()"></p>
             <div class="person">
                 <div (click)="viewProfile()" class="wrapper">
-                    <img [src]="(chat.image || ((chat.participants.length===2 && chat.participants.at(0)._id === myProfile._id) ?
+                    <img *ngIf="chat.participants.length>0" [src]="(chat.image || ((chat.participants.length===2 && chat.participants.at(0)._id === myProfile._id) ?
     chat.participants.at(1).image : chat.participants.at(0).image)) || '../../../assets/profile.png'">
                     <div>
-                        <h6>
+                        <h6 *ngIf="(chat.participants.length>0)">
                             {{
                             chat.name ||
                             (chat.participants?.[0]?._id === myProfile._id
                             ? chat.participants?.[1]?.name
                             : chat.participants?.[0]?.name)
                             }}
-                        </h6><i *ngIf="!chat.name" class="bi bi-record-circle-fill"
+                        </h6>
+                        <h5 *ngIf="!(chat.participants.length>0)">
+                            # {{
+                            chat.name}}
+                        </h5><i *ngIf="!chat.name" class="bi bi-record-circle-fill"
                             [class.online]="getOnlineClass()"></i>
                     </div>
                 </div>
@@ -31,14 +35,14 @@
             </div>
             <i data-bs-toggle="modal" data-bs-target="#audioModal" class="bi action bi-telephone"></i>
             <i data-bs-toggle="modal" data-bs-target="#videoModal" class="bi action bi-camera-video"></i>
-            <i (click)="viewProfile()" class="bi action bi-person"></i>
+            <i *ngIf="chat.participants.length>0" (click)="viewProfile()" class="bi action bi-person"></i>
             <div class="dropdown">
                 <i class="bi action bi-three-dots-vertical" data-bs-toggle="dropdown"></i>
                 <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdown">
                     <li>
                         <p>Set Password</p><i class="bi bi-shield-lock"></i>
                     </li>
-                    <li (click)="deleteChat()">
+                    <li *ngIf="chat.participants.length>0" (click)="deleteChat()">
                         <p>Clear</p><i class="bi bi-trash3"></i>
                     </li>
                 </ul>

@@ -24,8 +24,7 @@
     <main>
         <div (click)="selectProject(person)" routerLink={{person.name}} *ngFor=" let person of projects" class="person">
             <div class="wrapper">
-                <img [src]="person.image || '../../../assets/profile.png'">
-                <h6>#{{person.name}}</h6>
+                <h5 class="projTitle"># {{person.name}}</h5>
             </div>
             <p class="new-messages">new</p>
         </div>
@@ -85,11 +84,15 @@
             </div>
             <div class="modal-body">
                 <label for="code">Invitation Code</label>
-                <input autocomplete="off" type="text" class="form-control" id="code">
+                <input [formControl]="codeForm" autocomplete="off" type="text" class="form-control" id="code">
+                <p *ngIf="codeError" class="invalid-feedback">
+                    {{errorMessage}}
+                </p>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Join</button>
+                <button type="button" class="btn btn-primary" (click)="join()">Join</button>
             </div>
         </div>
     </div>

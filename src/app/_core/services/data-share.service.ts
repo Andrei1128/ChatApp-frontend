@@ -11,7 +11,7 @@ import { Project } from '../models/project.model';
 export class DataShareService {
   private chat = new BehaviorSubject<Chat | undefined>(undefined);
   private profile = new BehaviorSubject<Profile | Chat>(new Profile());
-  private project = new BehaviorSubject<Project | Chat>(undefined);
+  private project = new BehaviorSubject<Project | undefined>(undefined);
   selectedProject$ = this.project.asObservable();
   selectedChat$ = this.chat.asObservable();
   selectedProfile$ = this.profile.asObservable();
