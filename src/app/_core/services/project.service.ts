@@ -37,4 +37,18 @@ export class ProjectService {
       projId,
     });
   }
+  addPoll(name: string, fields: string[], projId: string): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}/addPoll`, {
+      name,
+      fields,
+      projId,
+    });
+  }
+  vote(projId: string, pollId: string, field: string): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}/vote`, {
+      projId,
+      pollId,
+      field,
+    });
+  }
 }

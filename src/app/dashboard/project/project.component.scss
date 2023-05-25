@@ -14,6 +14,34 @@ header {
     }
 }
 
+.line {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    width: 90%;
+
+    .btn {
+        width: 70px;
+        margin-bottom: 12px;
+        height: auto;
+        background-color: var(--active-font);
+        border: none;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+}
+
+.pollField {
+    cursor: pointer;
+    border: 1px solid var(--aside-background);
+    border-radius: 0.3rem;
+    width: 90%;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.35rem;
+}
+
 .bi-arrow-left {
     cursor: pointer;
     -webkit-text-stroke-width: 0.3px;

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Chat } from 'src/app/_core/models/chat.model';
-import { Project } from 'src/app/_core/models/project.model';
+import { Poll, Project } from 'src/app/_core/models/project.model';
 import { DataShareService } from 'src/app/_core/services/data-share.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 import { ProjectService } from 'src/app/_core/services/project.service';
@@ -18,10 +18,14 @@ export class ProjectComponent implements OnInit {
   showNotification: boolean = false;
   chatName = new FormControl();
   chatNameError = false;
-  poolName = new FormControl();
-  poolNameError = false;
+  pollName = new FormControl();
+  pollValue = new FormControl();
+  pollNameError = false;
+  pollValueError = false;
+  pollFieldsError = false;
   deadlineName = new FormControl();
   deadlineNameError = false;
+  polls: string[] = [];
   myId: string;
 
   constructor(
@@ -72,22 +76,58 @@ export class ProjectComponent implements OnInit {
   chatWith(chat: Chat) {
     this.dataShareService.shareChat(chat);
   }
+
+  openPool(poll: Poll) {
+    this.dataShareService.sharePoll(poll, this.project._id);
+  }
   gpt() {
     this.dataShareService.shareChat(this.gptChat);
   }
 
-  createPool() {
-    const chatName = this.chatName.value.trim();
+  createPoll() {
+    const chatName = this.pollName.value.trim();
     if (chatName.length < 4 || chatName.length > 16) {
-      this.chatNameError = true;
-    } else {
+      this.pollNameError = true;
+      return;
+    }
+    this.pollNameError = false;
+    if (this.polls.length === 0) {
+      this.pollFieldsError = true;
+      return;
+    }
+    this.projectService
+      .addPoll(chatName, this.polls, this.project._id)
+      .subscribe((res) => {
+        this.polls = [];
+        this.pollFieldsError = false;
+        const currentProfile = this.profileService.myProfile$.value;
+        currentProfile.projects = currentProfile.projects.map((p) => {
+          if (p._id === this.project._id) p.polls.push(res);
+          return p;
+        });
+        this.profileService.myProfile$.next(currentProfile);
+      });
+  }
+
+  addPollField() {
+    const pollField = this.pollValue.value.trim();
+    if (pollField.length < 4 || pollField.length > 16)
+      this.pollValueError = true;
+    else {
+      this.pollValue.reset();
+      this.polls.push(pollField);
+      this.pollFieldsError = false;
     }
   }
 
+  removePollField(name: string) {
+    this.polls = this.polls.filter((u) => u != name);
+  }
+
   createDeadline() {
-    const chatName = this.chatName.value.trim();
+    const chatName = this.deadlineName.value.trim();
     if (chatName.length < 4 || chatName.length > 16) {
-      this.chatNameError = true;
+      this.deadlineNameError = true;
     } else {
     }
   }

@@ -62,7 +62,8 @@
         <router-outlet></router-outlet>
     </section>
     <main class="target hidden">
-        <app-chat (changeVisibility)="closeChat()" [chat]="selectedChat"></app-chat>
+        <app-chat *ngIf="selectedChat" (changeVisibility)="closeChat()" [chat]="selectedChat"></app-chat>
+        <app-poll *ngIf="selectedPoll" (changeVisibility)="closeChat()" [poll]="selectedPoll"></app-poll>
     </main>
 </div>
 <app-offcanvas [profile]="selectedProfile"></app-offcanvas>

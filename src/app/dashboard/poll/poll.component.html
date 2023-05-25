@@ -1,0 +1,17 @@
+<div class="chat-layout">
+    <h3 class="title">{{poll.name}}</h3>
+    <div class="field" (click)="selectField(field)" [ngClass]="{'selected':field ===selectedField}"
+        *ngFor="let field of poll.fields">
+        <p>{{field.name}}</p>
+        <p>{{field.votes.length}} votes</p>
+    </div>
+    <div [ngClass]="{'goleft':!noSelectError&&!alreadyVoted}" class="wrapper">
+        <p *ngIf="noSelectError" class="invalid-feedback">
+            Select a field first!
+        </p>
+        <p *ngIf="alreadyVoted" class="invalid-feedback">
+            You already voted!
+        </p>
+        <button class="btn btn-primary" (click)="submit()">Submit Vote</button>
+    </div>
+</div>

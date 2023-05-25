@@ -9,6 +9,7 @@ import { ProfileService } from 'src/app/_core/services/profile.service';
 import { Subscription } from 'rxjs';
 import { Socket } from 'ngx-socket-io';
 import { Message } from 'src/app/_core/models/message.model';
+import { Poll } from 'src/app/_core/models/project.model';
 declare var bootstrap: any;
 
 @Component({
@@ -21,6 +22,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   loaded = false;
   visibleSection = true;
   selectedChat!: Chat;
+  selectedPoll: Poll;
   selectedProfile!: Profile;
   myProfileImage?: string;
   myProfileId: string;
@@ -98,11 +100,29 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     });
 
     this.dataShareService.selectedChat$.subscribe((chat) => {
-      if (chat) this.selectedChat = chat;
-      else {
+      if (chat) {
+        this.selectedPoll = undefined;
+        this.selectedChat = chat;
+      } else {
         if (this.selectedChat) this.selectedChat._id = undefined;
       }
       if (this.selectedChat?._id && window.innerWidth < 991) {
+        const componentList = document.querySelectorAll('.target');
+        componentList[0].classList.add('hidden');
+        componentList[1].classList.add('hidden');
+        componentList[2].classList.remove('hidden');
+        if (componentList[3]) componentList[3].classList.remove('hidden');
+        this.visibleSection = false;
+      }
+    });
+    this.dataShareService.selectedPoll$.subscribe((poll) => {
+      if (poll) {
+        this.selectedChat = undefined;
+        this.selectedPoll = poll;
+      } else {
+        if (this.selectedPoll) this.selectedPoll._id = undefined;
+      }
+      if (this.selectedPoll?._id && window.innerWidth < 991) {
         const componentList = document.querySelectorAll('.target');
         componentList[0].classList.add('hidden');
         componentList[1].classList.add('hidden');

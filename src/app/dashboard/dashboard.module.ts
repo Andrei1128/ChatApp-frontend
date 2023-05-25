@@ -15,6 +15,7 @@ import { OffcanvasComponent } from './offcanvas/offcanvas.component';
 import { FormsModule } from '@angular/forms';
 import { CallComponent } from './chat/call/call.component';
 import { ProjectComponent } from './project/project.component';
+import { PollComponent } from './poll/poll.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ProjectComponent } from './project/project.component';
     OffcanvasComponent,
     CallComponent,
     ProjectComponent,
+    PollComponent,
   ],
   imports: [
     CommonModule,
