@@ -17,6 +17,7 @@ import { CallComponent } from './chat/call/call.component';
 import { ProjectComponent } from './project/project.component';
 import { PollComponent } from './poll/poll.component';
 import { DeadlineComponent } from './deadline/deadline.component';
+import { VerifyComponent } from './verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DeadlineComponent } from './deadline/deadline.component';
     ProjectComponent,
     PollComponent,
     DeadlineComponent,
+    VerifyComponent,
   ],
   imports: [
     CommonModule,

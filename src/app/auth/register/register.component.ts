@@ -60,8 +60,7 @@ export class RegisterComponent implements OnInit {
     };
     this.authService.register(payload).subscribe({
       next: (res) => {
-        window.sessionStorage['token'] = res;
-        this.router.navigate(['']);
+        this.router.navigate(['/verify']);
       },
       error: (e: any) => {
         if (typeof e.error === 'string') this.errorMessage = e.error;

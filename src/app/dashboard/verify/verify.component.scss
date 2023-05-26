@@ -1,0 +1,28 @@
+div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 50%;
+    gap: 1rem;
+
+    h1 {
+        font-size: 1.6rem;
+        color: var(--primary-font);
+    }
+
+    .btn {
+        margin-top: 1rem;
+        background-color: var(--active-font);
+        border: none;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+
+    .close {
+        font-size: 1.3rem;
+    }
+}
