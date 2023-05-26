@@ -1,0 +1,45 @@
+<div class="chat-layout">
+    <div [ngClass]="{'noAdmin':deadline.adminId!==myId}" class="header-wrapper">
+        <p class="bi bi-arrow-left" (click)="closeDeadline()"></p>
+        <h3 class="title">{{deadline.name}}</h3>
+        <button *ngIf="deadline.adminId===myId" class="btn btn-primary" data-toggle="modal" data-target="#ModalCenter"
+            data-bs-toggle="modal" data-bs-target="#endlineModal">Add</button>
+    </div>
+    <div class="field" *ngFor="let field of deadline.endlines">
+        <p>{{field.name}}</p>
+        <p>{{formatDate(field.date)}}</p>
+        <i (click)="deleteEndline(field._id)" *ngIf="deadline.adminId===myId" class="bi bi-trash3"></i>
+    </div>
+</div>
+
+<div class="modal fade" id="endlineModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create New Deadline</h5>
+                <i class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body">
+                <label for="name">Deadline Name</label>
+                <input autocomplete="off" type="text" class="form-control" [formControl]="deadlineName"
+                    placeholder="Enter Deadline Name" id="name">
+                <p *ngIf="deadlineNameError" class="invalid-feedback">
+                    Name should have between 4 and 16 characters!
+                </p>
+                <div class="date-wrapper">
+                    <label for="start">Date</label>
+                    <input type="date" id="start" name="trip-start" [min]="minDate" [formControl]="deadlineDate">
+                </div>
+                <p *ngIf="deadlineDateError" class="invalid-feedback">
+                    Select a date first!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="createEndline()" type="button" class="btn btn-primary">Create
+                    Deadline</button>
+            </div>
+        </div>
+    </div>
+</div>

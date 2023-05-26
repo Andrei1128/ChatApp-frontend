@@ -3,7 +3,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { Chat } from '../models/chat.model';
 import { ProfileService } from './profile.service';
 import { Profile } from '../models/profile.model';
-import { Poll, Project } from '../models/project.model';
+import { Deadline, Poll, Project } from '../models/project.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,10 @@ import { Poll, Project } from '../models/project.model';
 export class DataShareService {
   private chat = new BehaviorSubject<Chat | undefined>(undefined);
   private poll = new BehaviorSubject<Poll | undefined>(undefined);
+  private deadline = new BehaviorSubject<Deadline | undefined>(undefined);
   private profile = new BehaviorSubject<Profile | Chat>(new Profile());
   private project = new BehaviorSubject<Project | undefined>(undefined);
+  selectedDeadline$ = this.deadline.asObservable();
   selectedPoll$ = this.poll.asObservable();
   selectedProject$ = this.project.asObservable();
   selectedChat$ = this.chat.asObservable();
@@ -32,6 +34,11 @@ export class DataShareService {
   sharePoll(poll: Poll, projId: string) {
     poll.projId = projId;
     this.poll.next(poll);
+  }
+  shareDeadline(deadline: Deadline, projId: string, adminId: string) {
+    deadline.projId = projId;
+    deadline.adminId = adminId;
+    this.deadline.next(deadline);
   }
   shareProject(project: Project) {
     this.project.next(project);

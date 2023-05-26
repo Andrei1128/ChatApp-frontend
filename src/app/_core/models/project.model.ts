@@ -12,6 +12,20 @@ export class Field {
   votes: string[]; //ids de useri, se pot popula
 }
 
+export class Deadline {
+  _id: string;
+  name: string;
+  endlines: Endline[];
+  projId: string;
+  adminId: string;
+}
+
+export class Endline {
+  _id: string;
+  name: string;
+  date: Date;
+}
+
 export class Project {
   _id: string;
   name: string;
@@ -20,5 +34,5 @@ export class Project {
   participants: Profile[];
   chats: Chat[];
   polls: Poll[];
-  deadlines: Chat[];
+  deadlines: Deadline[];
 }

@@ -43,7 +43,7 @@
             <h6># {{poll.name}}</h6>
         </div>
         <h1 class="title">📅 Deadlines</h1>
-        <div class="person" *ngFor="let deadline of project.deadlines">
+        <div (click)="openDeadline(deadline)" class="person" *ngFor="let deadline of project.deadlines">
             <h6># {{deadline.name}}</h6>
         </div>
     </main>

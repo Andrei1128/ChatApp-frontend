@@ -9,7 +9,7 @@ import { ProfileService } from 'src/app/_core/services/profile.service';
 import { Subscription } from 'rxjs';
 import { Socket } from 'ngx-socket-io';
 import { Message } from 'src/app/_core/models/message.model';
-import { Poll } from 'src/app/_core/models/project.model';
+import { Deadline, Poll } from 'src/app/_core/models/project.model';
 declare var bootstrap: any;
 
 @Component({
@@ -23,6 +23,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   visibleSection = true;
   selectedChat!: Chat;
   selectedPoll: Poll;
+  selectedDeadline: Deadline;
   selectedProfile!: Profile;
   myProfileImage?: string;
   myProfileId: string;
@@ -101,6 +102,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
     this.dataShareService.selectedChat$.subscribe((chat) => {
       if (chat) {
+        this.selectedDeadline = undefined;
         this.selectedPoll = undefined;
         this.selectedChat = chat;
       } else {
@@ -117,12 +119,34 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     });
     this.dataShareService.selectedPoll$.subscribe((poll) => {
       if (poll) {
+        this.selectedDeadline = undefined;
         this.selectedChat = undefined;
         this.selectedPoll = poll;
       } else {
         if (this.selectedPoll) this.selectedPoll._id = undefined;
       }
       if (this.selectedPoll?._id && window.innerWidth < 991) {
+        const componentList = document.querySelectorAll('.target');
+        componentList[0].classList.add('hidden');
+        componentList[1].classList.add('hidden');
+        componentList[2].classList.remove('hidden');
+        if (componentList[3]) componentList[3].classList.remove('hidden');
+        this.visibleSection = false;
+      }
+    });
+
+    this.dataShareService.selectedDeadline$.subscribe((deadline) => {
+      if (deadline) {
+        this.selectedPoll = undefined;
+        this.selectedChat = undefined;
+        deadline.endlines.sort(
+          (a, b) => (new Date(a.date) as any) - (new Date(b.date) as any)
+        );
+        this.selectedDeadline = deadline;
+      } else {
+        if (this.selectedDeadline) this.selectedDeadline._id = undefined;
+      }
+      if (this.selectedDeadline?._id && window.innerWidth < 991) {
         const componentList = document.querySelectorAll('.target');
         componentList[0].classList.add('hidden');
         componentList[1].classList.add('hidden');

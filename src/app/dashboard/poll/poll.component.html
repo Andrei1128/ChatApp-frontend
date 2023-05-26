@@ -1,5 +1,8 @@
 <div class="chat-layout">
-    <h3 class="title">{{poll.name}}</h3>
+    <div class="header-wrapper">
+        <p class="bi bi-arrow-left" (click)="closePoll()"></p>
+        <h3 class="title">{{poll.name}}</h3>
+    </div>
     <div class="field" (click)="selectField(field)" [ngClass]="{'selected':field ===selectedField}"
         *ngFor="let field of poll.fields">
         <p>{{field.name}}</p>

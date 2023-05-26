@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Chat } from 'src/app/_core/models/chat.model';
-import { Poll, Project } from 'src/app/_core/models/project.model';
+import { Deadline, Poll, Project } from 'src/app/_core/models/project.model';
 import { DataShareService } from 'src/app/_core/services/data-share.service';
 import { ProfileService } from 'src/app/_core/services/profile.service';
 import { ProjectService } from 'src/app/_core/services/project.service';
@@ -80,6 +80,13 @@ export class ProjectComponent implements OnInit {
   openPool(poll: Poll) {
     this.dataShareService.sharePoll(poll, this.project._id);
   }
+  openDeadline(deadline: Deadline) {
+    this.dataShareService.shareDeadline(
+      deadline,
+      this.project._id,
+      this.project.adminId
+    );
+  }
   gpt() {
     this.dataShareService.shareChat(this.gptChat);
   }
@@ -129,6 +136,18 @@ export class ProjectComponent implements OnInit {
     if (chatName.length < 4 || chatName.length > 16) {
       this.deadlineNameError = true;
     } else {
+      this.projectService
+        .addDeadline(chatName, this.project._id)
+        .subscribe((res) => {
+          this.deadlineName.reset();
+          this.deadlineNameError = false;
+          const currentProfile = this.profileService.myProfile$.value;
+          currentProfile.projects = currentProfile.projects.map((p) => {
+            if (p._id === this.project._id) p.deadlines.push(res);
+            return p;
+          });
+          this.profileService.myProfile$.next(currentProfile);
+        });
     }
   }
 

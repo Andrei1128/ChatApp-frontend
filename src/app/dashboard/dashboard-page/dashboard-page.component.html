@@ -64,6 +64,8 @@
     <main class="target hidden">
         <app-chat *ngIf="selectedChat" (changeVisibility)="closeChat()" [chat]="selectedChat"></app-chat>
         <app-poll *ngIf="selectedPoll" (changeVisibility)="closeChat()" [poll]="selectedPoll"></app-poll>
+        <app-deadline *ngIf="selectedDeadline" (changeVisibility)="closeChat()"
+            [deadline]="selectedDeadline"></app-deadline>
     </main>
 </div>
 <app-offcanvas [profile]="selectedProfile"></app-offcanvas>

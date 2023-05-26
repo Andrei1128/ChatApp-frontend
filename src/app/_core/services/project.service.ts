@@ -44,11 +44,34 @@ export class ProjectService {
       projId,
     });
   }
+  addDeadline(name: string, projId: string): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}/addDeadline`, {
+      name,
+      projId,
+    });
+  }
+
+  deleteEndline(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.serverUrl}/deleteEndline/${id}`);
+  }
   vote(projId: string, pollId: string, field: string): Observable<any> {
     return this.httpClient.post(`${this.serverUrl}/vote`, {
       projId,
       pollId,
       field,
+    });
+  }
+  addEndline(
+    name: string,
+    date: Date,
+    id: string,
+    projId: string
+  ): Observable<any> {
+    return this.httpClient.post(`${this.serverUrl}/addEndline`, {
+      name,
+      date,
+      id,
+      projId,
     });
   }
 }

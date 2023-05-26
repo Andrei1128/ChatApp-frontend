@@ -17,14 +17,23 @@
     width: 300px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 4rem;
     margin-bottom: 1.8rem;
+}
 
+.bi-trash3 {
+    position: absolute;
+    cursor: pointer;
+    right: -30px;
+}
+
+.bi-trash3:hover {
+    opacity: 0.7;
 }
 
 .field {
-    cursor: pointer;
+    position: relative;
     border: 1px solid var(--aside-background);
     border-radius: 0.3rem;
     padding: 0.5rem 1rem;
@@ -32,11 +41,6 @@
     width: 320px;
     justify-content: space-between;
     display: flex;
-    transition: 0.3s ease-in-out;
-}
-
-.field:hover {
-    background-color: var(--section-background);
 }
 
 .invalid-feedback {
@@ -75,9 +79,36 @@
     justify-content: flex-end;
 }
 
-@media only screen and (max-width: 599px) {
+.date-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 
-    .header-wrapper {
+#start {
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    color: var(--primary-font);
+    background-color: var(--modal-input);
+    border: 1px solid var(--aside-background);
+    -webkit-text-stroke-width: 0.25px;
+}
+
+#start::-webkit-calendar-picker-indicator {
+    filter: invert(0.6);
+}
+
+#start:focus {
+    box-shadow: none;
+    border-color: var(--active);
+}
+
+.noAdmin {
+    justify-content: center;
+}
+
+@media only screen and (max-width: 599px) {
+    .noAdmin {
         justify-content: space-between;
     }
 

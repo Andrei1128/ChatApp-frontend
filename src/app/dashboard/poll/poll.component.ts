@@ -24,6 +24,10 @@ export class PollComponent implements OnInit {
     this.alreadyVoted = false;
   }
 
+  closePoll() {
+    this.changeVisibility.emit();
+  }
+
   submit() {
     if (this.selectedField === undefined) {
       this.noSelectError = true;

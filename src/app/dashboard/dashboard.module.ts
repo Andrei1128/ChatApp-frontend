@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { CallComponent } from './chat/call/call.component';
 import { ProjectComponent } from './project/project.component';
 import { PollComponent } from './poll/poll.component';
+import { DeadlineComponent } from './deadline/deadline.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PollComponent } from './poll/poll.component';
     CallComponent,
     ProjectComponent,
     PollComponent,
+    DeadlineComponent,
   ],
   imports: [
     CommonModule,
