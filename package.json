@@ -19,7 +19,7 @@
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
     "bootstrap": "^5.3.0-alpha3",
-    "bootstrap-icons": "^1.10.3",
+    "bootstrap-icons": "^1.10.5",
     "chatgpt-api": "^0.0.6",
     "jquery": "^3.6.4",
     "ngx-clipboard": "^16.0.0",
